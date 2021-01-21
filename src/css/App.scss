@@ -1,0 +1,130 @@
+/* Variables */
+$background-color: #073b4c;
+$primary-color: #06d6a0;
+$secondary-color: #118ab2;
+$alternate-color: #8bf8b9;
+
+html, body, #root, .App {
+  height: 100%;
+}
+
+* {
+  color: black;
+}
+
+@mixin grid-item($align, $justify, $area) {
+  justify-self: $align;
+  align-self: $justify;
+
+  @if $area != "" {
+    grid-area: $area;
+  }
+}
+
+.curve-raise {
+  border-radius: 20px;
+  box-shadow: 2px 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.button {
+  @extend .curve-raise;
+
+  background: $secondary-color;
+  border: none;
+  padding: 10px;
+  font-weight: bold;
+  width: 100px;
+
+  &:hover {
+    background: $background-color;
+    color: white
+  }
+
+  &:active {
+    background: black;
+    color: white
+  }
+}
+.App {
+  background: $background-color;
+
+  display: grid;
+  grid-template-rows: 50px 1fr;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+          "nav"
+          "content";
+  padding: 1em;
+  gap: 1em;
+}
+
+nav {
+  @include grid-item(center, center, nav);
+  @extend .curve-raise;
+
+  background: $primary-color;
+  width: 100%;
+
+  ul {
+    padding: 0;
+    list-style-type: none;
+
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: repeat(3, 1fr);
+
+    li {
+      @include grid-item(center, center, "");
+      a {
+        text-decoration: none;
+        text-align: center;
+      }
+    }
+
+  }
+
+}
+
+.home-container {
+  @include grid-item(center, center, content);
+
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr;
+  grid-template-areas: "upload";
+
+  .upload {
+    @include grid-item(center, center, upload);
+    @extend .curve-raise;
+
+    background: $primary-color;
+
+    width: 50vh;
+    height: 30vh;
+
+    min-width: 300px;
+    min-height: 180px;
+
+    display: grid;
+    grid-template-rows: repeat(3, 1fr);
+    grid-template-columns: 1fr;
+    grid-template-areas:
+            "title"
+            "upload"
+            "button";
+
+    h1 {
+      @include grid-item(center, center, title);
+    }
+
+    .upload__button {
+      @include grid-item(center, center, upload);
+      @extend .button;
+    }
+
+    .submit__button {
+      @include grid-item(center, center, button);
+      @extend .button;
+    }
+  }
+}
