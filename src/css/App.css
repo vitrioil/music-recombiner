@@ -7,7 +7,7 @@ html, body, #root, .App {
   color: black;
 }
 
-.curve-raise, .button, .home-container .upload .upload__button, .home-container .upload .submit__button, nav, .home-container .upload {
+.curve-raise, .button, .home-container .upload .upload__button, .home-container .upload .submit__button, nav, .home-container .upload, .saved-container .saved__cell {
   border-radius: 20px;
   -webkit-box-shadow: 2px 1px 1px rgba(0, 0, 0, 0.1);
           box-shadow: 2px 1px 1px rgba(0, 0, 0, 0.1);
@@ -16,9 +16,8 @@ html, body, #root, .App {
 .button, .home-container .upload .upload__button, .home-container .upload .submit__button {
   background: #118ab2;
   border: none;
-  padding: 10px;
   font-weight: bold;
-  width: 100px;
+  padding: 10px 25px;
 }
 
 .button:hover, .home-container .upload .upload__button:hover, .home-container .upload .submit__button:hover {
@@ -147,5 +146,23 @@ nav ul li a {
   -ms-grid-row: 3;
   -ms-grid-column: 1;
   grid-area: button;
+}
+
+.saved-container {
+  height: 100%;
+  width: 100%;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (minmax(350px, 1fr))[auto-fit];
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  -ms-grid-rows: (200px)[auto-fit];
+      grid-template-rows: repeat(auto-fit, 200px);
+  gap: 1em;
+  overflow-y: auto;
+}
+
+.saved-container .saved__cell {
+  background: #06d6a0;
+  height: 200px;
 }
 /*# sourceMappingURL=App.css.map */

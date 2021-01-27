@@ -6,6 +6,7 @@ import './css/App.css';
 // Components
 import Home from "./components/Home";
 import Nav from "./components/Nav";
+import Saved from "./components/Saved";
 
 function App() {
   return (
@@ -13,9 +14,13 @@ function App() {
       <div className="App">
         <Nav />
         <Switch>
-          <Route path="/" exact render={Home} />
-          {/* <Route path="/saved" exact render={Saved} />
-          <Route path="/player" exact render={Player} /> */}
+          <Route path="/" exact>
+            <Home />
+          </Route>
+          <Route path="/saved">
+            <Saved />
+          </Route>
+          {/* <Route path="/player" exact render={Player} /> */}
         </Switch>
       </div>
     </BrowserRouter>

@@ -4,6 +4,9 @@ $primary-color: #06d6a0;
 $secondary-color: #118ab2;
 $alternate-color: #8bf8b9;
 
+$saved-cell-height: 200px;
+$saved-cell-width: 350px;
+
 html, body, #root, .App {
   height: 100%;
 }
@@ -31,9 +34,8 @@ html, body, #root, .App {
 
   background: $secondary-color;
   border: none;
-  padding: 10px;
   font-weight: bold;
-  width: 100px;
+  padding: 10px 25px;
 
   &:hover {
     background: $background-color;
@@ -45,6 +47,7 @@ html, body, #root, .App {
     color: white
   }
 }
+
 .App {
   background: $background-color;
 
@@ -126,5 +129,25 @@ nav {
       @include grid-item(center, center, button);
       @extend .button;
     }
+  }
+
+}
+
+.saved-container {
+  height: 100%;
+  width: 100%;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax($saved-cell-width, 1fr));
+  grid-template-rows: repeat(auto-fit, $saved-cell-height);
+  gap: 1em;
+
+  overflow-y: auto;
+
+  .saved__cell {
+    @extend .curve-raise;
+
+    background: $primary-color;
+    height: $saved-cell-height;
   }
 }

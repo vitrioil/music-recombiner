@@ -4,7 +4,7 @@ function Nav() {
     return (
         <nav>
             <ul>
-                <li> <Link to="/"> Home </Link> </li>
+                <li> <Link to="/saved"> Saved </Link> </li>
                 <li> <Link to="/"> Home </Link> </li>
                 <li> <Link to="/"> Home </Link> </li>
             </ul>
