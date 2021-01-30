@@ -5,22 +5,27 @@ import './css/App.css';
 
 // Components
 import Home from "./components/Home";
-import Nav from "./components/Nav";
+import {RouteNav, PlayerNav} from "./components/Nav";
 import Saved from "./components/Saved";
+import Player from "./components/Player";
 
 function App() {
   return (
     <BrowserRouter>
       <div className="App">
-        <Nav />
         <Switch>
           <Route path="/" exact>
+            <RouteNav />
             <Home />
           </Route>
           <Route path="/saved">
+            <RouteNav />
             <Saved />
           </Route>
-          {/* <Route path="/player" exact render={Player} /> */}
+          <Route path="/player">
+            <PlayerNav />
+            <Player />
+          </Route>
         </Switch>
       </div>
     </BrowserRouter>
