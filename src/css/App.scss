@@ -199,24 +199,6 @@ nav {
         text-align: center;
       }
 
-      .loading__progress {
-        height: 2px;
-        width: 80%;
-        margin: auto;
-    
-        background-color: $primary-color;
-        display: flex;
-      }
-    
-      .loading__progress:before {
-        height: 2px;
-        width: 80%;
-        margin: 0;
-        background-color: black;
-        content: '';
-        animation: running-progress 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-      }
-
       .loading__open {
         @extend .button;
         @extend .curve-raise;
@@ -254,6 +236,27 @@ nav {
       margin: 1em 0;
 
       background: $secondary-color;
+
+      display: grid;
+      grid-template-columns: 100px 1fr;
+      grid-template-rows: 1fr;
+      grid-template-areas:
+            "wave-side wave-content";
+      gap: 1em;
+      
+      .wave__side {
+        @include grid-item(center, center, wave-side);
+        
+        .wave__side__button {
+          @extend .button;
+
+          box-shadow: none;
+        }
+      }
+
+      .wave__content {
+        @include grid-item(center, center, wave-content);
+      }
     }
   }
 
@@ -265,6 +268,35 @@ nav {
     background: $primary-color;
   }  
 }
+
+.progress {
+  height: 2px;
+  width: 80%;
+  margin: auto;
+
+  background-color: $primary-color;
+  display: flex;
+
+  &__wave {
+    width: 80vw;
+    margin: 0 20px;
+  }
+}
+
+.progress::before {
+  height: 2px;
+  width: 80%;
+  margin: 0;
+  background-color: black;
+  content: '';
+  animation: running-progress 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+
+  &__progress::before {
+    width: 80vw;
+    margin: 0 20px;
+  }
+}
+
 
 // has to be a better way
 @media (max-width: 375px) {

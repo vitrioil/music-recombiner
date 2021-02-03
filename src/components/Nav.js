@@ -17,7 +17,7 @@ function PlayerNav() {
         <nav>
             <ul className="player__ul">
                 <li className="player__li"> <Link to="/"> Back </Link> </li>
-                <li className="player__title"> Title </li>
+                <li className="player__li player__title"> Title </li>
                 <li className="player__li"> Menu </li>
                 <li className="player__li"> Edit </li>
             </ul>

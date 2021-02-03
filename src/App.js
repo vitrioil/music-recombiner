@@ -24,7 +24,7 @@ function App() {
           </Route>
           <Route path="/player">
             <PlayerNav />
-            <Player />
+            <Player isLoading={true}/>
           </Route>
         </Switch>
       </div>

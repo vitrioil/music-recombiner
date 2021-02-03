@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
 
+import Loading from "./utils/Loading";
+
 function Cell({title, isLoading}) {
     const loading = (
         <div className="saved__cell__loading">
-            <div className="loading__progress"></div>
+            <Loading />
             <Link className="loading__open" to="/player"> Open </Link>
         </div>
     );
@@ -18,14 +20,14 @@ function Cell({title, isLoading}) {
 }
 
 function Saved() {
-    const cells = [{isLoading: true, title: "One"},
-                   {isLoading: true, title: "Two"},
-                   {isLoading: true, title: "Three"},
-                   {isLoading: true, title: "Four"},
-                   {isLoading: true, title: "Five"}];
+    const cells = [{key: 1, isLoading: true, title: "One"},
+                   {key: 2, isLoading: true, title: "Two"},
+                   {key: 3, isLoading: true, title: "Three"},
+                   {key: 4, isLoading: true, title: "Four"},
+                   {key: 5, isLoading: true, title: "Five"}];
     return (
         <div className="saved-container">
-            {cells.map(c => <Cell {...c}  />)}
+            {cells.map(c => <Cell key={c.key} {...c}  />)}
         </div>
     );
 }
