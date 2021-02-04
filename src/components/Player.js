@@ -11,7 +11,8 @@ function Wave({isLoading}) {
             </div>
             <div className="wave__content">
                 {isLoading ?
-                    <Loading className="progress__wave"/>:
+                    <Loading className="progress__wave"/>
+                    :
                     <></>
                 }
             </div>
@@ -19,20 +20,56 @@ function Wave({isLoading}) {
     );
 }
 
-function Mixer({isLoading}) {
+function LoadingView() {
     return (
-        <div className="mixer-container"></div>
+        <div className="loading-view">
+            <div className="loading__step loading_step_complete">
+                <p>Queued!</p>
+                <div>tick</div>
+            </div>
+            <div className="loading__step loading_step_complete">
+                <p>Processed!</p>
+                <div>tick</div>
+            </div>
+            <div className="loading__step loading_step_pending">
+                <p>Completed!</p>
+                <div>tick</div>
+            </div>
+        </div>
+    );
+}
+
+function MixerView({waves}) {
+    return (
+        <div className="mixer-view">
+            {waves.map(w => 
+                <div key={w} className="mixer">
+                </div>
+            )}
+        </div>
+    );
+}
+
+function Mixer({isLoading, waves}) {
+    return (
+        <div className="mixer-container">
+            {isLoading ?
+                <LoadingView />
+                :
+                <MixerView waves={waves}/>
+            }
+        </div>
     );
 }
 
 function Player({isLoading}) {
-    const waves = [0, 1, 2, 3];
+    const waves = [0, 1, 2, 3, 4, 5, 6, 7, 8];
     return (
         <div className="player-container">
             <div className="wave-container">
                {waves.map(w => <Wave key={w} isLoading={isLoading} />)} 
             </div>
-            <Mixer />
+            <Mixer isLoading={isLoading} waves={waves}/>
         </div>
     );
 }

@@ -6,6 +6,7 @@ $alternate-color: #8bf8b9;
 
 $saved-cell-height: 200px;
 $saved-cell-width: 350px;
+$mixer-cell-width: 100px;
 
 html, body, #root, .App {
   height: 100%;
@@ -256,6 +257,7 @@ nav {
 
       .wave__content {
         @include grid-item(center, center, wave-content);
+        width: 100%;
       }
     }
   }
@@ -264,8 +266,84 @@ nav {
     @extend .curve-raise;
     width: 100%;
     overflow-y: auto;
+    overflow-x: auto;
 
     background: $primary-color;
+
+    .mixer-view {
+      height: 100%;
+
+      display: flex;
+      padding: 2em;
+      align-items: center;
+      justify-content: space-around;
+      overflow: auto;
+
+      .mixer {
+        @extend .curve-raise;
+
+        margin: 1em;
+        background: $secondary-color;
+        min-width: $mixer-cell-width;
+        height: 100%;
+      }
+    }
+
+    .loading-view {
+      height: 100%;
+
+      display: flex;
+      padding: 2em;
+      align-items: center;
+      justify-content: space-around;
+      
+      .loading__step {
+        @extend .curve-raise;
+
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        flex-direction: column;
+        margin: 1em;
+        background: $secondary-color;
+        min-width: $mixer-cell-width;
+        height: 100%;
+
+      }
+
+      .loading__step:nth-child(2).loading_step_current::before,
+      .loading__step:nth-child(2).loading_step_complete::before,
+      .loading__step:nth-child(2).loading_step_complete::after
+       {
+        content: '';
+        height: 2px;
+        width: 100%;
+        background-color: black;
+        display: inline-block;
+        position: relative;
+        vertical-align: middle;
+        margin-left: -50%;
+      } 
+
+      .loading__step:nth-child(2).loading_step_complete::after {
+        margin-left: 0;
+        margin-right: -50%;
+      }
+
+      .loading_step_current > * {
+        color: black;
+      }
+
+      .loading_step_complete > * {
+        color: $primary-color;
+      }
+
+      .loading_step_pending > * {
+        color: rgb(172, 6, 6);
+      }
+
+    }
   }  
 }
 
@@ -278,7 +356,7 @@ nav {
   display: flex;
 
   &__wave {
-    width: 80vw;
+    width: 90%;
     margin: 0 20px;
   }
 }
@@ -292,7 +370,7 @@ nav {
   animation: running-progress 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 
   &__progress::before {
-    width: 80vw;
+    width: 90%;
     margin: 0 20px;
   }
 }
