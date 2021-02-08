@@ -42,14 +42,24 @@ function LoadingView() {
 
 function MixerView({waves, setStem}) {
     return (
-        <div className="mixer-view">
-            {waves.map(w => 
-                <div key={w.id} className="mixer" onClick={() => setStem(w.stem)}>
-                    <div className="mixer-title">{w.stem}</div>
-                    <div className="mixer-gain"></div>
-                    <div className="mixer-control"></div>
-                </div>
-            )}
+        <div className="mix-view">
+            <div className="mix-header">
+                <div className="mix-item">Re</div>
+                <div className="mix-item">Pu</div>
+                <div className="mix-item">Pl</div>
+                <div className="mix-item">St</div>
+                <div className="mix-item">Fo</div>
+                <div className="mix-item">Sy</div>
+            </div>
+            <div className="mix-container">
+                {waves.map(w => 
+                    <div key={w.id} className="mix" onClick={() => setStem(w.stem)}>
+                        <div className="mix-title">{w.stem}</div>
+                        <div className="mix-gain"></div>
+                        <div className="mix-control"></div>
+                    </div>
+                )}
+            </div>
         </div>
     );
 }
