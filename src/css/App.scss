@@ -246,10 +246,11 @@ nav {
       .wave__side {
         @include grid-item(center, center, wave-side);
         
-        .wave__side__button {
-          @extend .button;
+        display: flex;
+        flex-direction: column;
 
-          box-shadow: none;
+        .wave__side__actions {
+          margin: 5px 0;
         }
       }
 

@@ -1,14 +1,21 @@
 import { useState } from "react";
 import Loading from "./utils/Loading";
 
+import PlayIcon from "../icons/play.svg";
+import PauseIcon from "../icons/pause.svg";
+import RewindIcon from "../icons/rewind.svg";
+import StopIcon from "../icons/square.svg";
+import ForwardIcon from "../icons/fast-forward.svg";
+import SyncIcon from "../icons/refresh-cw.svg";
+
 function Wave({isLoading}) {
     return (
         <div className="wave">
             <div className="wave__side">
-                <button className="wave__side__button">Rew</button>
-                <button className="wave__side__button">Play</button>
-                <button className="wave__side__button">Pause</button>
-                <button className="wave__side__button">Stop</button>
+                <img className="wave__side__actions" src={RewindIcon} alt="Rewind"/>
+                <img className="wave__side__actions" src={PlayIcon} alt="Play" />
+                <img className="wave__side__actions" src={PauseIcon} alt="Pause" />
+                <img className="wave__side__actions" src={StopIcon} alt="Stop" />
             </div>
             <div className="wave__content">
                 {isLoading ?
@@ -44,12 +51,12 @@ function MixerView({waves, setStem}) {
     return (
         <div className="mix-view">
             <div className="mix-header">
-                <div className="mix-item">Re</div>
-                <div className="mix-item">Pu</div>
-                <div className="mix-item">Pl</div>
-                <div className="mix-item">St</div>
-                <div className="mix-item">Fo</div>
-                <div className="mix-item">Sy</div>
+                <img className="mix-item" src={RewindIcon} alt="Rewind" />
+                <img className="mix-item" src={PauseIcon} alt="Pause" />
+                <img className="mix-item" src={PlayIcon} alt="Play" />
+                <img className="mix-item" src={StopIcon} alt="Stop" />
+                <img className="mix-item" src={ForwardIcon} alt="Forward" />
+                <img className="mix-item" src={SyncIcon} alt="Sync" />
             </div>
             <div className="mix-container">
                 {waves.map(w => 

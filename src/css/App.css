@@ -8,25 +8,25 @@ html, body, #root, .App {
   color: black;
 }
 
-.curve-raise, .button, .home-container .upload .upload__button, .home-container .upload .submit__button, .saved-container .saved__cell .saved__cell__loading .loading__open, .player-container .wave-container .wave .wave__side .wave__side__button, .player-container .mixer-container .effect-view .effect-header .effect-button, nav, .home-container .upload, .saved-container .saved__cell, .player-container .wave-container .wave, .player-container .mixer-container, .player-container .mixer-container .mix-view .mix-header, .player-container .mixer-container .mix-view .mix-container .mix, .player-container .mixer-container .loading-view .loading__step, .player-container .mixer-container .effect-view .effect-container .effect {
+.curve-raise, .button, .home-container .upload .upload__button, .home-container .upload .submit__button, .saved-container .saved__cell .saved__cell__loading .loading__open, .player-container .mixer-container .effect-view .effect-header .effect-button, nav, .home-container .upload, .saved-container .saved__cell, .player-container .wave-container .wave, .player-container .mixer-container, .player-container .mixer-container .mix-view .mix-header, .player-container .mixer-container .mix-view .mix-container .mix, .player-container .mixer-container .loading-view .loading__step, .player-container .mixer-container .effect-view .effect-container .effect {
   border-radius: 20px;
   -webkit-box-shadow: 2px 1px 1px rgba(0, 0, 0, 0.1);
           box-shadow: 2px 1px 1px rgba(0, 0, 0, 0.1);
 }
 
-.button, .home-container .upload .upload__button, .home-container .upload .submit__button, .saved-container .saved__cell .saved__cell__loading .loading__open, .player-container .wave-container .wave .wave__side .wave__side__button, .player-container .mixer-container .effect-view .effect-header .effect-button {
+.button, .home-container .upload .upload__button, .home-container .upload .submit__button, .saved-container .saved__cell .saved__cell__loading .loading__open, .player-container .mixer-container .effect-view .effect-header .effect-button {
   background: #118ab2;
   border: none;
   font-weight: bold;
   padding: 10px 25px;
 }
 
-.button:hover, .home-container .upload .upload__button:hover, .home-container .upload .submit__button:hover, .saved-container .saved__cell .saved__cell__loading .loading__open:hover, .player-container .wave-container .wave .wave__side .wave__side__button:hover, .player-container .mixer-container .effect-view .effect-header .effect-button:hover {
+.button:hover, .home-container .upload .upload__button:hover, .home-container .upload .submit__button:hover, .saved-container .saved__cell .saved__cell__loading .loading__open:hover, .player-container .mixer-container .effect-view .effect-header .effect-button:hover {
   background: #073b4c;
   color: white;
 }
 
-.button:active, .home-container .upload .upload__button:active, .home-container .upload .submit__button:active, .saved-container .saved__cell .saved__cell__loading .loading__open:active, .player-container .wave-container .wave .wave__side .wave__side__button:active, .player-container .mixer-container .effect-view .effect-header .effect-button:active {
+.button:active, .home-container .upload .upload__button:active, .home-container .upload .submit__button:active, .saved-container .saved__cell .saved__cell__loading .loading__open:active, .player-container .mixer-container .effect-view .effect-header .effect-button:active {
   background: black;
   color: white;
 }
@@ -260,19 +260,23 @@ nav .player__ul .player__title {
 }
 
 .player-container .wave-container .wave .wave__side {
-  -ms-grid-column-align: center;
-      justify-self: center;
+  justify-self: center;
   -ms-flex-item-align: center;
-      -ms-grid-row-align: center;
       align-self: center;
   -ms-grid-row: 1;
   -ms-grid-column: 1;
   grid-area: wave-side;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
-.player-container .wave-container .wave .wave__side .wave__side__button {
-  -webkit-box-shadow: none;
-          box-shadow: none;
+.player-container .wave-container .wave .wave__side .wave__side__actions {
+  margin: 5px 0;
 }
 
 .player-container .wave-container .wave .wave__content {
