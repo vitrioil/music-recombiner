@@ -294,6 +294,7 @@ nav .player__ul .player__title {
 .player-container .mixer-container {
   width: 100%;
   height: 30vh;
+  min-height: 300px;
   overflow-y: auto;
   overflow-x: auto;
   background: #06d6a0;
@@ -353,7 +354,6 @@ nav .player__ul .player__title {
   background: #118ab2;
   min-width: 125px;
   height: 100%;
-  cursor: pointer;
   display: -ms-grid;
   display: grid;
   -ms-grid-rows: 20px 1fr;
@@ -361,8 +361,8 @@ nav .player__ul .player__title {
   -ms-grid-columns: (1fr)[2];
       grid-template-columns: repeat(2, 1fr);
       grid-template-areas: "title title" "gain control";
-  gap: 1em;
   padding: 1em;
+  min-height: 210px;
 }
 
 .player-container .mixer-container .mix-view .mix-container .mix .mix-title {
@@ -375,6 +375,7 @@ nav .player__ul .player__title {
   -ms-grid-column: 1;
   -ms-grid-column-span: 2;
   grid-area: title;
+  cursor: pointer;
 }
 
 .player-container .mixer-container .mix-view .mix-container .mix .mix-gain {
@@ -386,6 +387,13 @@ nav .player__ul .player__title {
   -ms-grid-row: 2;
   -ms-grid-column: 1;
   grid-area: gain;
+}
+
+.player-container .mixer-container .mix-view .mix-container .mix .mix-gain .mix-slider {
+  background: #06d6a0;
+  -webkit-appearance: slider-vertical;
+  width: 10px;
+  height: 80%;
 }
 
 .player-container .mixer-container .mix-view .mix-container .mix .mix-control {

@@ -60,10 +60,14 @@ function MixerView({waves, setStem}) {
             </div>
             <div className="mix-container">
                 {waves.map(w => 
-                    <div key={w.id} className="mix" onClick={() => setStem(w.stem)}>
-                        <div className="mix-title">{w.stem}</div>
-                        <div className="mix-gain"></div>
-                        <div className="mix-control"></div>
+                    <div key={w.id} className="mix">
+                        <div className="mix-title" onClick={() => setStem(w.stem)}>{w.stem}</div>
+                        <div className="mix-gain">
+                            <input className="mix-slider" type="range" orient="vertical" />
+                        </div>
+                        <div className="mix-control">
+
+                        </div>
                     </div>
                 )}
             </div>
