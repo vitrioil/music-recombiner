@@ -387,6 +387,8 @@ nav .player__ul .player__title {
   -ms-grid-row: 2;
   -ms-grid-column: 1;
   grid-area: gain;
+  /* Special styling for WebKit/Blink */
+  /* All the same stuff for Firefox */
 }
 
 .player-container .mixer-container .mix-view .mix-container .mix .mix-gain .mix-slider {
@@ -396,15 +398,95 @@ nav .player__ul .player__title {
   height: 80%;
 }
 
+.player-container .mixer-container .mix-view .mix-container .mix .mix-gain input[type=range] {
+  -webkit-appearance: none;
+  width: 100%;
+  background: transparent;
+}
+
+.player-container .mixer-container .mix-view .mix-container .mix .mix-gain input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+}
+
+.player-container .mixer-container .mix-view .mix-container .mix .mix-gain input[type=range]:focus {
+  outline: none;
+}
+
+.player-container .mixer-container .mix-view .mix-container .mix .mix-gain input[type=range]::-ms-track {
+  width: 100%;
+  cursor: pointer;
+  /* Hides the slider so custom styles can be added */
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+}
+
+.player-container .mixer-container .mix-view .mix-container .mix .mix-gain input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  border: 1px solid #000000;
+  height: 36px;
+  width: 16px;
+  border-radius: 3px;
+  background: #ffffff;
+  cursor: pointer;
+  margin-top: -14px;
+  -webkit-box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+          box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+}
+
+.player-container .mixer-container .mix-view .mix-container .mix .mix-gain input[type=range]::-moz-range-thumb {
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  border: 1px solid #000000;
+  height: 36px;
+  width: 16px;
+  border-radius: 3px;
+  background: #073b4c;
+  cursor: pointer;
+}
+
+.player-container .mixer-container .mix-view .mix-container .mix .mix-gain input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 8.4px;
+  cursor: pointer;
+  -webkit-box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+          box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  background: #3071a9;
+  border-radius: 1.3px;
+  border: 0.2px solid #010101;
+}
+
+.player-container .mixer-container .mix-view .mix-container .mix .mix-gain input[type=range]:focus::-webkit-slider-runnable-track {
+  background: #367ebd;
+}
+
+.player-container .mixer-container .mix-view .mix-container .mix .mix-gain input[type=range]::-moz-range-track {
+  height: 100%;
+  width: 8.4px;
+  cursor: pointer;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  background: linear-gradient(#ff5d5d, #56fba2);
+  border-radius: 1.3px;
+  border: 0.2px solid #010101;
+}
+
 .player-container .mixer-container .mix-view .mix-container .mix .mix-control {
-  -ms-grid-column-align: center;
-      justify-self: center;
+  justify-self: center;
   -ms-flex-item-align: center;
-      -ms-grid-row-align: center;
       align-self: center;
   -ms-grid-row: 2;
   -ms-grid-column: 2;
   grid-area: control;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.player-container .mixer-container .mix-view .mix-container .mix .mix-control .mix-control-items {
+  margin: 10px 0;
 }
 
 .player-container .mixer-container .loading-view {

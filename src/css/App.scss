@@ -4,6 +4,9 @@ $primary-color: #06d6a0;
 $secondary-color: #118ab2;
 $alternate-color: #8bf8b9;
 
+$gain-high: #ff5d5d;
+$gain-low: #56fba2;
+
 $saved-cell-height: 200px;
 $saved-cell-width: 350px;
 
@@ -338,10 +341,90 @@ nav {
               width: 10px;
               height: 80%;
             }
+
+            //https://css-tricks.com/styling-cross-browser-compatible-range-inputs-css/
+            input[type=range] {
+              -webkit-appearance: none;
+              width: 100%;
+              background: transparent;
+            }
+
+            input[type=range]::-webkit-slider-thumb {
+              -webkit-appearance: none;
+            }
+
+            input[type=range]:focus {
+              outline: none;
+            }
+
+            input[type=range]::-ms-track {
+              width: 100%;
+              cursor: pointer;
+
+              /* Hides the slider so custom styles can be added */
+              background: transparent; 
+              border-color: transparent;
+              color: transparent;
+            }
+
+            /* Special styling for WebKit/Blink */
+            input[type=range]::-webkit-slider-thumb {
+              -webkit-appearance: none;
+              border: 1px solid #000000;
+              height: 36px;
+              width: 16px;
+              border-radius: 3px;
+              background: #ffffff;
+              cursor: pointer;
+              margin-top: -14px;
+              box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+            }
+
+            /* All the same stuff for Firefox */
+            input[type=range]::-moz-range-thumb {
+              box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+              border: 1px solid #000000;
+              height: 36px;
+              width: 16px;
+              border-radius: 3px;
+              background: $background-color;
+              cursor: pointer;
+            }
+
+            input[type=range]::-webkit-slider-runnable-track {
+              width: 100%;
+              height: 8.4px;
+              cursor: pointer;
+              box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+              background: #3071a9;
+              border-radius: 1.3px;
+              border: 0.2px solid #010101;
+            }
+
+            input[type=range]:focus::-webkit-slider-runnable-track {
+              background: #367ebd;
+            }
+
+            input[type=range]::-moz-range-track {
+              height: 100%;
+              width: 8.4px;
+              cursor: pointer;
+              box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+              background: linear-gradient($gain-high, $gain-low);
+              border-radius: 1.3px;
+              border: 0.2px solid #010101;
+            }
           }
 
           .mix-control {
             @include grid-item(center, center, control);
+
+            display: flex;
+            flex-direction: column;
+
+            .mix-control-items {
+              margin: 10px 0;
+            }
           }
 
         }

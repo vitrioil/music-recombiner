@@ -7,6 +7,9 @@ import RewindIcon from "../icons/rewind.svg";
 import StopIcon from "../icons/square.svg";
 import ForwardIcon from "../icons/fast-forward.svg";
 import SyncIcon from "../icons/refresh-cw.svg";
+import MuteIcon from "../icons/volume-off.svg";
+import DownloadIcon from "../icons/download.svg";
+import SoloIcon from "../icons/microphone.svg";
 
 function Wave({isLoading}) {
     return (
@@ -63,10 +66,12 @@ function MixerView({waves, setStem}) {
                     <div key={w.id} className="mix">
                         <div className="mix-title" onClick={() => setStem(w.stem)}>{w.stem}</div>
                         <div className="mix-gain">
-                            <input className="mix-slider" type="range" orient="vertical" />
+                            <input className="mix-slider" min="0" max="100" type="range" orient="vertical" />
                         </div>
                         <div className="mix-control">
-
+                            <img className="mix-control-items" src={MuteIcon} alt="Mute" />
+                            <img className="mix-control-items" src={SoloIcon} alt="Solo" />
+                            <img className="mix-control-items" src={DownloadIcon} alt="Download" />
                         </div>
                     </div>
                 )}
