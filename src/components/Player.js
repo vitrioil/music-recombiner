@@ -1,24 +1,17 @@
 import { useState } from "react";
 import Loading from "./utils/Loading";
 
-import PlayIcon from "../icons/play.svg";
-import PauseIcon from "../icons/pause.svg";
-import RewindIcon from "../icons/rewind.svg";
-import StopIcon from "../icons/square.svg";
-import ForwardIcon from "../icons/fast-forward.svg";
-import SyncIcon from "../icons/refresh-cw.svg";
-import MuteIcon from "../icons/volume-off.svg";
-import DownloadIcon from "../icons/download.svg";
-import SoloIcon from "../icons/microphone.svg";
+import {PauseIcon, RewindIcon, StopIcon, ForwardIcon,
+        SyncIcon, MuteIcon, DownloadIcon, SoloIcon} from "./utils/Icon";
 
 function Wave({isLoading}) {
     return (
         <div className="wave">
             <div className="wave__side">
-                <img className="wave__side__actions" src={RewindIcon} alt="Rewind"/>
-                <img className="wave__side__actions" src={PlayIcon} alt="Play" />
-                <img className="wave__side__actions" src={PauseIcon} alt="Pause" />
-                <img className="wave__side__actions" src={StopIcon} alt="Stop" />
+                <img title="Rewind" className="img_icons wave__side__actions" src={RewindIcon} alt="Rewind"/>
+                <img title="Pause" className="img_icons wave__side__actions" src={PauseIcon} alt="Pause" />
+                <img title="Forward" className="img_icons wave__side__actions" src={ForwardIcon} alt="Forward" />
+                <img title="Stop" className="img_icons wave__side__actions" src={StopIcon} alt="Stop" />
             </div>
             <div className="wave__content">
                 {isLoading ?
@@ -54,12 +47,11 @@ function MixerView({waves, setStem}) {
     return (
         <div className="mix-view">
             <div className="mix-header">
-                <img className="mix-item" src={RewindIcon} alt="Rewind" />
-                <img className="mix-item" src={PauseIcon} alt="Pause" />
-                <img className="mix-item" src={PlayIcon} alt="Play" />
-                <img className="mix-item" src={StopIcon} alt="Stop" />
-                <img className="mix-item" src={ForwardIcon} alt="Forward" />
-                <img className="mix-item" src={SyncIcon} alt="Sync" />
+                <img title="Rewind All" className="img_icons mix-item" src={RewindIcon} alt="Rewind" />
+                <img title="Pause All" className="img_icons mix-item" src={PauseIcon} alt="Pause" />
+                <img title="Forward All" className="img_icons mix-item" src={ForwardIcon} alt="Forward" />
+                <img title="Stop All" className="img_icons mix-item" src={StopIcon} alt="Stop" />
+                <img title="Sync All" className="img_icons mix-item" src={SyncIcon} alt="Sync" />
             </div>
             <div className="mix-container">
                 {waves.map(w => 
@@ -69,9 +61,9 @@ function MixerView({waves, setStem}) {
                             <input className="mix-slider" min="0" max="100" type="range" orient="vertical" />
                         </div>
                         <div className="mix-control">
-                            <img className="mix-control-items" src={MuteIcon} alt="Mute" />
-                            <img className="mix-control-items" src={SoloIcon} alt="Solo" />
-                            <img className="mix-control-items" src={DownloadIcon} alt="Download" />
+                            <img title="Mute" className="img_icons mix-control-items" src={MuteIcon} alt="Mute" />
+                            <img title="Solo" className="img_icons mix-control-items" src={SoloIcon} alt="Solo" />
+                            <img title="Download" className="img_icons mix-control-items" src={DownloadIcon} alt="Download" />
                         </div>
                     </div>
                 )}

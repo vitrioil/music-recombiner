@@ -31,6 +31,18 @@ html, body, #root, .App {
   color: white;
 }
 
+.img_icons {
+  border-radius: 5px;
+}
+
+.img_icons:hover {
+  background: #06d6a0;
+}
+
+.img_icons:active {
+  background: cadetblue;
+}
+
 .App {
   background: #073b4c;
   display: -ms-grid;
@@ -74,6 +86,7 @@ nav .route__ul .route__li {
   -ms-flex-item-align: center;
       -ms-grid-row-align: center;
       align-self: center;
+  font-weight: 800;
 }
 
 nav .route__ul .route__li a {
@@ -90,7 +103,10 @@ nav .player__ul {
 }
 
 nav .player__ul .player__li {
+  font-weight: 800;
   margin: 0 20px;
+  list-style-type: none;
+  vertical-align: middle;
 }
 
 nav .player__ul .player__li a {
@@ -442,6 +458,10 @@ nav .player__ul .player__title {
   border-radius: 3px;
   background: #073b4c;
   cursor: pointer;
+}
+
+.player-container .mixer-container .mix-view .mix-container .mix .mix-gain input[type=range]::-moz-range-thumb:active {
+  background: #06d6a0;
 }
 
 .player-container .mixer-container .mix-view .mix-container .mix .mix-gain input[type=range]::-webkit-slider-runnable-track {

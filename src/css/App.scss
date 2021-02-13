@@ -57,6 +57,19 @@ html, body, #root, .App {
   }
 }
 
+.img_icons {
+  border-radius: 5px;
+
+  &:hover {
+    background: $primary-color;
+  }
+
+  &:active {
+    background: cadetblue;
+  }
+}
+
+
 .App {
   background: $background-color;
 
@@ -87,6 +100,7 @@ nav {
 
     .route__li {
       @include grid-item(center, center, "");
+      font-weight: 800;
 
       a {
         text-decoration: none;
@@ -103,14 +117,17 @@ nav {
     display: flex;
 
     .player__li {
+      font-weight: 800;
       margin: 0 20px;
+      list-style-type: none;
+      vertical-align: middle;
 
       a {
         text-decoration: none;
         text-align: center;
       }
-
     }
+
 
     .player__title {
       margin: 0 auto;
@@ -389,6 +406,10 @@ nav {
               border-radius: 3px;
               background: $background-color;
               cursor: pointer;
+            }
+
+            input[type=range]::-moz-range-thumb:active {
+              background: $primary-color;
             }
 
             input[type=range]::-webkit-slider-runnable-track {
