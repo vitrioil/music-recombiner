@@ -1,23 +1,58 @@
-import { useState } from "react";
-import Loading from "./utils/Loading";
+import { useEffect, useRef, useState } from "react";
+import WaveSurfer from "wavesurfer.js";
 
+import Loading from "./utils/Loading";
 import {PauseIcon, RewindIcon, StopIcon, ForwardIcon,
         SyncIcon, MuteIcon, DownloadIcon, SoloIcon} from "./utils/Icon";
+import { playPauseWave, skipWave, stopWave } from "./utils/PlayerUtils";
+
+const waveOptions = (ref) => ({
+    container: ref,
+    responsive: true,
+    waveColor: "#554080",
+    progressColor: "#00ffc0",
+    barWidth: 3,
+    barRadius: 3,
+    height: 100,
+    showTime: true,
+    customShowTimeStyle: {
+        'background-color': '#000',
+        color: '#fff',
+        padding: '2px',
+        'font-size': '10px'
+    }
+});
 
 function Wave({isLoading}) {
+    const waveRef = useRef(null);
+    const waveSurfRef = useRef(null);
+    const skipSec = 5;
+
+    useEffect(() => {
+       waveSurfRef.current = WaveSurfer.create(waveOptions(waveRef.current));
+       waveSurfRef.current.load(`http://192.168.1.106:8080/song.mp3`) // use a url :(
+    //    waveSurfRef.current.on('ready', function () {
+    //        if(waveSurfRef.current) {
+    //            waveSurfRef.current.setVolume(volume);
+    //        }
+    //    }); 
+
+       return () => waveSurfRef.current.destroy();
+    }, []);
+
     return (
         <div className="wave">
             <div className="wave__side">
-                <img title="Rewind" className="img_icons wave__side__actions" src={RewindIcon} alt="Rewind"/>
-                <img title="Pause" className="img_icons wave__side__actions" src={PauseIcon} alt="Pause" />
-                <img title="Forward" className="img_icons wave__side__actions" src={ForwardIcon} alt="Forward" />
-                <img title="Stop" className="img_icons wave__side__actions" src={StopIcon} alt="Stop" />
+                <RewindIcon onClick={() => skipWave(waveSurfRef.current, -skipSec)} title="Rewind" className="img_icons wave__side__actions" />
+                <PauseIcon onClick={() => playPauseWave(waveSurfRef.current)} title="Pause" className="img_icons wave__side__actions" />
+                <ForwardIcon onClick={() => skipWave(waveSurfRef.current, skipSec)} title="Forward" className="img_icons wave__side__actions" />
+                <StopIcon onClick={() => stopWave(waveSurfRef.current)} title="Stop" className="img_icons wave__side__actions" />
             </div>
             <div className="wave__content">
                 {isLoading ?
                     <Loading className="progress__wave"/>
                     :
-                    <Loading className="progress__wave"/>
+                    <div className="waveform" ref={waveRef}></div>
                 }
             </div>
         </div>
@@ -47,11 +82,11 @@ function MixerView({waves, setStem}) {
     return (
         <div className="mix-view">
             <div className="mix-header">
-                <img title="Rewind All" className="img_icons mix-item" src={RewindIcon} alt="Rewind" />
-                <img title="Pause All" className="img_icons mix-item" src={PauseIcon} alt="Pause" />
-                <img title="Forward All" className="img_icons mix-item" src={ForwardIcon} alt="Forward" />
-                <img title="Stop All" className="img_icons mix-item" src={StopIcon} alt="Stop" />
-                <img title="Sync All" className="img_icons mix-item" src={SyncIcon} alt="Sync" />
+                <RewindIcon title="Rewind All" className="img_icons mix-item" />
+                <PauseIcon title="Pause All" className="img_icons mix-item" />
+                <ForwardIcon title="Forward All" className="img_icons mix-item" />
+                <StopIcon title="Stop All" className="img_icons mix-item" />
+                <SyncIcon title="Sync All" className="img_icons mix-item" />
             </div>
             <div className="mix-container">
                 {waves.map(w => 
@@ -61,9 +96,9 @@ function MixerView({waves, setStem}) {
                             <input className="mix-slider" min="0" max="100" type="range" orient="vertical" />
                         </div>
                         <div className="mix-control">
-                            <img title="Mute" className="img_icons mix-control-items" src={MuteIcon} alt="Mute" />
-                            <img title="Solo" className="img_icons mix-control-items" src={SoloIcon} alt="Solo" />
-                            <img title="Download" className="img_icons mix-control-items" src={DownloadIcon} alt="Download" />
+                            <MuteIcon title="Mute" className="img_icons mix-control-item" />
+                            <SoloIcon title="Solo" className="img_icons mix-control-item" />
+                            <DownloadIcon title="Download" className="img_icons mix-control-item" />
                         </div>
                     </div>
                 )}

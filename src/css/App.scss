@@ -89,9 +89,12 @@ nav {
 
   background: $primary-color;
   width: 100%;
+  height: 3rem;
 
   .route__ul {
     padding: 0;
+    height: 1.5rem;
+    margin: 0.75rem 0;
     list-style-type: none;
 
     display: grid;
@@ -112,15 +115,29 @@ nav {
 
   .player__ul {
     padding: 0;
+    height: 1.5rem;
+    margin: 0.75rem 0;
     list-style-type: none;
 
     display: flex;
+    align-items: center;
 
     .player__li {
       font-weight: 800;
       margin: 0 20px;
       list-style-type: none;
-      vertical-align: middle;
+
+      .img_icons {
+        padding-top: 2px;
+      }
+
+      .img_icons:hover {
+        background: $secondary-color;
+      }
+
+      .img_icons:active {
+        background: cadetblue;
+      }
 
       a {
         text-decoration: none;
@@ -277,6 +294,7 @@ nav {
       .wave__content {
         @include grid-item(center, center, wave-content);
         width: 100%;
+        overflow-x: auto;
       }
     }
   }
@@ -443,7 +461,7 @@ nav {
             display: flex;
             flex-direction: column;
 
-            .mix-control-items {
+            .mix-control-item {
               margin: 10px 0;
             }
           }

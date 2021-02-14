@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-import {EditIcon, MenuIcon, ClockIcon} from "./utils/Icon";
+import { EditIcon, ClockIcon, BackIcon } from "./utils/Icon";
 
 function RouteNav() {
     return (
@@ -18,13 +18,17 @@ function PlayerNav() {
     return (
         <nav>
             <ul className="player__ul">
-                <li className="nav_li player__li"> <Link to="/"> Back </Link> </li>
-                <li className="nav_li player__li player__title"> Title </li>
-                <li className="nav_li player__li img_icons">
-                    Recent
+                <li className="nav_li player__li">
+                    <Link to="/">
+                        <BackIcon title="Back" className="img_icons" />
+                    </Link>
                 </li>
-                <li className="nav_li player__li img_icons">
-                    Edit
+                <li className="nav_li player__li player__title"> Title </li>
+                <li className="nav_li player__li">
+                    <ClockIcon title="Recent" className="img_icons"/>
+                </li>
+                <li className="nav_li player__li">
+                    <EditIcon title="Edit" className="img_icons"/>
                 </li>
             </ul>
         </nav>

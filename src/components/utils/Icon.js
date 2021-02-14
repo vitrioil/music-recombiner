@@ -1,15 +1,16 @@
-import PauseIcon from "../../icons/pause.svg";
-import RewindIcon from "../../icons/rewind.svg";
-import StopIcon from "../../icons/square.svg";
-import ForwardIcon from "../../icons/fast-forward.svg";
-import SyncIcon from "../../icons/refresh-cw.svg";
-import MuteIcon from "../../icons/volume-off.svg";
-import DownloadIcon from "../../icons/download.svg";
-import SoloIcon from "../../icons/microphone.svg";
-import EditIcon from "../../icons/edit-3.svg";
-import MenuIcon from "../../icons/menu.svg";
-import ClockIcon from "../../icons/clock-8.svg"
+import {ReactComponent as PauseIcon} from "../../icons/pause.svg";
+import {ReactComponent as RewindIcon} from "../../icons/rewind.svg";
+import {ReactComponent as StopIcon} from "../../icons/square.svg";
+import {ReactComponent as ForwardIcon} from "../../icons/fast-forward.svg";
+import {ReactComponent as SyncIcon} from "../../icons/refresh-cw.svg";
+import {ReactComponent as MuteIcon} from "../../icons/volume-off.svg";
+import {ReactComponent as DownloadIcon} from "../../icons/download.svg";
+import {ReactComponent as SoloIcon} from "../../icons/microphone.svg";
+import {ReactComponent as EditIcon} from "../../icons/edit-3.svg";
+import {ReactComponent as MenuIcon} from "../../icons/menu.svg";
+import {ReactComponent as ClockIcon} from "../../icons/clock-8.svg"
+import {ReactComponent as BackIcon} from "../../icons/arrow-left.svg"
 
 export {PauseIcon, RewindIcon, StopIcon, ForwardIcon,
         SyncIcon, MuteIcon, DownloadIcon, SoloIcon, EditIcon,
-        MenuIcon, ClockIcon}
+        MenuIcon, ClockIcon, BackIcon}
