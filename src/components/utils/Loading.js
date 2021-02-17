@@ -1,6 +1,6 @@
 function Loading({className}) {
     return (
-        <div className={"progress" + ` ${className}`}></div>
+        <div className={`progress ${className}`}></div>
     )
 }
 

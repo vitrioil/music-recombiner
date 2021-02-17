@@ -8,7 +8,7 @@ function RouteNav() {
             <ul className="route__ul">
                 <li className="nav_li route__li"> <Link to="/saved"> Saved </Link> </li>
                 <li className="nav_li route__li"> <Link to="/"> Home </Link> </li>
-                <li className="nav_li route__li"> <Link to="/Player"> Player </Link> </li>
+                <li className="nav_li route__li"> <Link to="/player"> Player </Link> </li>
             </ul>
         </nav>
     );

@@ -1,52 +1,43 @@
-import { useEffect, useRef, useState } from "react";
-import WaveSurfer from "wavesurfer.js";
+import { Link } from "react-router-dom";
+import { useEffect, createRef, useState } from "react";
 
 import Loading from "./utils/Loading";
 import {PauseIcon, RewindIcon, StopIcon, ForwardIcon,
         SyncIcon, MuteIcon, DownloadIcon, SoloIcon} from "./utils/Icon";
-import { playPauseWave, skipWave, stopWave } from "./utils/PlayerUtils";
+import {Waveform} from "./utils/PlayerUtils";
 
-const waveOptions = (ref) => ({
-    container: ref,
-    responsive: true,
-    waveColor: "#554080",
-    progressColor: "#00ffc0",
-    barWidth: 3,
-    barRadius: 3,
-    height: 100,
-    showTime: true,
-    customShowTimeStyle: {
-        'background-color': '#000',
-        color: '#fff',
-        padding: '2px',
-        'font-size': '10px'
-    }
-});
 
-function Wave({isLoading}) {
-    const waveRef = useRef(null);
-    const waveSurfRef = useRef(null);
-    const skipSec = 5;
-
+function Wave({wave, isLoading}) {
+    const waveRef = createRef(null);
+    const waveSurfRef = createRef(null);
+    
     useEffect(() => {
-       waveSurfRef.current = WaveSurfer.create(waveOptions(waveRef.current));
-       waveSurfRef.current.load(`http://192.168.1.106:8080/song.mp3`) // use a url :(
-    //    waveSurfRef.current.on('ready', function () {
-    //        if(waveSurfRef.current) {
-    //            waveSurfRef.current.setVolume(volume);
-    //        }
-    //    }); 
+        if(!isLoading) {
+            wave.setRef(waveRef, waveSurfRef);
+            wave.load();
 
-       return () => waveSurfRef.current.destroy();
-    }, []);
+            return () => {
+                debugger;
+                wave.destroy();
+            };
+        }
+    }, [isLoading]);
 
     return (
         <div className="wave">
             <div className="wave__side">
-                <RewindIcon onClick={() => skipWave(waveSurfRef.current, -skipSec)} title="Rewind" className="img_icons wave__side__actions" />
-                <PauseIcon onClick={() => playPauseWave(waveSurfRef.current)} title="Pause" className="img_icons wave__side__actions" />
-                <ForwardIcon onClick={() => skipWave(waveSurfRef.current, skipSec)} title="Forward" className="img_icons wave__side__actions" />
-                <StopIcon onClick={() => stopWave(waveSurfRef.current)} title="Stop" className="img_icons wave__side__actions" />
+                <RewindIcon onClick={() => wave.rewind()}
+                            title="Rewind"
+                            className="img_icons wave__side__actions" />
+                <PauseIcon onClick={() => wave.playPause()}
+                           title="Pause"
+                           className="img_icons wave__side__actions" />
+                <ForwardIcon onClick={() => wave.forward()}
+                             title="Forward"
+                             className="img_icons wave__side__actions" />
+                <StopIcon onClick={() => wave.stop()}
+                          title="Stop"
+                          className="img_icons wave__side__actions" />
             </div>
             <div className="wave__content">
                 {isLoading ?
@@ -79,26 +70,54 @@ function LoadingView() {
 }
 
 function MixerView({waves, setStem}) {
+
     return (
         <div className="mix-view">
             <div className="mix-header">
-                <RewindIcon title="Rewind All" className="img_icons mix-item" />
-                <PauseIcon title="Pause All" className="img_icons mix-item" />
-                <ForwardIcon title="Forward All" className="img_icons mix-item" />
-                <StopIcon title="Stop All" className="img_icons mix-item" />
-                <SyncIcon title="Sync All" className="img_icons mix-item" />
+                <RewindIcon title="Rewind All"
+                            className="img_icons mix-item"
+                            onClick={() => {
+                                waves.map((wave) => wave.rewind())
+                            }} />
+                <PauseIcon title="Pause All"
+                           className="img_icons mix-item"
+                           onClick={() => {
+                               waves.map((wave) => wave.playPause())
+                           }} />
+                <ForwardIcon title="Forward All"
+                             className="img_icons mix-item"
+                             onClick={() => {
+                                 waves.map((wave) => wave.forward())
+                             }} />
+                <StopIcon title="Stop All"
+                          className="img_icons mix-item"
+                          onClick={() => {
+                              waves.map((wave) => wave.stop())
+                          }} />
+                <SyncIcon title="Sync All"
+                          className="img_icons mix-item" />
             </div>
             <div className="mix-container">
                 {waves.map(w => 
                     <div key={w.id} className="mix">
-                        <div className="mix-title" onClick={() => setStem(w.stem)}>{w.stem}</div>
+                        <div className="mix-title" onClick={() => setStem(w.stem)}>
+                            {w.stem}
+                        </div>
                         <div className="mix-gain">
-                            <input className="mix-slider" min="0" max="100" type="range" orient="vertical" />
+                            <input className="mix-slider"
+                                   min="0" max="100"
+                                   type="range" orient="vertical"
+                                   onChange={(e) => w.setVolume(e.target.value)} />
                         </div>
                         <div className="mix-control">
-                            <MuteIcon title="Mute" className="img_icons mix-control-item" />
+                            <MuteIcon title="Mute"
+                                      className="img_icons mix-control-item"
+                                      onClick={() => w.mute()} />
                             <SoloIcon title="Solo" className="img_icons mix-control-item" />
-                            <DownloadIcon title="Download" className="img_icons mix-control-item" />
+                            <Link to={{ pathname: w.getUrl()}} target="_blank" download>
+                                <DownloadIcon title="Download"
+                                    className="img_icons mix-control-item" />
+                            </Link>
                         </div>
                     </div>
                 )}
@@ -111,7 +130,10 @@ function EffectView({stem, effects, setStem}) {
     return (
         <div className="effect-view">
             <div className="effect-header">
-                <button className="effect-button" onClick={() => setStem("")}>Back</button>
+                <button className="effect-button"
+                        onClick={() => setStem("")}>
+                        Back
+                </button>
                 <p className="effect-name">{stem} effects</p>
             </div>
             <div className="effect-container">
@@ -145,18 +167,29 @@ function Mixer({isLoading, waves, effects}) {
 }
 
 function Player({isLoading}) {
-    const waves = [
-        {id: 0, stem: "Vocal"}, {id: 1, stem: "Piano"}, {id: 2, stem: "Bass"}, {id: 3, stem: "Other"}
+    console.log(
+        "Player"
+    );
+    const url = "http://192.168.1.106:8080/song.mp3";
+    const waveData = [
+        {id: 0, stem: "Vocal", effect: [{id: 0, name: "Echo"}]},
+        {id: 1, stem: "Piano", effect: []},
+        {id: 2, stem: "Bass", effect: []},
+        {id: 3, stem: "Other", effect: []}
     ];
-    const effects = [
-        {stem: "Vocal", effect: [{id: 0, name: "Echo"}]}, {stem: "Piano", effect: []}, {stem: "Bass", effect: []}, {stem: "Other", effect: []}, 
-    ];
+
+    const waves = [];
+    for(let wData of waveData) {
+        let wave = new Waveform(wData.id, wData.stem, wData.effect, url);
+        waves.push(wave);
+    }
+
     return (
         <div className="player-container">
             <div className="wave-container">
-               {waves.map(w => <Wave key={w.id} isLoading={isLoading} />)} 
+               {waves.map(w => <Wave key={w.getId()} wave={w} isLoading={isLoading} />)} 
             </div>
-            <Mixer isLoading={isLoading} waves={waves} effects={effects}/>
+            <Mixer isLoading={isLoading} waves={waves} />
         </div>
     );
 }
