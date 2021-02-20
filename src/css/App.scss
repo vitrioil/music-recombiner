@@ -67,6 +67,10 @@ html, body, #root, .App {
   &:active {
     background: cadetblue;
   }
+
+  &__active {
+    background: $primary-color;
+  }
 }
 
 

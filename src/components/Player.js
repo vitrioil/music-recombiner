@@ -17,7 +17,6 @@ function Wave({wave, isLoading}) {
             wave.load();
 
             return () => {
-                debugger;
                 wave.destroy();
             };
         }
@@ -69,7 +68,67 @@ function LoadingView() {
     );
 }
 
+function Mix({wave, setStem, forceMute, soloStem, setSoloStem}) {
+    const [isMute, setIsMute] = useState(false);
+    if(forceMute) {
+        wave.mute();
+    }
+
+    useEffect(() => {
+        if(soloStem.length === 0) {
+            wave.mute(false);
+            setIsMute(false);
+        }
+    }, [soloStem]);
+
+    return (
+        <div className="mix">
+            <div className="mix-title" onClick={() => setStem(wave.getName())}>
+                {wave.getName()}
+            </div>
+            <div className="mix-gain">
+                <input className="mix-slider"
+                       min="0" max="100" value="100"
+                       type="range" orient="vertical"
+                       onChange={(e) => wave.setVolume(e.target.value)} />
+            </div>
+            <div className="mix-control">
+                <MuteIcon title="Mute"
+                          className={`img_icons mix-control-item${isMute ? " img_icons__active": ""}`}
+                          onClick={() => {
+                            wave.toggleMute();
+                            setIsMute(wave.isMute());
+                          }} />
+                <SoloIcon title="Solo"
+                          className={`img_icons mix-control-item${soloStem.length === 0 || forceMute ? "": " img_icons__active"}`}
+                          onClick={() => {
+                            let name = wave.getName(),
+                                tempSoloStem = soloStem.filter(i => i !== name);
+                            if(tempSoloStem.length !== soloStem.length) {
+                                // remove solo
+                                setSoloStem(tempSoloStem);
+                                if(tempSoloStem.length !== 0) {
+                                    wave.mute(true);
+                                } else {
+                                    wave.mute(false);
+                                }
+                            } else {
+                                // solo
+                                setSoloStem([...soloStem, name])
+                                wave.mute(false);
+                            }
+                          }} />
+                <Link to={{ pathname: wave.getUrl()}} target="_blank" download>
+                    <DownloadIcon title="Download"
+                        className="img_icons mix-control-item" />
+                </Link>
+            </div>
+        </div>
+    );
+}
+
 function MixerView({waves, setStem}) {
+    const [soloStem, setSoloStem] = useState([]);
 
     return (
         <div className="mix-view">
@@ -99,27 +158,13 @@ function MixerView({waves, setStem}) {
             </div>
             <div className="mix-container">
                 {waves.map(w => 
-                    <div key={w.id} className="mix">
-                        <div className="mix-title" onClick={() => setStem(w.stem)}>
-                            {w.stem}
-                        </div>
-                        <div className="mix-gain">
-                            <input className="mix-slider"
-                                   min="0" max="100"
-                                   type="range" orient="vertical"
-                                   onChange={(e) => w.setVolume(e.target.value)} />
-                        </div>
-                        <div className="mix-control">
-                            <MuteIcon title="Mute"
-                                      className="img_icons mix-control-item"
-                                      onClick={() => w.mute()} />
-                            <SoloIcon title="Solo" className="img_icons mix-control-item" />
-                            <Link to={{ pathname: w.getUrl()}} target="_blank" download>
-                                <DownloadIcon title="Download"
-                                    className="img_icons mix-control-item" />
-                            </Link>
-                        </div>
-                    </div>
+                    <Mix key={w.id}
+                        wave={w}
+                        setStem={setStem}
+                        forceMute={ soloStem.length !== 0 &&
+                                   !soloStem.includes(w.getName()) }
+                        soloStem={soloStem} 
+                        setSoloStem={setSoloStem}/>
                 )}
             </div>
         </div>
@@ -139,6 +184,7 @@ function EffectView({stem, effects, setStem}) {
             <div className="effect-container">
                 {effects.map(e => 
                     <div id={e.id} className="effect">
+                        {e.name}
                     </div>
                 )}
             </div>
@@ -146,15 +192,16 @@ function EffectView({stem, effects, setStem}) {
     );
 }
 
-function Mixer({isLoading, waves, effects}) {
+function Mixer({isLoading, waves}) {
     const [focusedStem, setFocusedStem] = useState();
 
     let view = <LoadingView />;
     if(!isLoading) {
         if(focusedStem) {
+            let [wave] = waves.filter(w => w.getName() === focusedStem);
             view = <EffectView stem={focusedStem}
                                setStem={setFocusedStem}
-                               effects={effects.filter(e => e.stem = focusedStem)} />;
+                               effects={wave.getEffects()} />;
         } else {
             view = <MixerView waves={waves} setStem={setFocusedStem}/>;
         }

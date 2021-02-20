@@ -32,6 +32,10 @@ class Waveform {
         waveSurfRef.current = WaveSurfer.create(waveOptions(waveRef.current));
     }
 
+    setVolume(volume) {
+        this.waveSurfRef.current.setVolume(volume / 100);
+    }
+
     getName() {
         return this.name;
     }
@@ -43,6 +47,14 @@ class Waveform {
     getUrl() {
         console.log(this.url);
         return this.url;
+    }
+
+    getEffects() {
+        return this.effects;
+    }
+
+    isMute() {
+        return this.waveSurfRef.current.getMute();
     }
 
     load() {
@@ -69,11 +81,11 @@ class Waveform {
         this.waveSurfRef.current.skip(skipSec);
     }
 
-    setVolume(volume) {
-        this.waveSurfRef.current.setVolume(volume / 100);
+    mute(val = true) {
+        this.waveSurfRef.current.setMute(val);
     }
 
-    mute() {
+    toggleMute() {
         this.waveSurfRef.current.toggleMute();
     }
 

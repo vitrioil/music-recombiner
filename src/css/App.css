@@ -43,6 +43,10 @@ html, body, #root, .App {
   background: cadetblue;
 }
 
+.img_icons__active {
+  background: #06d6a0;
+}
+
 .App {
   background: #073b4c;
   display: -ms-grid;
