@@ -2,19 +2,13 @@ import WaveSurfer from "wavesurfer.js";
 
 const waveOptions = (ref) => ({
     container: ref,
-    responsive: true,
+    responsive: false,
     waveColor: "#554080",
     progressColor: "#00ffc0",
     barWidth: 3,
     barRadius: 3,
     height: 100,
     showTime: true,
-    customShowTimeStyle: {
-        'background-color': '#000',
-        color: '#fff',
-        padding: '2px',
-        'font-size': '10px'
-    }
 });
 
 class Waveform {
@@ -34,6 +28,10 @@ class Waveform {
 
     setVolume(volume) {
         this.waveSurfRef.current.setVolume(volume / 100);
+    }
+
+    addEvent(eventName, callback) {
+        this.waveSurfRef.current.on(eventName, callback);
     }
 
     getName() {
@@ -79,6 +77,10 @@ class Waveform {
 
     skip(skipSec) {
         this.waveSurfRef.current.skip(skipSec);
+    }
+
+    seek(progress) {
+        this.waveSurfRef.current.seekTo(progress);
     }
 
     mute(val = true) {

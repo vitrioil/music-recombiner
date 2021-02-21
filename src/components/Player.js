@@ -68,18 +68,36 @@ function LoadingView() {
     );
 }
 
-function Mix({wave, setStem, forceMute, soloStem, setSoloStem}) {
+function Mix({wave, setStem, forceMute, soloStem, setSoloStem, sync, syncTime, setSyncTime}) {
     const [isMute, setIsMute] = useState(false);
+
     if(forceMute) {
         wave.mute();
     }
 
+    // when solo state changes, one solo active to zero --> unmute all
     useEffect(() => {
         if(soloStem.length === 0) {
             wave.mute(false);
             setIsMute(false);
         }
     }, [soloStem]);
+
+    // set sync time
+    useEffect(() => {
+        if(sync) {
+            wave.seek(syncTime)
+        }
+    }, [wave, syncTime]);
+    
+    useEffect(() => {
+        if(sync) {
+            const onSeekUpdateTime = (progress) => {
+                setSyncTime(progress);
+            };
+            wave.addEvent("seek", onSeekUpdateTime);
+        }
+    }, [sync]);
 
     return (
         <div className="mix">
@@ -129,6 +147,13 @@ function Mix({wave, setStem, forceMute, soloStem, setSoloStem}) {
 
 function MixerView({waves, setStem}) {
     const [soloStem, setSoloStem] = useState([]);
+    const [sync, setSync] = useState(false);
+    const [syncTime, setSyncTime] = useState(0);
+
+    // time synced, reset sync
+    useEffect(() => {
+        setSync(false);
+    }, [syncTime]);
 
     return (
         <div className="mix-view">
@@ -154,7 +179,8 @@ function MixerView({waves, setStem}) {
                               waves.map((wave) => wave.stop())
                           }} />
                 <SyncIcon title="Sync All"
-                          className="img_icons mix-item" />
+                          className={`img_icons mix-item${sync ? " img_icons__active": ""}`}
+                          onClick={() => setSync(!sync)} />
             </div>
             <div className="mix-container">
                 {waves.map(w => 
@@ -164,7 +190,10 @@ function MixerView({waves, setStem}) {
                         forceMute={ soloStem.length !== 0 &&
                                    !soloStem.includes(w.getName()) }
                         soloStem={soloStem} 
-                        setSoloStem={setSoloStem}/>
+                        setSoloStem={setSoloStem}
+                        sync={sync}
+                        syncTime={syncTime}
+                        setSyncTime={setSyncTime} />
                 )}
             </div>
         </div>
@@ -217,17 +246,18 @@ function Player({isLoading}) {
     console.log(
         "Player"
     );
-    const url = "http://192.168.1.106:8080/song.mp3";
+    const url = "http://192.168.1.106:8080/";
     const waveData = [
-        {id: 0, stem: "Vocal", effect: [{id: 0, name: "Echo"}]},
-        {id: 1, stem: "Piano", effect: []},
-        {id: 2, stem: "Bass", effect: []},
-        {id: 3, stem: "Other", effect: []}
+        {id: 0, stem: "Vocal", url: url + "vocals.mp3", effect: [{id: 0, name: "Echo"}]},
+        {id: 1, stem: "Piano", url: url + "piano.mp3", effect: []},
+        {id: 2, stem: "Bass", url: url + "bass.mp3", effect: []},
+        {id: 3, stem: "Drums", url: url + "drums.mp3", effect: []},
+        {id: 4, stem: "Other", url: url + "other.mp3", effect: []}
     ];
 
     const waves = [];
     for(let wData of waveData) {
-        let wave = new Waveform(wData.id, wData.stem, wData.effect, url);
+        let wave = new Waveform(wData.id, wData.stem, wData.effect, wData.url);
         waves.push(wave);
     }
 
