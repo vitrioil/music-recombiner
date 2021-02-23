@@ -1,53 +1,9 @@
 import { Link } from "react-router-dom";
-import { useEffect, createRef, useState } from "react";
+import { useEffect, useState } from "react";
 
-import Loading from "./utils/Loading";
 import {PauseIcon, RewindIcon, StopIcon, ForwardIcon,
         SyncIcon, MuteIcon, DownloadIcon, SoloIcon} from "./utils/Icon";
-import {Waveform} from "./utils/PlayerUtils";
 
-
-function Wave({wave, isLoading}) {
-    const waveRef = createRef(null);
-    const waveSurfRef = createRef(null);
-    
-    useEffect(() => {
-        if(!isLoading) {
-            wave.setRef(waveRef, waveSurfRef);
-            wave.load();
-
-            return () => {
-                wave.destroy();
-            };
-        }
-    }, [isLoading]);
-
-    return (
-        <div className="wave">
-            <div className="wave__side">
-                <RewindIcon onClick={() => wave.rewind()}
-                            title="Rewind"
-                            className="img_icons wave__side__actions" />
-                <PauseIcon onClick={() => wave.playPause()}
-                           title="Pause"
-                           className="img_icons wave__side__actions" />
-                <ForwardIcon onClick={() => wave.forward()}
-                             title="Forward"
-                             className="img_icons wave__side__actions" />
-                <StopIcon onClick={() => wave.stop()}
-                          title="Stop"
-                          className="img_icons wave__side__actions" />
-            </div>
-            <div className="wave__content">
-                {isLoading ?
-                    <Loading className="progress__wave"/>
-                    :
-                    <div className="waveform" ref={waveRef}></div>
-                }
-            </div>
-        </div>
-    );
-}
 
 function LoadingView() {
     return (
@@ -242,33 +198,4 @@ function Mixer({isLoading, waves}) {
     );
 }
 
-function Player({isLoading}) {
-    console.log(
-        "Player"
-    );
-    const url = "http://192.168.1.106:8080/";
-    const waveData = [
-        {id: 0, stem: "Vocal", url: url + "vocals.mp3", effect: [{id: 0, name: "Echo"}]},
-        {id: 1, stem: "Piano", url: url + "piano.mp3", effect: []},
-        {id: 2, stem: "Bass", url: url + "bass.mp3", effect: []},
-        {id: 3, stem: "Drums", url: url + "drums.mp3", effect: []},
-        {id: 4, stem: "Other", url: url + "other.mp3", effect: []}
-    ];
-
-    const waves = [];
-    for(let wData of waveData) {
-        let wave = new Waveform(wData.id, wData.stem, wData.effect, wData.url);
-        waves.push(wave);
-    }
-
-    return (
-        <div className="player-container">
-            <div className="wave-container">
-               {waves.map(w => <Wave key={w.getId()} wave={w} isLoading={isLoading} />)} 
-            </div>
-            <Mixer isLoading={isLoading} waves={waves} />
-        </div>
-    );
-}
-
-export default Player;
+export default Mixer;
