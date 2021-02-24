@@ -1,9 +1,13 @@
+import { DESTROY_WAVE } from "../actionTypes";
 import { PLAY_PAUSE_WAVE, STOP_WAVE, REWIND_WAVE,
          FORWARD_WAVE, SYNC_WAVE, LOAD_WAVE, INIT_WAVE,
-         ADD_REF_WAVE } from "./actionTypes";
+         ADD_REF_WAVE } from "../actionTypes";
+import { Waveform } from "../../components/utils/PlayerUtils";
 
 const initState = {
-    waves: {}
+    waves: {},
+    isLoading: {},
+    focusedStem: ""
 }
 
 const getWave = (state, payload) => {
@@ -17,36 +21,38 @@ function rootReducer(state = initState, action) {
         case INIT_WAVE: {
             const { id, stem, effect, url } = action.payload;
             const wave = new Waveform(id, stem, effect, url);
-            const { wave, stem, id, stem, effect, url } = getWave(state, payload);
 
             return {
                 ...state,
-                waves: {...waves, stem: wave}
+                waves: {...state.waves, [stem]: wave}
             }
         }
         case ADD_REF_WAVE: {
-            const { stem, waveRef, waveSurfRef } = action.payload;
-            const wave = state.waves[stem];
+            const { wave, stem, waveRef, waveSurfRef } = getWave(state, action.payload);
             wave.setRef(waveRef, waveSurfRef);
 
             return {
                 ...state,
-                waves: {...waves, stem: wave}
+                waves: {...state.waves, stem: wave}
             }
         }
         case LOAD_WAVE: {
-            const { stem } = action.payload;
-            const wave = state.waves[stem];
+            const { wave, stem } = getWave(state, action.payload);
             wave.load();
 
             return {
                 ...state,
-                waves: {...waves, stem: wave}
+                waves: {...state.waves, stem: wave}
             }
         }
+        case DESTROY_WAVE: {
+            const { wave, stem } = getWave(state, action.payload);
+            wave.destroy();
+
+            return state;
+        }
         case PLAY_PAUSE_WAVE: {
-            const { stem } = action.payload;
-            const wave = state.waves[stem];
+            const { wave, stem } = getWave(state, action.payload);
             wave.playPause();
 
             return state;

@@ -4,6 +4,9 @@ export const FORWARD_WAVE = "FORWARD_WAVE";
 export const STOP_WAVE = "STOP_WAVE";
 export const SYNC_WAVE = "SYNC_WAVE";
 export const LOAD_WAVE = "LOAD_WAVE";
+export const DESTROY_WAVE = "DESTROY_WAVE";
 
 export const ADD_REF_WAVE = "ADD_REF_WAVE";
 export const INIT_WAVE = "INIT_WAVE";
+
+export const SET_STEM = "SET_STEM";

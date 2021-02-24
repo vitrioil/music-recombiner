@@ -1,20 +1,21 @@
 import { useEffect, createRef } from "react";
 
-import Loading from "./utils/Loading";
-import {PauseIcon, RewindIcon, StopIcon, ForwardIcon} from "./utils/Icon";
+import Loading from "../utils/Loading";
+import {PauseIcon, RewindIcon, StopIcon, ForwardIcon} from "../utils/Icon";
+import { addRefWave, destroyWave, loadWave } from "../../redux/actions";
+import { connect } from "react-redux";
 
-
-function Wave({wave, isLoading}) {
+function Wave({wave, isLoading, addRefWave, loadWave, destroyWave}) {
     const waveRef = createRef(null);
     const waveSurfRef = createRef(null);
     
     useEffect(() => {
         if(!isLoading) {
-            wave.setRef(waveRef, waveSurfRef);
-            wave.load();
+            addRefWave(waveRef, waveSurfRef);
+            loadWave();
 
             return () => {
-                wave.destroy();
+                destroyWave();
             };
         }
     }, [isLoading]);
@@ -46,12 +47,10 @@ function Wave({wave, isLoading}) {
     );
 }
 
-function Waves({isLoading, waves}) {
-    return (
-        <div className="wave-container">
-            {waves.map(w => <Wave key={w.getId()} wave={w} isLoading={isLoading} />)} 
-        </div>
-    )
-}
+const mapDispatchToProps = {
+    addRefWave,
+    loadWave,
+    destroyWave
+};
 
-export default Waves;
+export default connect(null, mapDispatchToProps)(Wave);

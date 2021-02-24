@@ -1,12 +1,12 @@
-import { Waveform } from "./utils/PlayerUtils";
+import { connect } from "react-redux";
+import { initWave } from "../../redux/actions";
+
 import Mixer from "./mixer"; 
-import Waves from "./wave";
+import Waves from "./waves";
 
 
-function Player({isLoading}) {
-    console.log(
-        "Player"
-    );
+function Player({initWave}) {
+    // make API call here or pass...
     const url = "http://192.168.1.106:8080/";
     const waveData = [
         {id: 0, stem: "Vocal", url: url + "vocals.mp3", effect: [{id: 0, name: "Echo"}]},
@@ -16,18 +16,20 @@ function Player({isLoading}) {
         {id: 4, stem: "Other", url: url + "other.mp3", effect: []}
     ];
 
-    const waves = [];
     for(let wData of waveData) {
-        let wave = new Waveform(wData.id, wData.stem, wData.effect, wData.url);
-        waves.push(wave);
+        initWave(wData.stem, wData.id, wData.effect, wData.url);
     }
 
     return (
         <div className="player-container">
-            <Waves isLoading={isLoading} waves={waves} />
-            <Mixer isLoading={isLoading} waves={waves} />
+            <Waves />
+            <Mixer />
         </div>
     );
 }
 
-export default Player;
+const mapDispatchToProps = {
+    initWave
+};
+
+export default connect(null, mapDispatchToProps)(Player);
