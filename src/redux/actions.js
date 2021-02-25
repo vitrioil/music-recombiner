@@ -2,24 +2,24 @@ import { PLAY_PAUSE_WAVE, STOP_WAVE, REWIND_WAVE,
          FORWARD_WAVE, SYNC_WAVE, LOAD_WAVE, ADD_REF_WAVE,
          INIT_WAVE, DESTROY_WAVE, SET_STEM } from "./actionTypes";
 
-export const playPauseWave = (stem) => ({
-    type: PLAY_PAUSE_WAVE,
+export const playPauseWave = () => ({
+    type: PLAY_PAUSE_WAVE
 });
 
-export const stopWave = (stem) => ({
-    type: STOP_WAVE,
+export const stopWave = () => ({
+    type: STOP_WAVE
 });
 
-export const rewindWave = (stem) => ({
-    type: REWIND_WAVE,
+export const rewindWave = () => ({
+    type: REWIND_WAVE
 });
 
-export const forwardWave = (stem) => ({
-    type: FORWARD_WAVE,
+export const forwardWave = () => ({
+    type: FORWARD_WAVE
 });
 
-export const syncWave = (stem) => ({
-    type: SYNC_WAVE,
+export const syncWave = () => ({
+    type: SYNC_WAVE
 });
 
 export const initWave = (stem, id, effect, url) => ({

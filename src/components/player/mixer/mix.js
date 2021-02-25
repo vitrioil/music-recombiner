@@ -41,7 +41,7 @@ function Mix({wave, setStem, forceMute, soloStem, setSoloStem, sync, syncTime, s
             </div>
             <div className="mix-gain">
                 <input className="mix-slider"
-                       min="0" max="100" value="100"
+                       min="0" max="100" defaultValue="100"
                        type="range" orient="vertical"
                        onChange={(e) => wave.setVolume(e.target.value)} />
             </div>

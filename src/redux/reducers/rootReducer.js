@@ -6,15 +6,15 @@ import { Waveform } from "../../components/utils/PlayerUtils";
 
 const initState = {
     waves: {},
-    isLoading: {},
+    isLoading: false,
     focusedStem: ""
-}
+};
 
 const getWave = (state, payload) => {
     const { stem, ...other } = payload;
     const wave = state.waves[stem];
     return {wave, stem, ...other}
-}
+};
 
 function rootReducer(state = initState, action) {
     switch (action.type) {
@@ -25,7 +25,7 @@ function rootReducer(state = initState, action) {
             return {
                 ...state,
                 waves: {...state.waves, [stem]: wave}
-            }
+            };
         }
         case ADD_REF_WAVE: {
             const { wave, stem, waveRef, waveSurfRef } = getWave(state, action.payload);
@@ -33,8 +33,8 @@ function rootReducer(state = initState, action) {
 
             return {
                 ...state,
-                waves: {...state.waves, stem: wave}
-            }
+                waves: {...state.waves, [stem]: wave}
+            };
         }
         case LOAD_WAVE: {
             const { wave, stem } = getWave(state, action.payload);
@@ -42,19 +42,29 @@ function rootReducer(state = initState, action) {
 
             return {
                 ...state,
-                waves: {...state.waves, stem: wave}
-            }
+                waves: {...state.waves, [stem]: wave}
+            };
         }
         case DESTROY_WAVE: {
             const { wave, stem } = getWave(state, action.payload);
             wave.destroy();
 
             return state;
-        }
+        };
         case PLAY_PAUSE_WAVE: {
-            const { wave, stem } = getWave(state, action.payload);
-            wave.playPause();
-
+            Object.values(state.waves).map((wave) => wave.playPause());
+            return state;
+        }
+        case STOP_WAVE: {
+            Object.values(state.waves).map((wave) => wave.stop());
+            return state;
+        }
+        case REWIND_WAVE: {
+            Object.values(state.waves).map((wave) => wave.rewind());
+            return state;
+        }
+        case FORWARD_WAVE: {
+            Object.values(state.waves).map((wave) => wave.forward());
             return state;
         }
         default:

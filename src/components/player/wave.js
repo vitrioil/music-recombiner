@@ -11,11 +11,11 @@ function Wave({wave, isLoading, addRefWave, loadWave, destroyWave}) {
     
     useEffect(() => {
         if(!isLoading) {
-            addRefWave(waveRef, waveSurfRef);
-            loadWave();
+            addRefWave(wave.getName(), waveRef, waveSurfRef);
+            loadWave(wave.getName());
 
             return () => {
-                destroyWave();
+                destroyWave(wave.getName());
             };
         }
     }, [isLoading]);
