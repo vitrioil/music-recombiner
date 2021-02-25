@@ -7,12 +7,12 @@ import './css/App.css';
 import Home from "./components/Home";
 import {RouteNav, PlayerNav} from "./components/Nav";
 import Saved from "./components/Saved";
-import Player from "./components/Player";
+import Player from "./components/player";
 import { useState } from "react";
 
 function App() {
-  const [isLoading, setIsLoading] = useState(true);
-  setTimeout(() => setIsLoading(false), 500);
+  const [isLoading, setIsLoading] = useState(false);
+  // setTimeout(() => setIsLoading(false), 500);
 
   return (
     <BrowserRouter>
@@ -28,7 +28,7 @@ function App() {
           </Route>
           <Route path="/player">
             <PlayerNav />
-            <Player isLoading={isLoading}/>
+            <Player />
           </Route>
         </Switch>
       </div>
