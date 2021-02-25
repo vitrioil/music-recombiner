@@ -1,7 +1,7 @@
 import { DESTROY_WAVE } from "../actionTypes";
 import { PLAY_PAUSE_WAVE, STOP_WAVE, REWIND_WAVE,
          FORWARD_WAVE, SYNC_WAVE, LOAD_WAVE, INIT_WAVE,
-         ADD_REF_WAVE } from "../actionTypes";
+         ADD_REF_WAVE, SET_STEM } from "../actionTypes";
 import { Waveform } from "../../components/utils/PlayerUtils";
 
 const initState = {
@@ -66,6 +66,14 @@ function rootReducer(state = initState, action) {
         case FORWARD_WAVE: {
             Object.values(state.waves).map((wave) => wave.forward());
             return state;
+        }
+        case SET_STEM: {
+            const { stem } = action.payload;
+
+            return {
+                ...state,
+                focusedStem: stem
+            }
         }
         default:
             return state;

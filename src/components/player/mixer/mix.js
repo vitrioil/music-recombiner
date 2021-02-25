@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { connect } from "react-redux";
 
 import {MuteIcon, DownloadIcon, SoloIcon} from "../../utils/Icon";
+import { setStem } from "../../../redux/actions";
 
-function Mix({wave, setStem, forceMute, soloStem, setSoloStem, sync, syncTime, setSyncTime}) {
+function Mix({wave, forceMute, soloStem, setSoloStem, sync, syncTime, setSyncTime, setStem}) {
     const [isMute, setIsMute] = useState(false);
 
     if(forceMute) {
@@ -80,4 +82,8 @@ function Mix({wave, setStem, forceMute, soloStem, setSoloStem, sync, syncTime, s
     );
 }
 
-export default Mix;
+const mapDispatchToProps = {
+    setStem
+}
+
+export default connect(null, mapDispatchToProps)(Mix);
