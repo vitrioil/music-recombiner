@@ -10,3 +10,7 @@ export const ADD_REF_WAVE = "ADD_REF_WAVE";
 export const INIT_WAVE = "INIT_WAVE";
 
 export const SET_STEM = "SET_STEM";
+
+export const TOGGLE_SYNC = "TOGGLE_SYNC";
+export const SET_SYNC = "SET_SYNC";
+export const SET_SYNC_TIME = "SET_SYNC_TIME";

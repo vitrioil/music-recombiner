@@ -1,13 +1,14 @@
-import { DESTROY_WAVE } from "../actionTypes";
+import { DESTROY_WAVE, SET_SYNC_TIME, TOGGLE_SYNC } from "../actionTypes";
 import { PLAY_PAUSE_WAVE, STOP_WAVE, REWIND_WAVE,
-         FORWARD_WAVE, SYNC_WAVE, LOAD_WAVE, INIT_WAVE,
+         FORWARD_WAVE, SET_SYNC, LOAD_WAVE, INIT_WAVE,
          ADD_REF_WAVE, SET_STEM } from "../actionTypes";
 import { Waveform } from "../../components/utils/PlayerUtils";
 
 const initState = {
     waves: {},
     isLoading: false,
-    focusedStem: ""
+    focusedStem: "",
+    sync: { enabled: false, time: 0 }
 };
 
 const getWave = (state, payload) => {
@@ -73,6 +74,28 @@ function rootReducer(state = initState, action) {
             return {
                 ...state,
                 focusedStem: stem
+            }
+        }
+        case TOGGLE_SYNC: {
+            return {
+                ...state,
+                sync: {...state.sync, enabled: !state.sync.enabled}
+            };
+        }
+        case SET_SYNC: {
+            const { syncStatus } = action.payload;
+
+            return {
+                ...state,
+                sync: {...state.sync, enabled: syncStatus}
+            };
+        }
+        case SET_SYNC_TIME: {
+            const { time } = action.payload;
+
+            return {
+                ...state,
+                sync: {...state.sync, enabled: false, time: time}
             }
         }
         default:

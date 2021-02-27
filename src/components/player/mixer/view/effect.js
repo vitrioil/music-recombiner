@@ -1,26 +1,37 @@
 import { connect } from "react-redux";
 
 import { setStem } from "../../../../redux/actions";
+import BaseView from "./base";
 
-function EffectView({stem, effects, setStem}) {
+
+function EffectCell({name}) {
     return (
-        <div className="effect-view">
-            <div className="effect-header">
-                <button className="effect-button"
-                        onClick={() => setStem("")}>
-                        Back
-                </button>
-                <p className="effect-name">{stem} effects</p>
-            </div>
-            <div className="effect-container">
-                {effects.map(e => 
-                    <div id={e.id} className="effect">
-                        {e.name}
-                    </div>
-                )}
-            </div>
+        <div className="effect">
+            <p>{name}</p>
         </div>
     );
+}
+
+class EffectView extends BaseView {
+
+    render() {
+        return (
+            <div className="effect-view">
+                <div className="effect-header">
+                    <button className="effect-button"
+                            onClick={() => this.props.setStem("")}>
+                            Back
+                    </button>
+                    <p className="effect-name">{`${this.props.stem} effects`}</p>
+                </div>
+                <div className="effect-container">
+                    {this.props.effects.map(e => 
+                        <EffectCell key={e.id} name={e.name} />
+                    )}
+                </div>
+            </div>
+        );
+    }
 }
 
 const mapStateToProps = state => ({

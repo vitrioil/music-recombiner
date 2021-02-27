@@ -3,14 +3,15 @@ import { connect } from "react-redux";
 
 import {PauseIcon, RewindIcon, StopIcon, ForwardIcon,
         SyncIcon} from "../../../utils/Icon";
-import { setStem, rewindWave, playPauseWave, forwardWave, stopWave } from "../../../../redux/actions";
+import { toggleSync, setSync, setStem, rewindWave,
+         playPauseWave, forwardWave, stopWave } from "../../../../redux/actions";
 import Mix  from "../mix";
 
 
-function MixerView({waves, setStem, rewindWave, playPauseWave,
-                    forwardWave, stopWave}) {
+function MixerView({waves, sync, setStem, setSync, toggleSync, rewindWave, 
+                    playPauseWave, forwardWave, stopWave}) {
     const [soloStem, setSoloStem] = useState([]);
-    const [sync, setSync] = useState(false);
+    // const [sync, setSync] = useState(false);
     const [syncTime, setSyncTime] = useState(0);
 
     // time synced, reset sync
@@ -35,7 +36,7 @@ function MixerView({waves, setStem, rewindWave, playPauseWave,
                           onClick={stopWave} />
                 <SyncIcon title="Sync All"
                           className={`img_icons mix-item${sync ? " img_icons__active": ""}`}
-                          onClick={() => setSync(!sync)} />
+                          onClick={toggleSync} />
             </div>
             <div className="mix-container">
                 {Object.entries(waves).map(([stem, wave]) => (
@@ -56,11 +57,14 @@ function MixerView({waves, setStem, rewindWave, playPauseWave,
 }
 
 const mapStateToProps = state => ({
-    waves: state.waves
+    waves: state.waves,
+    sync: state.sync.enabled
 });
 
 const mapDispatchToProps = {
     setStem,
+    setSync,
+    toggleSync,
     rewindWave,
     playPauseWave,
     forwardWave,

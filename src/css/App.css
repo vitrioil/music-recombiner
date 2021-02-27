@@ -622,6 +622,7 @@ nav .player__ul .player__title {
 .player-container .mixer-container .effect-view .effect-container .effect {
   height: 150px;
   background: #118ab2;
+  text-align: center;
 }
 
 .progress {

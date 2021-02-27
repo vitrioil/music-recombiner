@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import {MuteIcon, DownloadIcon, SoloIcon} from "../../utils/Icon";
 import { setStem } from "../../../redux/actions";
 
-function Mix({wave, forceMute, soloStem, setSoloStem, sync, syncTime, setSyncTime, setStem}) {
+function Mix({sync, wave, forceMute, soloStem, setSoloStem, syncTime, setSyncTime, setStem}) {
     const [isMute, setIsMute] = useState(false);
 
     if(forceMute) {
@@ -82,8 +82,12 @@ function Mix({wave, forceMute, soloStem, setSoloStem, sync, syncTime, setSyncTim
     );
 }
 
+const mapStateToProps = state => ({
+    sync: state.sync.enabled
+});
+
 const mapDispatchToProps = {
     setStem
 }
 
-export default connect(null, mapDispatchToProps)(Mix);
+export default connect(mapStateToProps, mapDispatchToProps)(Mix);
