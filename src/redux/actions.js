@@ -1,6 +1,6 @@
 import { PLAY_PAUSE_WAVE, STOP_WAVE, REWIND_WAVE,
          FORWARD_WAVE, SYNC_WAVE, LOAD_WAVE, ADD_REF_WAVE,
-         INIT_WAVE, DESTROY_WAVE, SET_STEM, TOGGLE_SYNC, SET_SYNC, SET_SYNC_TIME } from "./actionTypes";
+         INIT_WAVE, DESTROY_WAVE, SET_STEM, TOGGLE_SYNC, SET_SYNC, SET_SYNC_TIME, SET_SOLO } from "./actionTypes";
 
 export const playPauseWave = () => ({
     type: PLAY_PAUSE_WAVE
@@ -77,5 +77,13 @@ export const setSyncTime = (time) => ({
     type: SET_SYNC_TIME,
     payload: {
         time: time
+    }
+});
+
+export const setSolo = (stem, soloStatus) => ({
+    type: SET_SOLO,
+    payload: {
+        stem: stem,
+        soloStatus: soloStatus
     }
 });

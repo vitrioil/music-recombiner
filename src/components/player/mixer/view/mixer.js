@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+// import { useState } from "react";
 import { connect } from "react-redux";
 
 import {PauseIcon, RewindIcon, StopIcon, ForwardIcon,
@@ -8,9 +8,9 @@ import { toggleSync, setSync, rewindWave,
 import Mix  from "../mix";
 
 
-function MixerView({waves, sync, syncTime, setSync, toggleSync, rewindWave, 
+function MixerView({waves, sync, toggleSync, rewindWave, 
                     playPauseWave, forwardWave, stopWave}) {
-    const [soloStem, setSoloStem] = useState([]);
+    // const [soloStem, setSoloStem] = useState([]);
 
     return (
         <div className="mix-view">
@@ -34,11 +34,11 @@ function MixerView({waves, sync, syncTime, setSync, toggleSync, rewindWave,
             <div className="mix-container">
                 {Object.entries(waves).map(([_, wave]) => (
                     <Mix key={wave.getId()}
-                        wave={wave}
-                        forceMute={ soloStem.length !== 0 &&
-                                   !soloStem.includes(wave.getName()) }
-                        soloStem={soloStem} 
-                        setSoloStem={setSoloStem} />
+                        wave={wave} />
+                        // forceMute={ soloStem.length !== 0 &&
+                        //            !soloStem.includes(wave.getName()) }
+                        // soloStem={soloStem} 
+                        // setSoloStem={setSoloStem} />
                 ))}
             </div>
         </div>

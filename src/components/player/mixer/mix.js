@@ -3,21 +3,22 @@ import { useEffect, useState } from "react";
 import { connect } from "react-redux";
 
 import {MuteIcon, DownloadIcon, SoloIcon} from "../../utils/Icon";
-import { setStem, setSync, setSyncTime } from "../../../redux/actions";
+import { setStem, setSync, setSyncTime, setSolo } from "../../../redux/actions";
 
-function Mix({sync, wave, syncTime, setStem, setSync, setSyncTime,
-              forceMute, soloStem, setSoloStem}) {
+
+function Mix({sync, syncTime, soloStem, wave,
+              setStem, setSync, setSyncTime, setSolo}) {
     const [isMute, setIsMute] = useState(false);
-
-    if(forceMute) {
-        wave.mute();
-    }
+    const stem = wave.getName();
+    const forceMute = soloStem.length !== 0 && !soloStem.includes(stem);
 
     // when solo state changes, one solo active to zero --> unmute all
     useEffect(() => {
-        if(soloStem.length === 0) {
+        if(soloStem.length === 0 || soloStem.includes(stem)) {
             wave.mute(false);
             setIsMute(false);
+        } else if (!soloStem.includes(stem)) {
+            wave.mute(true);
         }
     }, [soloStem]);
 
@@ -54,26 +55,23 @@ function Mix({sync, wave, syncTime, setStem, setSync, setSyncTime,
                 <MuteIcon title="Mute"
                           className={`img_icons mix-control-item${isMute ? " img_icons__active": ""}`}
                           onClick={() => {
-                            wave.toggleMute();
-                            setIsMute(wave.isMute());
+                            if(soloStem.includes(stem)) {
+                                setSolo(stem, "REMOVE");
+                            } else if(soloStem.length === 0) {
+                                wave.toggleMute();
+                                setIsMute(wave.isMute());
+                            }
                           }} />
                 <SoloIcon title="Solo"
                           className={`img_icons mix-control-item${soloStem.length === 0 || forceMute ? "": " img_icons__active"}`}
                           onClick={() => {
-                            let name = wave.getName(),
-                                tempSoloStem = soloStem.filter(i => i !== name);
-                            if(tempSoloStem.length !== soloStem.length) {
+                            const isSolo = soloStem.includes(stem);
+                            if(isSolo) {
                                 // remove solo
-                                setSoloStem(tempSoloStem);
-                                if(tempSoloStem.length !== 0) {
-                                    wave.mute(true);
-                                } else {
-                                    wave.mute(false);
-                                }
+                                setSolo(stem, "REMOVE")
                             } else {
                                 // solo
-                                setSoloStem([...soloStem, name])
-                                wave.mute(false);
+                                setSolo(stem, "ADD");
                             }
                           }} />
                 <Link to={{ pathname: wave.getUrl()}} target="_blank" download>
@@ -87,13 +85,15 @@ function Mix({sync, wave, syncTime, setStem, setSync, setSyncTime,
 
 const mapStateToProps = state => ({
     sync: state.sync.enabled,
-    syncTime: state.sync.time
+    syncTime: state.sync.time,
+    soloStem: state.soloStem
 });
 
 const mapDispatchToProps = {
     setStem,
     setSync,
-    setSyncTime
+    setSyncTime,
+    setSolo
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Mix);

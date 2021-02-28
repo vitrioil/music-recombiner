@@ -14,3 +14,5 @@ export const SET_STEM = "SET_STEM";
 export const TOGGLE_SYNC = "TOGGLE_SYNC";
 export const SET_SYNC = "SET_SYNC";
 export const SET_SYNC_TIME = "SET_SYNC_TIME";
+
+export const SET_SOLO = "SET_SOLO";
