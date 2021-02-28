@@ -3,21 +3,14 @@ import { connect } from "react-redux";
 
 import {PauseIcon, RewindIcon, StopIcon, ForwardIcon,
         SyncIcon} from "../../../utils/Icon";
-import { toggleSync, setSync, setStem, rewindWave,
+import { toggleSync, setSync, rewindWave,
          playPauseWave, forwardWave, stopWave } from "../../../../redux/actions";
 import Mix  from "../mix";
 
 
-function MixerView({waves, sync, setStem, setSync, toggleSync, rewindWave, 
+function MixerView({waves, sync, syncTime, setSync, toggleSync, rewindWave, 
                     playPauseWave, forwardWave, stopWave}) {
     const [soloStem, setSoloStem] = useState([]);
-    // const [sync, setSync] = useState(false);
-    const [syncTime, setSyncTime] = useState(0);
-
-    // time synced, reset sync
-    useEffect(() => {
-        setSync(false);
-    }, [syncTime]);
 
     return (
         <div className="mix-view">
@@ -39,17 +32,13 @@ function MixerView({waves, sync, setStem, setSync, toggleSync, rewindWave,
                           onClick={toggleSync} />
             </div>
             <div className="mix-container">
-                {Object.entries(waves).map(([stem, wave]) => (
+                {Object.entries(waves).map(([_, wave]) => (
                     <Mix key={wave.getId()}
                         wave={wave}
-                        setStem={setStem}
                         forceMute={ soloStem.length !== 0 &&
                                    !soloStem.includes(wave.getName()) }
                         soloStem={soloStem} 
-                        setSoloStem={setSoloStem}
-                        sync={sync}
-                        syncTime={syncTime}
-                        setSyncTime={setSyncTime} />
+                        setSoloStem={setSoloStem} />
                 ))}
             </div>
         </div>
@@ -58,11 +47,10 @@ function MixerView({waves, sync, setStem, setSync, toggleSync, rewindWave,
 
 const mapStateToProps = state => ({
     waves: state.waves,
-    sync: state.sync.enabled
+    sync: state.sync.enabled,
 });
 
 const mapDispatchToProps = {
-    setStem,
     setSync,
     toggleSync,
     rewindWave,

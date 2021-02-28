@@ -95,7 +95,7 @@ function rootReducer(state = initState, action) {
 
             return {
                 ...state,
-                sync: {...state.sync, enabled: false, time: time}
+                sync: {...state.sync, time: time}
             }
         }
         default:

@@ -3,9 +3,10 @@ import { useEffect, useState } from "react";
 import { connect } from "react-redux";
 
 import {MuteIcon, DownloadIcon, SoloIcon} from "../../utils/Icon";
-import { setStem } from "../../../redux/actions";
+import { setStem, setSync, setSyncTime } from "../../../redux/actions";
 
-function Mix({sync, wave, forceMute, soloStem, setSoloStem, syncTime, setSyncTime, setStem}) {
+function Mix({sync, wave, syncTime, setStem, setSync, setSyncTime,
+              forceMute, soloStem, setSoloStem}) {
     const [isMute, setIsMute] = useState(false);
 
     if(forceMute) {
@@ -24,8 +25,10 @@ function Mix({sync, wave, forceMute, soloStem, setSoloStem, syncTime, setSyncTim
     useEffect(() => {
         if(sync) {
             wave.seek(syncTime)
+            wave.removeEvent("seek");
+            setSync(false);
         }
-    }, [wave, syncTime]);
+    }, [syncTime]);
     
     useEffect(() => {
         if(sync) {
@@ -83,11 +86,14 @@ function Mix({sync, wave, forceMute, soloStem, setSoloStem, syncTime, setSyncTim
 }
 
 const mapStateToProps = state => ({
-    sync: state.sync.enabled
+    sync: state.sync.enabled,
+    syncTime: state.sync.time
 });
 
 const mapDispatchToProps = {
-    setStem
+    setStem,
+    setSync,
+    setSyncTime
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Mix);

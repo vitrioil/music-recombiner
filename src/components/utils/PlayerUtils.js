@@ -34,6 +34,10 @@ class Waveform {
         this.waveSurfRef.current.on(eventName, callback);
     }
 
+    removeEvent(eventName, callback) {
+        this.waveSurfRef.current.un(eventName, callback);
+    }
+
     getName() {
         return this.name;
     }
