@@ -16,3 +16,4 @@ export const SET_SYNC = "SET_SYNC";
 export const SET_SYNC_TIME = "SET_SYNC_TIME";
 
 export const SET_SOLO = "SET_SOLO";
+export const SET_MIXER_VIEW = "SET_MIXER_VIEW";

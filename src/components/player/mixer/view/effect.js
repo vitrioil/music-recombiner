@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 
-import { setStem } from "../../../../redux/actions";
+import { setStem, setMixerView } from "../../../../redux/actions";
 import BaseView from "./base";
 
 
@@ -19,7 +19,10 @@ class EffectView extends BaseView {
             <div className="effect-view">
                 <div className="effect-header">
                     <button className="effect-button"
-                            onClick={() => this.props.setStem("")}>
+                            onClick={() => {
+                                        this.props.setMixerView("mixer");
+                                        this.props.setStem("");
+                                    }}>
                             Back
                     </button>
                     <p className="effect-name">{`${this.props.stem} effects`}</p>
@@ -40,7 +43,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-    setStem
+    setStem,
+    setMixerView
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(EffectView);

@@ -3,11 +3,11 @@ import { useEffect, useState } from "react";
 import { connect } from "react-redux";
 
 import {MuteIcon, DownloadIcon, SoloIcon} from "../../utils/Icon";
-import { setStem, setSync, setSyncTime, setSolo } from "../../../redux/actions";
+import { setStem, setSync, setSyncTime, setSolo, setMixerView } from "../../../redux/actions";
 
 
 function Mix({sync, syncTime, soloStem, wave,
-              setStem, setSync, setSyncTime, setSolo}) {
+              setStem, setSync, setSyncTime, setSolo, setMixerView}) {
     const [isMute, setIsMute] = useState(false);
     const stem = wave.getName();
     const forceMute = soloStem.length !== 0 && !soloStem.includes(stem);
@@ -42,7 +42,10 @@ function Mix({sync, syncTime, soloStem, wave,
 
     return (
         <div className="mix">
-            <div className="mix-title" onClick={() => setStem(wave.getName())}>
+            <div className="mix-title" onClick={() => {
+                    setStem(wave.getName());
+                    setMixerView("effect");
+                }}>
                 {wave.getName()}
             </div>
             <div className="mix-gain">
@@ -93,7 +96,8 @@ const mapDispatchToProps = {
     setStem,
     setSync,
     setSyncTime,
-    setSolo
+    setSolo,
+    setMixerView
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Mix);

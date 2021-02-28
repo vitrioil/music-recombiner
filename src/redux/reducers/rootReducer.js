@@ -1,4 +1,4 @@
-import { DESTROY_WAVE, SET_SOLO, SET_SYNC_TIME, TOGGLE_SYNC } from "../actionTypes";
+import { DESTROY_WAVE, SET_MIXER_VIEW, SET_SOLO, SET_SYNC_TIME, TOGGLE_SYNC } from "../actionTypes";
 import { PLAY_PAUSE_WAVE, STOP_WAVE, REWIND_WAVE,
          FORWARD_WAVE, SET_SYNC, LOAD_WAVE, INIT_WAVE,
          ADD_REF_WAVE, SET_STEM } from "../actionTypes";
@@ -10,7 +10,8 @@ const initState = {
     isLoading: false,
     focusedStem: "",
     sync: { enabled: false, time: 0 },
-    soloStem: []
+    soloStem: [],
+    mixerView: "mixer"
 };
 
 const getWave = (state, payload) => {
@@ -117,6 +118,14 @@ function rootReducer(state = initState, action) {
             } else {
                 return state;
             }
+        }
+        case SET_MIXER_VIEW: {
+            const { viewName } = action.payload;
+
+            return {
+                ...state,
+                mixerView: viewName
+            };
         }
         default:
             return state;

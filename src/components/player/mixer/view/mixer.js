@@ -1,4 +1,3 @@
-// import { useState } from "react";
 import { connect } from "react-redux";
 
 import {PauseIcon, RewindIcon, StopIcon, ForwardIcon,
@@ -6,43 +5,39 @@ import {PauseIcon, RewindIcon, StopIcon, ForwardIcon,
 import { toggleSync, setSync, rewindWave,
          playPauseWave, forwardWave, stopWave } from "../../../../redux/actions";
 import Mix  from "../mix";
+import BaseView from "./base";
 
 
-function MixerView({waves, sync, toggleSync, rewindWave, 
-                    playPauseWave, forwardWave, stopWave}) {
-    // const [soloStem, setSoloStem] = useState([]);
+class MixerView extends BaseView {
 
-    return (
-        <div className="mix-view">
-            <div className="mix-header">
-                <RewindIcon title="Rewind All"
+    render() {
+        return (
+            <div className="mix-view">
+                <div className="mix-header">
+                    <RewindIcon title="Rewind All"
+                                className="img_icons mix-item"
+                                onClick={this.props.rewindWave} />
+                    <PauseIcon title="Pause All"
                             className="img_icons mix-item"
-                            onClick={rewindWave} />
-                <PauseIcon title="Pause All"
-                           className="img_icons mix-item"
-                           onClick={playPauseWave} />
-                <ForwardIcon title="Forward All"
-                             className="img_icons mix-item"
-                             onClick={forwardWave} />
-                <StopIcon title="Stop All"
-                          className="img_icons mix-item"
-                          onClick={stopWave} />
-                <SyncIcon title="Sync All"
-                          className={`img_icons mix-item${sync ? " img_icons__active": ""}`}
-                          onClick={toggleSync} />
+                            onClick={this.props.playPauseWave} />
+                    <ForwardIcon title="Forward All"
+                                className="img_icons mix-item"
+                                onClick={this.props.forwardWave} />
+                    <StopIcon title="Stop All"
+                            className="img_icons mix-item"
+                            onClick={this.props.stopWave} />
+                    <SyncIcon title="Sync All"
+                            className={`img_icons mix-item${this.props.sync ? " img_icons__active": ""}`}
+                            onClick={this.props.toggleSync} />
+                </div>
+                <div className="mix-container">
+                    {Object.entries(this.props.waves).map(([_, wave]) => (
+                        <Mix key={wave.getId()} wave={wave} />
+                    ))}
+                </div>
             </div>
-            <div className="mix-container">
-                {Object.entries(waves).map(([_, wave]) => (
-                    <Mix key={wave.getId()}
-                        wave={wave} />
-                        // forceMute={ soloStem.length !== 0 &&
-                        //            !soloStem.includes(wave.getName()) }
-                        // soloStem={soloStem} 
-                        // setSoloStem={setSoloStem} />
-                ))}
-            </div>
-        </div>
-    );
+        );
+    }
 }
 
 const mapStateToProps = state => ({
