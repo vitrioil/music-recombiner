@@ -1,12 +1,18 @@
 import { connect } from "react-redux";
 
-import { setStem, setMixerView } from "../../../../redux/actions";
+import { setStem, setMixerView, setEffectId, loadWave } from "../../../../redux/actions";
 import BaseView from "./base";
 
 
-function EffectCell({name}) {
+function EffectCell({id, name, setMixerView, setEffectId}) {
+    const loadEffect = () => {
+        setMixerView("generic-effect");
+        setEffectId(id);
+    };
+
     return (
-        <div className="effect">
+        <div className="effect"
+             onClick={loadEffect.bind(this)}>
             <p>{name}</p>
         </div>
     );
@@ -15,21 +21,27 @@ function EffectCell({name}) {
 class EffectView extends BaseView {
 
     render() {
+        const back = () => {
+            this.props.setMixerView("mixer");
+            this.props.setStem("");
+        };
+
         return (
             <div className="effect-view">
                 <div className="effect-header">
                     <button className="effect-button"
-                            onClick={() => {
-                                        this.props.setMixerView("mixer");
-                                        this.props.setStem("");
-                                    }}>
+                            onClick={back.bind(this)}>
                             Back
                     </button>
                     <p className="effect-name">{`${this.props.stem} effects`}</p>
                 </div>
                 <div className="effect-container">
                     {this.props.effects.map(e => 
-                        <EffectCell key={e.id} name={e.name} />
+                        <EffectCell key={e.id}
+                                    name={e.name}
+                                    id={e.id}
+                                    setMixerView={this.props.setMixerView}
+                                    setEffectId={this.props.setEffectId} />
                     )}
                 </div>
             </div>
@@ -44,7 +56,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
     setStem,
-    setMixerView
+    setMixerView,
+    setEffectId
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(EffectView);

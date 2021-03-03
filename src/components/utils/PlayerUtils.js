@@ -55,6 +55,14 @@ class Waveform {
         return this.effects;
     }
 
+    getEffectName(id) {
+        const [effect] = this.getEffects().filter(e => e.id === id);
+        if(effect === undefined) {
+            return "";
+        }
+        return effect.name;
+    }
+
     isMute() {
         return this.waveSurfRef.current.getMute();
     }

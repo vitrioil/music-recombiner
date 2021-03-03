@@ -623,6 +623,7 @@ nav .player__ul .player__title {
   height: 150px;
   background: #118ab2;
   text-align: center;
+  cursor: pointer;
 }
 
 .progress {

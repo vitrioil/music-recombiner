@@ -1,5 +1,2 @@
-import MixerView from "./mixer";
-import LoadingView from "./loading";
-import EffectView from "./effect";
-
-export { MixerView, LoadingView, EffectView };
+import Factory from "./factory";
+export default Factory;

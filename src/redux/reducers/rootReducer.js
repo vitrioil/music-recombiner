@@ -1,8 +1,9 @@
-import { DESTROY_WAVE, SET_MIXER_VIEW, SET_SOLO, SET_SYNC_TIME, TOGGLE_SYNC } from "../actionTypes";
+import { DESTROY_WAVE, SET_EFFECT_ID, SET_MIXER_VIEW, SET_SOLO, SET_SYNC_TIME, TOGGLE_SYNC } from "../actionTypes";
 import { PLAY_PAUSE_WAVE, STOP_WAVE, REWIND_WAVE,
          FORWARD_WAVE, SET_SYNC, LOAD_WAVE, INIT_WAVE,
          ADD_REF_WAVE, SET_STEM } from "../actionTypes";
 import { Waveform } from "../../components/utils/PlayerUtils";
+import { act } from "react-dom/test-utils";
 
 
 const initState = {
@@ -11,7 +12,7 @@ const initState = {
     focusedStem: "",
     sync: { enabled: false, time: 0 },
     soloStem: [],
-    mixerView: "mixer"
+    mixerView:  { viewName: "mixer", id: "" }
 };
 
 const getWave = (state, payload) => {
@@ -124,7 +125,15 @@ function rootReducer(state = initState, action) {
 
             return {
                 ...state,
-                mixerView: viewName
+                mixerView: {...state.mixerView, viewName: viewName}
+            };
+        }
+        case SET_EFFECT_ID: {
+            const { effectId } = action.payload;
+
+            return {
+                ...state,
+                mixerView: {...state.mixerView, id: effectId}
             };
         }
         default:

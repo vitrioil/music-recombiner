@@ -1,6 +1,7 @@
 import MixerView from "./mixer";
 import LoadingView from "./loading";
 import EffectView from "./effect";
+import GenericEffectView from "./effects";
 
 
 class LoadingFactory {
@@ -23,6 +24,16 @@ class EffectFactory {
     }
 }
 
+class GenericEffectFactory {
+    get type() {
+        return "generic-effect";
+    }
+
+    create() {
+        return <GenericEffectView />;
+    }
+}
+
 class MixerFactory {
     get type() {
         return "mixer";
@@ -38,11 +49,13 @@ class FactoryMapper {
         const loadingFactory = new LoadingFactory();
         const effectFactory = new EffectFactory();
         const mixerFactory = new MixerFactory();
+        const genericEffectFactory = new GenericEffectFactory();
 
         this.factories = {};
         this.factories[loadingFactory.type] = loadingFactory;
         this.factories[effectFactory.type] = effectFactory;
         this.factories[mixerFactory.type] = mixerFactory;
+        this.factories[genericEffectFactory.type] = genericEffectFactory;
     }
 
     factory = type => type && this.factories[type];

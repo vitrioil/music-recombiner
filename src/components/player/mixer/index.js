@@ -1,23 +1,11 @@
 import { connect } from "react-redux";
 
-// import { LoadingView, EffectView, MixerView } from "./view";
-import Factory from "./view/factory";
+import Factory from "./view";
 
 function Mixer({mixerView}) {
     const viewFactory = new Factory();
-    // let type = "loading";
-    // if(!isLoading)
-
-    // let view = <LoadingView />;
-    // if(!isLoading) {
-    //     if(focusedStem !== "") {
-    //         view = <EffectView />;
-    //     } else {
-    //         view = <MixerView />;
-    //     }
-    // }
-
     const view = viewFactory.create(mixerView);
+
     return (
         <div className="mixer-container">
             {view}
@@ -26,7 +14,7 @@ function Mixer({mixerView}) {
 }
 
 const mapStateToProps = state => ({
-    mixerView: state.mixerView
+    mixerView: state.mixerView.viewName
 });
 
 export default connect(mapStateToProps)(Mixer);
