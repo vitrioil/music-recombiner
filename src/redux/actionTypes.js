@@ -18,3 +18,5 @@ export const SET_SYNC_TIME = "SET_SYNC_TIME";
 export const SET_SOLO = "SET_SOLO";
 export const SET_MIXER_VIEW = "SET_MIXER_VIEW";
 export const SET_EFFECT_ID = "SET_EFFECT_ID";
+
+export const TOGGLE_EDIT = "TOGGLE_EDIT";

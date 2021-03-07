@@ -1,4 +1,5 @@
 import WaveSurfer from "wavesurfer.js";
+import RegionsPlugin from 'wavesurfer.js/src/plugin/regions/index.js'
 
 const waveOptions = (ref) => ({
     container: ref,
@@ -9,6 +10,7 @@ const waveOptions = (ref) => ({
     barRadius: 3,
     height: 100,
     showTime: true,
+    plugins: [RegionsPlugin.create()]
 });
 
 class Waveform {
@@ -20,10 +22,41 @@ class Waveform {
         this.url = url;
     }
 
+    getRegions(edit = false) {
+        let regions = [],
+            start, end;
+        this.effects.forEach((effect) => {
+            start = effect.startTime;
+            end = effect.endTime;
+            regions.push({id: effect.id,
+                          start: start,
+                          end: end,
+                          drag: edit,
+                          resize: edit,
+                          color: "hsla(200, 50%, 70%, 0.4)"});
+        });
+        return regions;
+    }
+
+    setRegionPlugin(edit, name = "region", reset = true) {
+        const regions = this.getRegions(edit),
+              params = {regions: regions, dragSelection: edit, regionsMinLength: 2, deferInit: false},
+              activePlugins = this.waveSurfRef.current.getActivePlugins();
+        if(reset && activePlugins[name]) {
+            this.waveSurfRef.current.destroyPlugin(name);
+        }
+        this.registerPlugin(name, params, RegionsPlugin);
+    }
+
+    registerPlugin(name, params, plugin) {
+        this.waveSurfRef.current.registerPlugins([{name: name, params: params, instance: plugin}]);
+    }
+
     setRef(waveRef, waveSurfRef) {
         this.waveRef = waveRef;
         this.waveSurfRef = waveSurfRef;
         waveSurfRef.current = WaveSurfer.create(waveOptions(waveRef.current));
+        this.setRegionPlugin(false);
     }
 
     setVolume(volume) {

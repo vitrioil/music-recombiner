@@ -1,6 +1,6 @@
 import { PLAY_PAUSE_WAVE, STOP_WAVE, REWIND_WAVE,
          FORWARD_WAVE, SYNC_WAVE, LOAD_WAVE, ADD_REF_WAVE,
-         INIT_WAVE, DESTROY_WAVE, SET_STEM, TOGGLE_SYNC, SET_SYNC, SET_SYNC_TIME, SET_SOLO, SET_MIXER_VIEW, SET_EFFECT_ID } from "./actionTypes";
+         INIT_WAVE, DESTROY_WAVE, SET_STEM, TOGGLE_SYNC, SET_SYNC, SET_SYNC_TIME, SET_SOLO, SET_MIXER_VIEW, SET_EFFECT_ID, TOGGLE_EDIT } from "./actionTypes";
 
 export const playPauseWave = () => ({
     type: PLAY_PAUSE_WAVE
@@ -100,4 +100,8 @@ export const setEffectId = (effectId) => ({
     payload: {
         effectId: effectId
     }
+});
+
+export const toggleEdit = () => ({
+    type: TOGGLE_EDIT
 });

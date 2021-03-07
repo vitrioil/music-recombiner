@@ -40,6 +40,14 @@ function Mix({sync, syncTime, soloStem, wave,
         }
     }, [sync]);
 
+    useEffect(() => {
+        const regionCreated = (region) => {
+            setStem(stem);
+            setMixerView("effect");
+        };
+        wave.addEvent("region-click", regionCreated);
+    }, []);
+
     return (
         <div className="mix">
             <div className="mix-title" onClick={() => {

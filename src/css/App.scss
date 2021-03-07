@@ -139,9 +139,10 @@ nav {
         background: $secondary-color;
       }
 
-      .img_icons:active {
-        background: cadetblue;
+      .img_icons__active {
+        background: $secondary-color;
       }
+
 
       a {
         text-decoration: none;
@@ -574,6 +575,14 @@ nav {
           text-align: center;
           cursor: pointer;
         }
+      }
+
+      .echo-container {
+
+      }
+
+      .volume-container {
+
       }
     }
   }  

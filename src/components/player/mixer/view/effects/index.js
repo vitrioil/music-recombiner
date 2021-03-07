@@ -18,7 +18,7 @@ class GenericEffectView extends BaseView {
             <>
                 {view}
             </>
-        )
+        );
     }
 }
 

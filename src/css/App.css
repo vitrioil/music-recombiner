@@ -128,8 +128,8 @@ nav .player__ul .player__li .img_icons:hover {
   background: #118ab2;
 }
 
-nav .player__ul .player__li .img_icons:active {
-  background: cadetblue;
+nav .player__ul .player__li .img_icons__active {
+  background: #118ab2;
 }
 
 nav .player__ul .player__li a {

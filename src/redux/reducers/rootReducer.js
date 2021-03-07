@@ -1,18 +1,18 @@
-import { DESTROY_WAVE, SET_EFFECT_ID, SET_MIXER_VIEW, SET_SOLO, SET_SYNC_TIME, TOGGLE_SYNC } from "../actionTypes";
+import { DESTROY_WAVE, SET_EFFECT_ID, SET_MIXER_VIEW, SET_SOLO, SET_SYNC_TIME, TOGGLE_EDIT, TOGGLE_SYNC } from "../actionTypes";
 import { PLAY_PAUSE_WAVE, STOP_WAVE, REWIND_WAVE,
          FORWARD_WAVE, SET_SYNC, LOAD_WAVE, INIT_WAVE,
          ADD_REF_WAVE, SET_STEM } from "../actionTypes";
 import { Waveform } from "../../components/utils/PlayerUtils";
-import { act } from "react-dom/test-utils";
 
 
 const initState = {
     waves: {},
+    sync: { enabled: false, time: 0 },
+    mixerView:  { viewName: "mixer", id: "" },
+    soloStem: [],
     isLoading: false,
     focusedStem: "",
-    sync: { enabled: false, time: 0 },
-    soloStem: [],
-    mixerView:  { viewName: "mixer", id: "" }
+    edit: false
 };
 
 const getWave = (state, payload) => {
@@ -134,6 +134,15 @@ function rootReducer(state = initState, action) {
             return {
                 ...state,
                 mixerView: {...state.mixerView, id: effectId}
+            };
+        }
+        case TOGGLE_EDIT: {
+            const newEdit = !state.edit;
+            Object.values(state.waves).map((wave) => wave.setRegionPlugin(newEdit));
+
+            return {
+                ...state,
+                edit: newEdit
             };
         }
         default:

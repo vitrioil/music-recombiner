@@ -1,6 +1,8 @@
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
 import { EditIcon, ClockIcon, BackIcon } from "./utils/Icon";
+import { toggleEdit, toggleSync } from "../redux/actions";
 
 function RouteNav() {
     return (
@@ -14,7 +16,7 @@ function RouteNav() {
     );
 }
 
-function PlayerNav() {
+function PlayerNav({edit, toggleEdit}) {
     return (
         <nav>
             <ul className="player__ul">
@@ -28,11 +30,23 @@ function PlayerNav() {
                     <ClockIcon title="Recent" className="img_icons"/>
                 </li>
                 <li className="nav_li player__li">
-                    <EditIcon title="Edit" className="img_icons"/>
+                    <EditIcon title="Edit"
+                              className={`img_icons${edit ? " img_icons__active": ""}`}
+                              onClick={toggleEdit} />
                 </li>
             </ul>
         </nav>
     );
 }
+
+const mapStateToPropsPlayer = state => ({
+    edit: state.edit
+});
+
+const mapDispatchToPropsPlayer = {
+    toggleEdit
+}
+
+PlayerNav = connect(mapStateToPropsPlayer, mapDispatchToPropsPlayer)(PlayerNav);
 
 export { RouteNav, PlayerNav };
