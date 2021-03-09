@@ -7,10 +7,10 @@ import Waves from "./waves";
 
 function Player({initWave}) {
     // make API call here or pass...
-    const url = "http://192.168.1.106:8080/";
+    const url = "http://192.168.1.107:8080/";
     const waveData = [
-        {id: 0, stem: "Vocal", url: url + "vocals.mp3", effect: [{id: 0, name: "echo", startTime: 1, endTime: 4}]},
-        {id: 1, stem: "Piano", url: url + "piano.mp3", effect: [{id: 1, name: "volume", startTime: 10, endTime: 20}]},
+        {id: 0, stem: "Vocal", url: url + "vocals.mp3", effect: []},
+        {id: 1, stem: "Piano", url: url + "piano.mp3", effect: []},
         {id: 2, stem: "Bass", url: url + "bass.mp3", effect: []},
         {id: 3, stem: "Drums", url: url + "drums.mp3", effect: []},
         {id: 4, stem: "Other", url: url + "other.mp3", effect: []}

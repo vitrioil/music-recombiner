@@ -42,6 +42,7 @@ class Factory {
     }
 
     create(type) {
+        console.log(type);
         const factory = this.factoryMapper.factory(type);
         return factory.create();
     }

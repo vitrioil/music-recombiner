@@ -8,7 +8,8 @@ import { Waveform } from "../../components/utils/PlayerUtils";
 const initState = {
     waves: {},
     sync: { enabled: false, time: 0 },
-    mixerView:  { viewName: "mixer", id: "" },
+    mixerView: "mixer",
+    effectId: "",
     soloStem: [],
     isLoading: false,
     focusedStem: "",
@@ -125,7 +126,7 @@ function rootReducer(state = initState, action) {
 
             return {
                 ...state,
-                mixerView: {...state.mixerView, viewName: viewName}
+                mixerView: viewName
             };
         }
         case SET_EFFECT_ID: {
@@ -133,7 +134,7 @@ function rootReducer(state = initState, action) {
 
             return {
                 ...state,
-                mixerView: {...state.mixerView, id: effectId}
+                effectId: effectId
             };
         }
         case TOGGLE_EDIT: {

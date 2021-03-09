@@ -23,7 +23,7 @@ class GenericEffectView extends BaseView {
 }
 
 const mapStateToProps = state => ({
-    effect: state.waves[state.focusedStem].getEffectName(state.mixerView.id)
+    effect: state.waves[state.focusedStem].getEffectName(state.effectId)
 });
 
 export default connect(mapStateToProps)(GenericEffectView);

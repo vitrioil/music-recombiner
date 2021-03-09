@@ -3,11 +3,11 @@ import { useEffect, useState } from "react";
 import { connect } from "react-redux";
 
 import {MuteIcon, DownloadIcon, SoloIcon} from "../../utils/Icon";
-import { setStem, setSync, setSyncTime, setSolo, setMixerView } from "../../../redux/actions";
+import { setStem, setSync, setSyncTime, setSolo, setMixerView, setEffectId } from "../../../redux/actions";
 
 
 function Mix({sync, syncTime, soloStem, wave,
-              setStem, setSync, setSyncTime, setSolo, setMixerView}) {
+              setStem, setSync, setSyncTime, setSolo, setMixerView, setEffectId}) {
     const [isMute, setIsMute] = useState(false);
     const stem = wave.getName();
     const forceMute = soloStem.length !== 0 && !soloStem.includes(stem);
@@ -42,10 +42,13 @@ function Mix({sync, syncTime, soloStem, wave,
 
     useEffect(() => {
         const regionCreated = (region) => {
+            // we have a huge problem
+            wave.addEffect(region);
             setStem(stem);
-            setMixerView("effect");
+            setEffectId(region.id);
+            setMixerView("generic-effect");
         };
-        wave.addEvent("region-click", regionCreated);
+        wave.addEvent("region-update-end", regionCreated);
     }, []);
 
     return (
@@ -105,7 +108,8 @@ const mapDispatchToProps = {
     setSync,
     setSyncTime,
     setSolo,
-    setMixerView
+    setMixerView,
+    setEffectId
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Mix);

@@ -48,6 +48,17 @@ class Waveform {
         this.registerPlugin(name, params, RegionsPlugin);
     }
 
+    addEffect(region) {
+        const effect = {
+            //TODO: use better id
+            id: region.id,
+            startTime: region.start,
+            endTime: region.end,
+            name: "echo"
+        }
+        this.effects.push(effect);
+    }
+
     registerPlugin(name, params, plugin) {
         this.waveSurfRef.current.registerPlugins([{name: name, params: params, instance: plugin}]);
     }

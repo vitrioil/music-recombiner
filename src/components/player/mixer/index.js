@@ -14,7 +14,7 @@ function Mixer({mixerView}) {
 }
 
 const mapStateToProps = state => ({
-    mixerView: state.mixerView.viewName
+    mixerView: state.mixerView
 });
 
 export default connect(mapStateToProps)(Mixer);
