@@ -1,9 +1,8 @@
-import { DESTROY_WAVE, SET_EFFECT_ID, SET_EFFECT_NAME, SET_MIXER_PARAMS, SET_MIXER_VIEW, SET_SOLO, SET_SYNC_TIME, TOGGLE_EDIT, TOGGLE_SYNC } from "../actionTypes";
+import { DELETE_EFFECT, DESTROY_WAVE, SET_EFFECT_ID, SET_EFFECT_NAME, SET_MIXER_PARAMS, SET_MIXER_VIEW, SET_SOLO, SET_SYNC_TIME, TOGGLE_EDIT, TOGGLE_SYNC } from "../actionTypes";
 import { PLAY_PAUSE_WAVE, STOP_WAVE, REWIND_WAVE,
          FORWARD_WAVE, SET_SYNC, LOAD_WAVE, INIT_WAVE,
          ADD_REF_WAVE, SET_STEM } from "../actionTypes";
 import { Waveform } from "../../components/utils/PlayerUtils";
-import { act } from "react-dom/test-utils";
 
 
 const initState = {
@@ -164,6 +163,17 @@ function rootReducer(state = initState, action) {
             return {
                 ...state,
                 effectId: state.effectId
+            };
+        }
+        case DELETE_EFFECT: {
+            const { wave } = getWave(state, {stem: state.focusedStem});
+            wave.removeEffect(state.effectId)
+            wave.setRegionPlugin(state.edit);
+
+            return {
+                ...state,
+                effectId: "",
+                mixerView: "effect"
             };
         }
         default:

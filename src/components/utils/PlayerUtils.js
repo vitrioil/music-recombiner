@@ -65,6 +65,10 @@ class Waveform {
         }
     }
 
+    removeEffect(regionId) {
+        this.effects = this.effects.filter(effect => effect.id !== regionId);
+    }
+
     setEffectName(regionId, effectName) {
         const effectIndex = this.effects.findIndex(effect => effect.id === regionId);
         this.effects[effectIndex].name = effectName;
@@ -116,6 +120,11 @@ class Waveform {
             return "";
         }
         return effect.name;
+    }
+
+    getEffect(id) {
+        const [effect] = this.getEffects().filter(e => e.id === id);
+        return effect;
     }
 
     isMute() {

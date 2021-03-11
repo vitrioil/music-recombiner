@@ -47,6 +47,47 @@ html, body, #root, .App {
   background: #06d6a0;
 }
 
+.img_icons__sec:hover {
+  background: #118ab2;
+}
+
+.img_icons__sec:active {
+  background: cadetblue;
+}
+
+.img_icons__sec__active {
+  padding-top: 2px;
+  background: #118ab2;
+}
+
+.input-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  background: #118ab2;
+  padding: 1em;
+  gap: 0.5em;
+  border-radius: 20px;
+  height: 100px;
+  width: 250px;
+}
+
+.input-container .input-text {
+  height: 30px;
+  border: none;
+  border-radius: 5px;
+  text-align: right;
+}
+
+.input-container input[type="text"], .input-container textarea {
+  background-color: #073b4c;
+  color: white;
+}
+
 .App {
   background: #073b4c;
   display: -ms-grid;
@@ -118,18 +159,6 @@ nav .player__ul .player__li {
   font-weight: 800;
   margin: 0 20px;
   list-style-type: none;
-}
-
-nav .player__ul .player__li .img_icons {
-  padding-top: 2px;
-}
-
-nav .player__ul .player__li .img_icons:hover {
-  background: #118ab2;
-}
-
-nav .player__ul .player__li .img_icons__active {
-  background: #118ab2;
 }
 
 nav .player__ul .player__li a {
@@ -595,6 +624,7 @@ nav .player__ul .player__title {
   display: -ms-flexbox;
   display: flex;
   padding: 1em;
+  gap: 1em;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -624,6 +654,26 @@ nav .player__ul .player__title {
   background: #118ab2;
   text-align: center;
   cursor: pointer;
+}
+
+.player-container .mixer-container .effect-view .echo-container {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (250px)[auto-fit];
+      grid-template-columns: repeat(auto-fit, 250px);
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 2em;
+  gap: 2em;
+}
+
+.player-container .mixer-container .effect-view .echo-container div {
+  -ms-grid-column-align: center;
+      justify-self: center;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
 }
 
 .progress {

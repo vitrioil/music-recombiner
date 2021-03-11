@@ -22,16 +22,16 @@ function PlayerNav({edit, toggleEdit}) {
             <ul className="player__ul">
                 <li className="nav_li player__li">
                     <Link to="/">
-                        <BackIcon title="Back" className="img_icons" />
+                        <BackIcon title="Back" className="img_icons img_icons__sec" />
                     </Link>
                 </li>
                 <li className="nav_li player__li player__title"> Title </li>
                 <li className="nav_li player__li">
-                    <ClockIcon title="Recent" className="img_icons"/>
+                    <ClockIcon title="Recent" className="img_icons img_icons__sec"/>
                 </li>
                 <li className="nav_li player__li">
                     <EditIcon title="Edit"
-                              className={`img_icons${edit ? " img_icons__active": ""}`}
+                              className={`img_icons img_icons__sec${edit ? " img_icons__sec__active": ""}`}
                               onClick={toggleEdit} />
                 </li>
             </ul>

@@ -21,7 +21,9 @@ class Select extends BaseEffect {
         const allEffects = ["echo", "volume"];
         return (
             <div className="effect-view">
-                <EffectHeader buttonText="Cancel" headerText="Select Effect" />
+                <EffectHeader deleteText="Cancel"
+                              headerText="Select Effect"
+                              showBack={false} />
                 <div className="effect-container">
                     {allEffects.map(effect => 
                         <EffectCell key={effect}

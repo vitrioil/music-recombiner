@@ -15,6 +15,9 @@ $mixer-cell-width: 125px;
 $effect-cell-height: 150px;
 $effect-cell-width: 100px;
 
+$input-form-cell-height: 100px;
+$input-form-cell-width: 250px;
+
 html, body, #root, .App {
   height: 100%;
   width: 100%;
@@ -70,6 +73,45 @@ html, body, #root, .App {
 
   &__active {
     background: $primary-color;
+  }
+
+  &__sec:hover {
+    background: $secondary-color;
+  }
+
+  &__sec:active {
+    background: cadetblue;
+  }
+
+  &__sec__active {
+    padding-top: 2px;
+    background: $secondary-color;
+  }
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  background: $secondary-color;
+  padding: 1em;
+  gap: 0.5em;
+  border-radius: 20px;
+  height: $input-form-cell-height;
+  width: $input-form-cell-width;
+
+  .input-label {
+  }
+
+  .input-text {
+    height: 30px;
+    border: none;
+    border-radius: 5px;
+    text-align: right;
+  }
+
+  input[type="text"], textarea {
+    background-color : $background-color; 
+    color: white;
   }
 }
 
@@ -131,17 +173,17 @@ nav {
       margin: 0 20px;
       list-style-type: none;
 
-      .img_icons {
-        padding-top: 2px;
-      }
+      // .img_icons {
+      //   padding-top: 2px;
+      // }
 
-      .img_icons:hover {
-        background: $secondary-color;
-      }
+      // .img_icons:hover {
+      //   background: $secondary-color;
+      // }
 
-      .img_icons__active {
-        background: $secondary-color;
-      }
+      // .img_icons__active {
+      //   background: $secondary-color;
+      // }
 
 
       a {
@@ -545,6 +587,7 @@ nav {
       .effect-header {
         display: flex;
         padding: 1em;
+        gap: 1em;
         align-items: center;
         justify-content: center;
 
@@ -578,7 +621,15 @@ nav {
       }
 
       .echo-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, $input-form-cell-width);
+        justify-content: center;
+        padding: 2em;
+        gap: 2em;
 
+        div {
+          @include grid-item(center, center, "");
+        }
       }
 
       .volume-container {

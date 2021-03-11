@@ -1,6 +1,7 @@
 import { connect } from "react-redux";
 
-import { setStem, setMixerView, setEffectId, loadWave } from "../../../../redux/actions";
+import { setStem, setMixerView, setEffectId } from "../../../../redux/actions";
+import { BackIcon } from "../../../utils/Icon";
 import BaseView from "./base";
 
 
@@ -29,10 +30,9 @@ class EffectView extends BaseView {
         return (
             <div className="effect-view">
                 <div className="effect-header">
-                    <button className="effect-button"
-                            onClick={back.bind(this)}>
-                            Back
-                    </button>
+                    <BackIcon title="Back"
+                              className="img_icons img_icons__sec"
+                              onClick={back.bind(this)} />
                     <p className="effect-name">{`${this.props.stem} effects`}</p>
                 </div>
                 <div className="effect-container">

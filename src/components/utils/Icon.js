@@ -10,7 +10,11 @@ import {ReactComponent as EditIcon} from "../../icons/edit-3.svg";
 import {ReactComponent as MenuIcon} from "../../icons/menu.svg";
 import {ReactComponent as ClockIcon} from "../../icons/clock-8.svg"
 import {ReactComponent as BackIcon} from "../../icons/arrow-left.svg"
+import {ReactComponent as CrossIcon} from "../../icons/x-circle.svg";
+import {ReactComponent as CopyIcon} from "../../icons/copy.svg";
+import {ReactComponent as SaveIcon} from "../../icons/save.svg";
 
 export {PauseIcon, RewindIcon, StopIcon, ForwardIcon,
         SyncIcon, MuteIcon, DownloadIcon, SoloIcon, EditIcon,
-        MenuIcon, ClockIcon, BackIcon}
+        MenuIcon, ClockIcon, BackIcon, CrossIcon, CopyIcon,
+        SaveIcon}
