@@ -5,7 +5,7 @@ class Volume extends BaseEffect {
     render() {
         return (
             <div className="effect-view">
-                <EffectHeader />
+                <EffectHeader headerText="Volume" />
                 <div className="volume-container">
 
                 </div>

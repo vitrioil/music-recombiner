@@ -5,7 +5,7 @@ class Echo extends BaseEffect {
     render() {
         return (
             <div className="effect-view">
-                <EffectHeader />
+                <EffectHeader headerText="Echo" />
                 <div className="echo-container">
 
                 </div>

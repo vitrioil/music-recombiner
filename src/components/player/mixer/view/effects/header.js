@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { setEffectId, setMixerView } from "../../../../../redux/actions";
 
 
-function EffectHeader({name, setEffectId, setMixerView}) {
+function EffectHeader({headerText, setEffectId, setMixerView, buttonText="Back"}) {
     return (
         <div className="effect-header">
             <button className="effect-button"
@@ -11,9 +11,9 @@ function EffectHeader({name, setEffectId, setMixerView}) {
                         setEffectId("");
                         setMixerView("effect");
                     }}>
-                Back
+                        {buttonText}
             </button>
-            <p className="effect-name">{name}</p>
+            <p className="effect-name">{headerText}</p>
         </div>
     );
 }

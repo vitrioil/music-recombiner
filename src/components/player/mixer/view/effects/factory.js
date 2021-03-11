@@ -1,6 +1,17 @@
+import Select from "./select";
 import Echo from "./echo";
 import Volume from "./volume";
 
+
+class SelectFactory {
+    get type() {
+        return "select";
+    }
+
+    create() {
+        return <Select />;
+    }
+}
 
 class EchoFactory {
     get type() {
@@ -24,10 +35,14 @@ class VolumeFactory {
 
 class FactoryMapper {
     constructor() {
+        const selectFactory = new SelectFactory();
         const echoFactory = new EchoFactory();
         const volumeFactory = new VolumeFactory();
 
         this.factories = {};
+        // default value
+        this.factories[""] = selectFactory;
+        this.factories[selectFactory.type] = selectFactory;
         this.factories[echoFactory.type] = echoFactory;
         this.factories[volumeFactory.type] = volumeFactory;
     }

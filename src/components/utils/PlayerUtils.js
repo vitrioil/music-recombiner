@@ -48,15 +48,26 @@ class Waveform {
         this.registerPlugin(name, params, RegionsPlugin);
     }
 
-    addEffect(region) {
-        const effect = {
-            //TODO: use better id
-            id: region.id,
-            startTime: region.start,
-            endTime: region.end,
-            name: "echo"
+    upsertEffect(region, effectName = "select") {
+        if(!this.getEffectName(region.id)) {
+            const effect = {
+                //TODO: use better id
+                id: region.id,
+                startTime: region.start,
+                endTime: region.end,
+                name: effectName
+            }
+            this.effects.push(effect);
+        } else {
+            const effectIndex = this.effects.findIndex(effect => effect.id === region.id);
+            this.effects[effectIndex].startTime = region.start;
+            this.effects[effectIndex].endTime = region.end;
         }
-        this.effects.push(effect);
+    }
+
+    setEffectName(regionId, effectName) {
+        const effectIndex = this.effects.findIndex(effect => effect.id === regionId);
+        this.effects[effectIndex].name = effectName;
     }
 
     registerPlugin(name, params, plugin) {
