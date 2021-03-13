@@ -1,17 +1,31 @@
-function InputText({labelText, inputValue, inputType}) {
+function InputText({labelText, inputValue, onChange}) {
     return (
-        <div className="input-container">
-            <label className="input-label"
-                   htmlFor="">
+        <div className="input-container input__text">
+            <label className="input-label" htmlFor="">
                 {labelText}
             </label>
             <input className="input-text"
                    type="text"
                    name="input"
                    id=""
-                   value={inputValue} />
+                   defaultValue={inputValue}
+                   onChange={onChange} />
         </div>
     );
 }
 
-export { InputText };
+function InputSlider({labelText, onChange}) {
+    return (
+        <div className="input-container input__slider">
+            <label className="input-label" htmlFor="">
+                {labelText}
+            </label>
+            <input className="input-slider input__slider__horizontal"
+                   min="0" max="100" defaultValue="100"
+                   type="range" orient="horizontal"
+                   onChange={onChange} />
+        </div>
+    );
+}
+
+export { InputText, InputSlider };

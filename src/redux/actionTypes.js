@@ -22,5 +22,6 @@ export const SET_EFFECT_ID = "SET_EFFECT_ID";
 export const SET_EFFECT_NAME = "SET_EFFECT_NAME";
 export const SET_MIXER_PARAMS = "SET_MIXER_PARAMS";
 export const DELETE_EFFECT = "DELETE_EFFECT";
+export const SET_EFFECT_PARAMS = "SET_EFFECT_PARAMS";
 
 export const TOGGLE_EDIT = "TOGGLE_EDIT";

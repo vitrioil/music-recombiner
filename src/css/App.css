@@ -60,6 +60,83 @@ html, body, #root, .App {
   background: #118ab2;
 }
 
+input[type=range] {
+  -webkit-appearance: none;
+  width: 100%;
+  background: transparent;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+}
+
+input[type=range]:focus {
+  outline: none;
+}
+
+input[type=range]::-ms-track {
+  width: 100%;
+  cursor: pointer;
+  /* Hides the slider so custom styles can be added */
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+}
+
+/* Special styling for WebKit/Blink */
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  border: 1px solid #000000;
+  height: 36px;
+  width: 16px;
+  border-radius: 3px;
+  background: #ffffff;
+  cursor: pointer;
+  margin-top: -14px;
+  -webkit-box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+          box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+}
+
+/* All the same stuff for Firefox */
+input[type=range]::-moz-range-thumb {
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  border: 1px solid #000000;
+  height: 36px;
+  width: 16px;
+  border-radius: 3px;
+  background: #073b4c;
+  cursor: pointer;
+}
+
+input[type=range]::-moz-range-thumb:active {
+  background: #06d6a0;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 8.4px;
+  cursor: pointer;
+  -webkit-box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+          box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  background: #3071a9;
+  border-radius: 1.3px;
+  border: 0.2px solid #010101;
+}
+
+input[type=range]:focus::-webkit-slider-runnable-track {
+  background: #367ebd;
+}
+
+input[type=range]::-moz-range-track {
+  height: 100%;
+  width: 8.4px;
+  cursor: pointer;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  background: linear-gradient(#ff5d5d, #56fba2);
+  border-radius: 1.3px;
+  border: 0.2px solid #010101;
+}
+
 .input-container {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -83,9 +160,19 @@ html, body, #root, .App {
   text-align: right;
 }
 
-.input-container input[type="text"], .input-container textarea {
+.input-container input[type=text], .input-container textarea {
   background-color: #073b4c;
   color: white;
+}
+
+.input-container .input__slider__horizontal::-moz-range-track {
+  width: 100%;
+  background: linear-gradient(to left, #ff5d5d, #56fba2);
+}
+
+.input-container__transpose {
+  height: 100%;
+  width: 100px;
 }
 
 .App {
@@ -456,8 +543,6 @@ nav .player__ul .player__title {
   -ms-grid-row: 2;
   -ms-grid-column: 1;
   grid-area: gain;
-  /* Special styling for WebKit/Blink */
-  /* All the same stuff for Firefox */
 }
 
 .player-container .mixer-container .mix-view .mix-container .mix .mix-gain .mix-slider {
@@ -465,81 +550,6 @@ nav .player__ul .player__title {
   -webkit-appearance: slider-vertical;
   width: 10px;
   height: 80%;
-}
-
-.player-container .mixer-container .mix-view .mix-container .mix .mix-gain input[type=range] {
-  -webkit-appearance: none;
-  width: 100%;
-  background: transparent;
-}
-
-.player-container .mixer-container .mix-view .mix-container .mix .mix-gain input[type=range]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-}
-
-.player-container .mixer-container .mix-view .mix-container .mix .mix-gain input[type=range]:focus {
-  outline: none;
-}
-
-.player-container .mixer-container .mix-view .mix-container .mix .mix-gain input[type=range]::-ms-track {
-  width: 100%;
-  cursor: pointer;
-  /* Hides the slider so custom styles can be added */
-  background: transparent;
-  border-color: transparent;
-  color: transparent;
-}
-
-.player-container .mixer-container .mix-view .mix-container .mix .mix-gain input[type=range]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  border: 1px solid #000000;
-  height: 36px;
-  width: 16px;
-  border-radius: 3px;
-  background: #ffffff;
-  cursor: pointer;
-  margin-top: -14px;
-  -webkit-box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-          box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-}
-
-.player-container .mixer-container .mix-view .mix-container .mix .mix-gain input[type=range]::-moz-range-thumb {
-  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-  border: 1px solid #000000;
-  height: 36px;
-  width: 16px;
-  border-radius: 3px;
-  background: #073b4c;
-  cursor: pointer;
-}
-
-.player-container .mixer-container .mix-view .mix-container .mix .mix-gain input[type=range]::-moz-range-thumb:active {
-  background: #06d6a0;
-}
-
-.player-container .mixer-container .mix-view .mix-container .mix .mix-gain input[type=range]::-webkit-slider-runnable-track {
-  width: 100%;
-  height: 8.4px;
-  cursor: pointer;
-  -webkit-box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-          box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-  background: #3071a9;
-  border-radius: 1.3px;
-  border: 0.2px solid #010101;
-}
-
-.player-container .mixer-container .mix-view .mix-container .mix .mix-gain input[type=range]:focus::-webkit-slider-runnable-track {
-  background: #367ebd;
-}
-
-.player-container .mixer-container .mix-view .mix-container .mix .mix-gain input[type=range]::-moz-range-track {
-  height: 100%;
-  width: 8.4px;
-  cursor: pointer;
-  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-  background: linear-gradient(#ff5d5d, #56fba2);
-  border-radius: 1.3px;
-  border: 0.2px solid #010101;
 }
 
 .player-container .mixer-container .mix-view .mix-container .mix .mix-control {
@@ -674,6 +684,31 @@ nav .player__ul .player__title {
   -ms-flex-item-align: center;
       -ms-grid-row-align: center;
       align-self: center;
+}
+
+.player-container .mixer-container .effect-view .volume-container {
+  height: 100%;
+  margin: 0 auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 0.5em;
+}
+
+.player-container .mixer-container .effect-view .volume-container .input__text {
+  width: 45%;
+}
+
+.player-container .mixer-container .effect-view .volume-container .input__slider {
+  width: 90%;
 }
 
 .progress {

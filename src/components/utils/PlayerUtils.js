@@ -48,14 +48,15 @@ class Waveform {
         this.registerPlugin(name, params, RegionsPlugin);
     }
 
-    upsertEffect(region, effectName = "select") {
+    upsertEffect(region, effectName = "select", params={}) {
         if(!this.getEffectName(region.id)) {
             const effect = {
                 //TODO: use better id
                 id: region.id,
                 startTime: region.start,
                 endTime: region.end,
-                name: effectName
+                name: effectName,
+                params: params
             }
             this.effects.push(effect);
         } else {
@@ -63,6 +64,15 @@ class Waveform {
             this.effects[effectIndex].startTime = region.start;
             this.effects[effectIndex].endTime = region.end;
         }
+    }
+
+    updateEffectParams(regionId, params) {
+        debugger;
+        const { startTime, endTime, effectParams } = params;
+        const effectIndex = this.effects.findIndex(effect => effect.id === regionId);
+        this.effects[effectIndex].startTime = startTime;
+        this.effects[effectIndex].endTime = endTime;
+        this.effects[effectIndex].params = effectParams;
     }
 
     removeEffect(regionId) {

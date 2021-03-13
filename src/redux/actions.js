@@ -1,6 +1,6 @@
 import { PLAY_PAUSE_WAVE, STOP_WAVE, REWIND_WAVE,
          FORWARD_WAVE, SYNC_WAVE, LOAD_WAVE, ADD_REF_WAVE,
-         INIT_WAVE, DESTROY_WAVE, SET_STEM, TOGGLE_SYNC, SET_SYNC, SET_SYNC_TIME, SET_SOLO, SET_MIXER_VIEW, SET_EFFECT_ID, TOGGLE_EDIT, SET_MIXER_PARAMS, SET_EFFECT_NAME, DELETE_EFFECT } from "./actionTypes";
+         INIT_WAVE, DESTROY_WAVE, SET_STEM, TOGGLE_SYNC, SET_SYNC, SET_SYNC_TIME, SET_SOLO, SET_MIXER_VIEW, SET_EFFECT_ID, TOGGLE_EDIT, SET_MIXER_PARAMS, SET_EFFECT_NAME, DELETE_EFFECT, SET_EFFECT_PARAMS } from "./actionTypes";
 
 export const playPauseWave = () => ({
     type: PLAY_PAUSE_WAVE
@@ -125,3 +125,10 @@ export const setEffectName = (effectName) => ({
 export const deleteEffect = () => ({
     type: DELETE_EFFECT
 });
+
+export const setEffectParams = (params) => ({
+    type: SET_EFFECT_PARAMS,
+    payload: {
+        params
+    }
+})
