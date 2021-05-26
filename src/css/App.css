@@ -8,7 +8,7 @@ html, body, #root, .App {
   color: black;
 }
 
-.curve-raise, .button, .home-container .upload .upload__button, .home-container .upload .submit__button, .saved-container .saved__cell .saved__cell__loading .loading__open, .player-container .mixer-container .effect-view .effect-header .effect-button, nav, .home-container .upload, .saved-container .saved__cell, .player-container .wave-container .wave, .player-container .mixer-container, .player-container .mixer-container .mix-view .mix-header, .player-container .mixer-container .mix-view .mix-container .mix, .player-container .mixer-container .loading-view .loading__step, .player-container .mixer-container .effect-view .effect-container .effect {
+.curve-raise, .button, .home-container .upload .upload__button, .home-container .upload .submit__button, .saved-container .saved__cell .saved__cell__loading .loading__open, .player-container .mixer-container .effect-view .effect-header .effect-button, nav, .login-container .form, .home-container .upload, .saved-container .saved__cell, .player-container .wave-container .wave, .player-container .mixer-container, .player-container .mixer-container .mix-view .mix-header, .player-container .mixer-container .mix-view .mix-container .mix, .player-container .mixer-container .loading-view .loading__step, .player-container .mixer-container .effect-view .effect-container .effect {
   border-radius: 20px;
   -webkit-box-shadow: 2px 1px 1px rgba(0, 0, 0, 0.1);
           box-shadow: 2px 1px 1px rgba(0, 0, 0, 0.1);
@@ -137,7 +137,7 @@ input[type=range]::-moz-range-track {
   border: 0.2px solid #010101;
 }
 
-.input-container {
+.input-container, .input-container__form {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -153,19 +153,19 @@ input[type=range]::-moz-range-track {
   width: 250px;
 }
 
-.input-container .input-text {
+.input-container .input-text, .input-container__form .input-text {
   height: 30px;
   border: none;
   border-radius: 5px;
   text-align: right;
 }
 
-.input-container input[type=text], .input-container textarea {
+.input-container input[type=text], .input-container__form input[type=text], .input-container textarea, .input-container__form textarea {
   background-color: #073b4c;
   color: white;
 }
 
-.input-container .input__slider__horizontal::-moz-range-track {
+.input-container .input__slider__horizontal::-moz-range-track, .input-container__form .input__slider__horizontal::-moz-range-track {
   width: 100%;
   background: linear-gradient(to left, #ff5d5d, #56fba2);
 }
@@ -173,6 +173,30 @@ input[type=range]::-moz-range-track {
 .input-container__transpose {
   height: 100%;
   width: 100px;
+}
+
+.input-container__form {
+  background: none;
+  width: 100%;
+  height: 110px;
+}
+
+.input-container__form .input-text {
+  height: 50px;
+  text-align: left;
+  border-radius: 10px;
+}
+
+.input-container__form .border {
+  width: 0;
+  height: 2px;
+  background: #118ab2;
+}
+
+.input-container__form .input-text:focus ~ .border {
+  width: 100%;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
 }
 
 .App {
@@ -200,6 +224,33 @@ nav {
   background: #06d6a0;
   width: 100%;
   height: 3rem;
+}
+
+nav .login__ul {
+  padding: 0;
+  height: 1.5rem;
+  margin: 0.75rem 0;
+  list-style-type: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+nav .login__ul .login__li {
+  margin: 0 20px;
+  list-style-type: none;
+}
+
+nav .login__ul .login__li a {
+  text-decoration: none;
+  text-align: center;
+}
+
+nav .login__ul .login__last {
+  margin-left: auto;
 }
 
 nav .route__ul {
@@ -255,6 +306,71 @@ nav .player__ul .player__li a {
 
 nav .player__ul .player__title {
   margin: 0 auto;
+}
+
+.nav__trans {
+  background: none;
+  border-radius: 0;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
+.nav__trans * {
+  color: white;
+}
+
+.login-container {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: 1fr;
+      grid-template-rows: 1fr;
+  -ms-grid-columns: 2fr 1fr;
+      grid-template-columns: 2fr 1fr;
+      grid-template-areas: "desc form";
+}
+
+.login-container .desc {
+  -ms-grid-column-align: center;
+      justify-self: center;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+  grid-area: desc;
+}
+
+.login-container .desc h1 {
+  color: #06d6a0;
+}
+
+.login-container .form {
+  justify-self: center;
+  -ms-flex-item-align: center;
+      align-self: center;
+  -ms-grid-row: 1;
+  -ms-grid-column: 2;
+  grid-area: form;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  background: #06d6a0;
+  width: 300px;
+  height: 400px;
+}
+
+.login-container .form button {
+  width: 100px;
+  margin: auto auto 50px auto;
+}
+
+.login-container .form input[type="text"] {
+  font-size: 15px;
+  padding-left: 10px;
 }
 
 .home-container {

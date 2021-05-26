@@ -5,7 +5,8 @@ import './css/App.css';
 
 // Components
 import Home from "./components/Home";
-import {RouteNav, PlayerNav} from "./components/Nav";
+import Login from "./components/Login";
+import {LoginNav, RouteNav, PlayerNav} from "./components/Nav";
 import Saved from "./components/Saved";
 import Player from "./components/player";
 import { useState } from "react";
@@ -19,8 +20,10 @@ function App() {
       <div className="App">
         <Switch>
           <Route path="/" exact>
-            <RouteNav />
-            <Home />
+            {/* <RouteNav />
+            <Home /> */}
+            <LoginNav />
+            <Login />
           </Route>
           <Route path="/saved">
             <RouteNav />

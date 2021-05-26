@@ -4,6 +4,17 @@ import { Link } from "react-router-dom";
 import { EditIcon, ClockIcon, BackIcon } from "./utils/Icon";
 import { toggleEdit, toggleSync } from "../redux/actions";
 
+function LoginNav() {
+    return (
+        <nav>
+            <ul className="login__ul">
+                <li className="nav__li login__li"> <Link to="/"> Logo </Link> </li>
+                <li className="nav__li login__li login__last"> <Link to="/"> About </Link> </li>
+            </ul>
+        </nav>
+    )
+}
+
 function RouteNav() {
     return (
         <nav>
@@ -49,4 +60,4 @@ const mapDispatchToPropsPlayer = {
 
 PlayerNav = connect(mapStateToPropsPlayer, mapDispatchToPropsPlayer)(PlayerNav);
 
-export { RouteNav, PlayerNav };
+export { LoginNav, RouteNav, PlayerNav };

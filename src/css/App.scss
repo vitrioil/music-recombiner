@@ -18,6 +18,9 @@ $effect-cell-width: 100px;
 $input-form-cell-height: 100px;
 $input-form-cell-width: 250px;
 
+$login-form-height: 400px;
+$login-form-width: 300px;
+
 html, body, #root, .App {
   height: 100%;
   width: 100%;
@@ -202,6 +205,30 @@ input[type=range]::-moz-range-track {
   }
 }
 
+.input-container__form {
+  @extend .input-container;
+  background: none;
+  width: 100%;
+  height: 110px;
+
+  .input-text {
+    height: 50px;
+    text-align: left;
+    border-radius: 10px;
+  }
+
+  .border {
+    width: 0;
+    height: 2px;
+    background: $secondary-color;
+  }
+
+  .input-text:focus ~ .border{
+    width: 100%;
+    transition: 0.5s;
+  }
+}
+
 .App {
   background: $background-color;
 
@@ -222,6 +249,30 @@ nav {
   background: $primary-color;
   width: 100%;
   height: 3rem;
+
+  .login__ul {
+    padding: 0;
+    height: 1.5rem;
+    margin: 0.75rem 0;
+    list-style-type: none;
+
+    display: flex;
+    align-items: center;
+
+    .login__li {
+      margin: 0 20px;
+      list-style-type: none;
+
+      a {
+        text-decoration: none;
+        text-align: center;
+      }
+    }
+
+    .login__last {
+      margin-left: auto;
+    }
+  }
 
   .route__ul {
     padding: 0;
@@ -283,7 +334,54 @@ nav {
       margin: 0 auto;
     }
   }
+}
 
+.nav__trans {
+  background: none;
+  border-radius: 0;
+  box-shadow: none;
+  
+  * {
+    color: white;
+  }
+}
+
+.login-container {
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 2fr 1fr;
+  grid-template-areas:
+            "desc form";
+
+  .desc {
+    @include grid-item(center, center, desc);
+
+    h1 {
+      color: $primary-color;
+    }
+  }
+
+  .form {
+    @include grid-item(center, center, form);
+    @extend .curve-raise;
+
+    display: flex;
+    flex-direction: column;
+
+    background: $primary-color;
+    width: $login-form-width;
+    height: $login-form-height;
+
+    button {
+      width: 100px;
+      margin: auto auto 50px auto;
+    }
+
+    input[type="text"] {
+      font-size: 15px;
+      padding-left: 10px;
+    }
+  }
 }
 
 .home-container {

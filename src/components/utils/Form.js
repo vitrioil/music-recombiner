@@ -14,6 +14,23 @@ function InputText({labelText, inputValue, onChange}) {
     );
 }
 
+function InputTextForm({labelText, inputValue, onChange}) {
+    return (
+        <div className="input-container__form input__text">
+            <label className="input-label" htmlFor="">
+                {labelText}
+            </label>
+            <input className="input-text"
+                   type="text"
+                   name="input"
+                   id=""
+                   defaultValue={inputValue}
+                   onChange={onChange} />
+            <span className="border" />
+        </div>
+    );
+}
+
 function InputSlider({labelText, onChange}) {
     return (
         <div className="input-container input__slider">
@@ -28,4 +45,4 @@ function InputSlider({labelText, onChange}) {
     );
 }
 
-export { InputText, InputSlider };
+export { InputText, InputTextForm, InputSlider };

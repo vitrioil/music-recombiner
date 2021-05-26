@@ -7,7 +7,7 @@ import Waves from "./waves";
 
 function Player({initWave}) {
     // make API call here or pass...
-    const url = "http://192.168.1.107:8080/";
+    const url = "http://192.168.1.108:8080/";
     const waveData = [
         {id: 0, stem: "Vocal", url: url + "vocals.mp3", effect: []},
         {id: 1, stem: "Piano", url: url + "piano.mp3", effect: []},
