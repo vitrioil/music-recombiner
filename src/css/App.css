@@ -160,7 +160,7 @@ input[type=range]::-moz-range-track {
   text-align: right;
 }
 
-.input-container input[type=text], .input-container__form input[type=text], .input-container textarea, .input-container__form textarea {
+.input-container input[type=text], .input-container__form input[type=text], .input-container input[type=password], .input-container__form input[type=password], .input-container textarea, .input-container__form textarea {
   background-color: #073b4c;
   color: white;
 }
@@ -191,12 +191,19 @@ input[type=range]::-moz-range-track {
   width: 0;
   height: 2px;
   background: #118ab2;
+  -webkit-transition: width 0.3s linear;
+  transition: width 0.3s linear;
+}
+
+.input-container__form .border__error {
+  width: 100%;
+  background: #d37873;
 }
 
 .input-container__form .input-text:focus ~ .border {
   width: 100%;
-  -webkit-transition: 0.5s;
-  transition: 0.5s;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
 }
 
 .App {
@@ -320,6 +327,8 @@ nav .player__ul .player__title {
 }
 
 .login-container {
+  height: 100%;
+  width: 100%;
   display: -ms-grid;
   display: grid;
   -ms-grid-rows: 1fr;
@@ -359,11 +368,47 @@ nav .player__ul .player__title {
       -ms-flex-direction: column;
           flex-direction: column;
   background: #06d6a0;
-  width: 300px;
-  height: 400px;
+  width: 350px;
+  height: 450px;
 }
 
-.login-container .form button {
+.login-container .form .error-message {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  border-radius: 10px;
+  margin: 20px auto 0 auto;
+  padding: 5px;
+  background: #d37873;
+}
+
+.login-container .form .error-message * {
+  padding: 2px;
+}
+
+.login-container .form .alternate {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+.login-container .form .alternate .register {
+  margin-left: auto;
+}
+
+.login-container .form .alternate button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin: 0 16px;
+}
+
+.login-container .form .login-button {
   width: 100px;
   margin: auto auto 50px auto;
 }
@@ -905,6 +950,15 @@ nav .player__ul .player__title {
 }
 
 @media (max-width: 700px) {
+  .login-container {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-rows: 1fr 3fr;
+        grid-template-rows: 1fr 3fr;
+    -ms-grid-columns: 1fr;
+        grid-template-columns: 1fr;
+        grid-template-areas: "desc" "form";
+  }
   .mix-view:after {
     content: '.';
     visibility: hidden;

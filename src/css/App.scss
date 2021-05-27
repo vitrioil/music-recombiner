@@ -3,6 +3,7 @@ $background-color: #073b4c;
 $primary-color: #06d6a0;
 $secondary-color: #118ab2;
 $alternate-color: #8bf8b9;
+$error-color: #d37873;
 
 $gain-high: #ff5d5d;
 $gain-low: #56fba2;
@@ -18,8 +19,8 @@ $effect-cell-width: 100px;
 $input-form-cell-height: 100px;
 $input-form-cell-width: 250px;
 
-$login-form-height: 400px;
-$login-form-width: 300px;
+$login-form-height: 450px;
+$login-form-width: 350px;
 
 html, body, #root, .App {
   height: 100%;
@@ -189,7 +190,7 @@ input[type=range]::-moz-range-track {
     text-align: right;
   }
 
-  input[type=text], textarea {
+  input[type=text], input[type=password], textarea {
     background-color : $background-color; 
     color: white;
   }
@@ -221,11 +222,17 @@ input[type=range]::-moz-range-track {
     width: 0;
     height: 2px;
     background: $secondary-color;
+    transition: width 0.3s linear;
+  }
+
+  .border__error {
+    width: 100%;
+    background: $error-color;
   }
 
   .input-text:focus ~ .border{
     width: 100%;
-    transition: 0.5s;
+    transition: 0.3s;
   }
 }
 
@@ -347,6 +354,9 @@ nav {
 }
 
 .login-container {
+  height: 100%;
+  width: 100%;
+
   display: grid;
   grid-template-rows: 1fr;
   grid-template-columns: 2fr 1fr;
@@ -372,7 +382,37 @@ nav {
     width: $login-form-width;
     height: $login-form-height;
 
-    button {
+    .error-message {
+      display: flex;
+
+      border-radius: 10px;
+      margin: 20px auto 0 auto;
+      padding: 5px;
+      background: $error-color;
+
+      * {
+        padding: 2px;
+      }
+    }
+
+    .alternate {
+      display: flex;
+      flex-direction: row;
+      
+      .register {
+        margin-left: auto;
+      }
+
+      button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        margin: 0 16px;
+      }
+    }
+
+    .login-button {
       width: 100px;
       margin: auto auto 50px auto;
     }
@@ -831,6 +871,14 @@ nav {
 }
 
 @media (max-width: 700px) {
+  .login-container {
+    display: grid;
+    grid-template-rows: 1fr 3fr;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+              "desc"
+              "form";
+  }
   .mix-view:after {
     content: '.';
     visibility: hidden;

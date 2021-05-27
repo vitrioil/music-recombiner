@@ -1,3 +1,7 @@
+import { useState } from "react";
+
+import Loading from "./utils/Loading";
+import { AlertIcon } from "./utils/Icon";
 import { InputTextForm } from "./utils/Form";
 
 function AppDescription() {
@@ -9,24 +13,51 @@ function AppDescription() {
 }
 
 function LoginForm() {
+    const [errorState, setErrorState] = useState(false);
+    const [loadingState, setLoadingState] = useState(false);
+
     return (
         <div className="form">
             <InputTextForm
                 labelText="Email"
                 inputValue=""
-                onChange={() => {}} />
+                errorState={errorState}
+                onChange={() => setErrorState(false)} />
             <InputTextForm
                 labelText="Password"
                 inputValue=""
-                onChange={() => {}} />
-            <button className="button">
+                errorState={errorState}
+                type="password"
+                onChange={() => setErrorState(false)} />
+            <div className="alternate">
+                <button className="forgot">Forgot Password</button>
+                <button className="register">Register</button>
+            </div>
+            {errorState && <div className="error-message">
+                <AlertIcon />
+                <label className="error-text">
+                    Incorrect Login Credentials
+                </label>
+            </div>}
+            {loadingState ? <Loading />:
+            <button
+                className="button login-button"
+                onClick={() => {
+                    setErrorState(false);
+                    setLoadingState(true);
+                    setTimeout(() => {
+                        setErrorState(true)
+                        setLoadingState(false);
+                    }, 1000);
+                }} >
                 Login
-            </button>
+            </button>}
         </div>
     )
 }
 
 function Login() {
+
     return (
         <div className="login-container">
             <AppDescription />

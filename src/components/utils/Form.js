@@ -14,19 +14,19 @@ function InputText({labelText, inputValue, onChange}) {
     );
 }
 
-function InputTextForm({labelText, inputValue, onChange}) {
+function InputTextForm({labelText, inputValue, onChange, errorState=false, type="text"}) {
     return (
         <div className="input-container__form input__text">
             <label className="input-label" htmlFor="">
                 {labelText}
             </label>
             <input className="input-text"
-                   type="text"
+                   type={type}
                    name="input"
                    id=""
                    defaultValue={inputValue}
                    onChange={onChange} />
-            <span className="border" />
+            <span className={`border ${errorState ? "border__error": ""}`} />
         </div>
     );
 }
