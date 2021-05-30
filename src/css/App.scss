@@ -3,7 +3,9 @@ $background-color: #073b4c;
 $primary-color: #06d6a0;
 $secondary-color: #118ab2;
 $alternate-color: #8bf8b9;
+
 $error-color: #d37873;
+$info-color: #73a0d3;
 
 $gain-high: #ff5d5d;
 $gain-low: #56fba2;
@@ -19,12 +21,28 @@ $effect-cell-width: 100px;
 $input-form-cell-height: 100px;
 $input-form-cell-width: 250px;
 
-$login-form-height: 450px;
-$login-form-width: 350px;
+$login-form-height: 550px;
+$login-form-width: 450px;
 
 html, body, #root, .App {
   height: 100%;
   width: 100%;
+}
+
+.error-message {
+  background: $error-color;
+}
+
+.info-message {
+  background: $info-color;
+}
+
+.error-message-text {
+  color: $error-color;
+}
+
+.info-message-text {
+  color: $info-color;
 }
 
 * {
@@ -210,7 +228,7 @@ input[type=range]::-moz-range-track {
   @extend .input-container;
   background: none;
   width: 100%;
-  height: 110px;
+  height: 140px;
 
   .input-text {
     height: 50px;
@@ -220,7 +238,7 @@ input[type=range]::-moz-range-track {
 
   .border {
     width: 0;
-    height: 2px;
+    height: 5px;
     background: $secondary-color;
     transition: width 0.3s linear;
   }
@@ -233,6 +251,13 @@ input[type=range]::-moz-range-track {
   .input-text:focus ~ .border{
     width: 100%;
     transition: 0.3s;
+  }
+
+  .form-message {
+    border-radius: 10px;
+    margin: 0px;
+    padding: 0px 5px;
+    width: max-content;
   }
 }
 
@@ -379,16 +404,18 @@ nav {
     flex-direction: column;
 
     background: $primary-color;
-    width: $login-form-width;
-    height: $login-form-height;
 
-    .error-message {
+    min-width: $login-form-width;
+    min-height: $login-form-height;
+    width: auto;
+    height: auto;
+
+    .message {
       display: flex;
 
       border-radius: 10px;
       margin: 20px auto 0 auto;
       padding: 5px;
-      background: $error-color;
 
       * {
         padding: 2px;
@@ -420,6 +447,26 @@ nav {
     input[type="text"] {
       font-size: 15px;
       padding-left: 10px;
+    }
+
+    .header {
+      text-align: center;
+    }
+  }
+
+  .form__forgot {
+
+    .form-horizontal-container {
+      margin: auto auto 50px auto;
+
+      * {
+        margin: 0 10px;
+      }
+    }
+
+    // Loading bar
+    div:last-child {
+      margin: auto auto 50px auto;
     }
   }
 }

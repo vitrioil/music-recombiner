@@ -14,7 +14,7 @@ function InputText({labelText, inputValue, onChange}) {
     );
 }
 
-function InputTextForm({labelText, inputValue, onChange, errorState=false, type="text"}) {
+function InputTextForm({labelText, inputValue, onChange, onBlur, errorState=false, type="text", message=""}) {
     return (
         <div className="input-container__form input__text">
             <label className="input-label" htmlFor="">
@@ -25,7 +25,9 @@ function InputTextForm({labelText, inputValue, onChange, errorState=false, type=
                    name="input"
                    id=""
                    defaultValue={inputValue}
-                   onChange={onChange} />
+                   onChange={onChange}
+                   onBlur={onBlur} />
+            {message && <p className="form-message error-message">{message}</p>}
             <span className={`border ${errorState ? "border__error": ""}`} />
         </div>
     );

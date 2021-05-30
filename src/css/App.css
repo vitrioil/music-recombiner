@@ -4,6 +4,22 @@ html, body, #root, .App {
   width: 100%;
 }
 
+.error-message {
+  background: #d37873;
+}
+
+.info-message {
+  background: #73a0d3;
+}
+
+.error-message-text {
+  color: #d37873;
+}
+
+.info-message-text {
+  color: #73a0d3;
+}
+
 * {
   color: black;
 }
@@ -178,7 +194,7 @@ input[type=range]::-moz-range-track {
 .input-container__form {
   background: none;
   width: 100%;
-  height: 110px;
+  height: 140px;
 }
 
 .input-container__form .input-text {
@@ -189,7 +205,7 @@ input[type=range]::-moz-range-track {
 
 .input-container__form .border {
   width: 0;
-  height: 2px;
+  height: 5px;
   background: #118ab2;
   -webkit-transition: width 0.3s linear;
   transition: width 0.3s linear;
@@ -204,6 +220,15 @@ input[type=range]::-moz-range-track {
   width: 100%;
   -webkit-transition: 0.3s;
   transition: 0.3s;
+}
+
+.input-container__form .form-message {
+  border-radius: 10px;
+  margin: 0px;
+  padding: 0px 5px;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
 }
 
 .App {
@@ -368,21 +393,22 @@ nav .player__ul .player__title {
       -ms-flex-direction: column;
           flex-direction: column;
   background: #06d6a0;
-  width: 350px;
-  height: 450px;
+  min-width: 450px;
+  min-height: 550px;
+  width: auto;
+  height: auto;
 }
 
-.login-container .form .error-message {
+.login-container .form .message {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   border-radius: 10px;
   margin: 20px auto 0 auto;
   padding: 5px;
-  background: #d37873;
 }
 
-.login-container .form .error-message * {
+.login-container .form .message * {
   padding: 2px;
 }
 
@@ -416,6 +442,22 @@ nav .player__ul .player__title {
 .login-container .form input[type="text"] {
   font-size: 15px;
   padding-left: 10px;
+}
+
+.login-container .form .header {
+  text-align: center;
+}
+
+.login-container .form__forgot .form-horizontal-container {
+  margin: auto auto 50px auto;
+}
+
+.login-container .form__forgot .form-horizontal-container * {
+  margin: 0 10px;
+}
+
+.login-container .form__forgot div:last-child {
+  margin: auto auto 50px auto;
 }
 
 .home-container {
