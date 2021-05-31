@@ -4,6 +4,11 @@ import Loading from "./utils/Loading";
 import { AlertIcon } from "./utils/Icon";
 import { InputText, InputTextForm } from "./utils/Form";
 
+function NonEmptyValidator(input) {
+    let text = "Input cannot be empty";
+    return input.length > 0 ? "": text;
+}
+
 function AppDescription() {
     return (
         <div className="desc">
@@ -13,11 +18,13 @@ function AppDescription() {
 }
 
 function RegisterForm({setView}) {
+    const totalInput = 3;
     const [errorState, setErrorState] = useState(false);
     const [loadingState, setLoadingState] = useState(false);
+    const [valid, setValid] = useState(0);
 
     return (
-        <div className="form form__login">
+        <div className="form form__register">
             <h3 className="header">
                 Register
             </h3>
@@ -25,17 +32,26 @@ function RegisterForm({setView}) {
                 labelText="Email"
                 inputValue=""
                 errorState={errorState}
+                validator={NonEmptyValidator}
+                valid={valid}
+                setValid={setValid}
                 onChange={() => setErrorState(false)} />
             <InputTextForm
                 labelText="Password"
                 inputValue=""
                 errorState={errorState}
+                validator={NonEmptyValidator}
+                valid={valid}
+                setValid={setValid}
                 type="password"
                 onChange={() => setErrorState(false)} />
             <InputTextForm
                 labelText="Confirm Password"
                 inputValue=""
                 errorState={errorState}
+                validator={NonEmptyValidator}
+                valid={valid}
+                setValid={setValid}
                 type="password"
                 onChange={() => setErrorState(false)} />
             <div className="alternate">
@@ -53,6 +69,7 @@ function RegisterForm({setView}) {
             </div>}
             {loadingState ? <Loading />:
             <button
+                disabled={valid !== totalInput}
                 className="button login-button"
                 onClick={() => {
                     setErrorState(false);
@@ -69,8 +86,10 @@ function RegisterForm({setView}) {
 }
 
 function ForgotForm({setView}) {
+    const totalInput = 1;
     const [errorState, setErrorState] = useState(false);
     const [loadingState, setLoadingState] = useState(false);
+    const [valid, setValid] = useState(0);
 
     return (
         <div className="form form__forgot">
@@ -81,6 +100,9 @@ function ForgotForm({setView}) {
                 labelText="Email"
                 inputValue=""
                 errorState={errorState}
+                validator={NonEmptyValidator}
+                valid={valid}
+                setValid={setValid}
                 onChange={() => setErrorState(false)} />
             {errorState && <div className="message info-message">
                 <AlertIcon />
@@ -91,6 +113,7 @@ function ForgotForm({setView}) {
             {loadingState ? <Loading />:
             <div className="form-horizontal-container">
                 <button
+                    disabled={valid !== totalInput}
                     className="button login-button"
                     onClick={() => {
                         setErrorState(false);
@@ -113,16 +136,10 @@ function ForgotForm({setView}) {
 }
 
 function LoginForm({setView}) {
+    const totalInput = 2;
     const [errorState, setErrorState] = useState(false);
     const [loadingState, setLoadingState] = useState(false);
-
-    const exampleTextValidator = (event) => {
-        let invalid = event.target.value.length > 5;
-        if (invalid) {
-            return "Invalid Input";
-        }
-        return "";
-    };
+    const [valid, setValid] = useState(0);
 
     return (
         <div className="form form__login">
@@ -133,13 +150,18 @@ function LoginForm({setView}) {
                 labelText="Email"
                 inputValue=""
                 errorState={errorState}
-                onBlur={exampleTextValidator}
+                validator={NonEmptyValidator}
+                valid={valid}
+                setValid={setValid}
+                type="text"
                 onChange={() => setErrorState(false)} />
             <InputTextForm
                 labelText="Password"
                 inputValue=""
                 errorState={errorState}
-                onBlur={exampleTextValidator}
+                validator={NonEmptyValidator}
+                valid={valid}
+                setValid={setValid}
                 type="password"
                 onChange={() => setErrorState(false)} />
             <div className="alternate">
@@ -162,10 +184,11 @@ function LoginForm({setView}) {
             </div>}
             {loadingState ? <Loading />:
             <button
+                disabled={valid !== totalInput}
                 className="button login-button"
                 onClick={() => {
-                    setErrorState(false);
                     setLoadingState(true);
+                    setErrorState(false);
                     setTimeout(() => {
                         setErrorState(true)
                         setLoadingState(false);

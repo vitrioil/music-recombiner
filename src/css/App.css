@@ -395,8 +395,8 @@ nav .player__ul .player__title {
   background: #06d6a0;
   min-width: 450px;
   min-height: 550px;
-  width: auto;
-  height: auto;
+  -webkit-transition: all 1s;
+  transition: all 1s;
 }
 
 .login-container .form .message {
@@ -404,7 +404,7 @@ nav .player__ul .player__title {
   display: -ms-flexbox;
   display: flex;
   border-radius: 10px;
-  margin: 20px auto 0 auto;
+  margin: 20px auto 20px auto;
   padding: 5px;
 }
 
@@ -434,6 +434,10 @@ nav .player__ul .player__title {
   margin: 0 16px;
 }
 
+.login-container .form .button:disabled, .login-container .form .home-container .upload .upload__button:disabled, .home-container .upload .login-container .form .upload__button:disabled, .login-container .form .home-container .upload .submit__button:disabled, .home-container .upload .login-container .form .submit__button:disabled, .login-container .form .saved-container .saved__cell .saved__cell__loading .loading__open:disabled, .saved-container .saved__cell .saved__cell__loading .login-container .form .loading__open:disabled, .login-container .form .player-container .mixer-container .effect-view .effect-header .effect-button:disabled, .player-container .mixer-container .effect-view .effect-header .login-container .form .effect-button:disabled {
+  background: grey;
+}
+
 .login-container .form .login-button {
   width: 100px;
   margin: auto auto 50px auto;
@@ -448,6 +452,11 @@ nav .player__ul .player__title {
   text-align: center;
 }
 
+.login-container .form__forgot {
+  -webkit-transition: max-height 1s;
+  transition: max-height 1s;
+}
+
 .login-container .form__forgot .form-horizontal-container {
   margin: auto auto 50px auto;
 }
@@ -458,6 +467,16 @@ nav .player__ul .player__title {
 
 .login-container .form__forgot div:last-child {
   margin: auto auto 50px auto;
+}
+
+.login-container .form__login {
+  -webkit-transition: all 1s;
+  transition: all 1s;
+}
+
+.login-container .form__register {
+  -webkit-transition: all 1s;
+  transition: all 1s;
 }
 
 .home-container {

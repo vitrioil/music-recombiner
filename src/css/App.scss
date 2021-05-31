@@ -407,14 +407,14 @@ nav {
 
     min-width: $login-form-width;
     min-height: $login-form-height;
-    width: auto;
-    height: auto;
+
+    transition: all 1s;
 
     .message {
       display: flex;
 
       border-radius: 10px;
-      margin: 20px auto 0 auto;
+      margin: 20px auto 20px auto;
       padding: 5px;
 
       * {
@@ -439,6 +439,10 @@ nav {
       }
     }
 
+    .button:disabled {
+      background: grey;
+    }
+
     .login-button {
       width: 100px;
       margin: auto auto 50px auto;
@@ -455,6 +459,7 @@ nav {
   }
 
   .form__forgot {
+    transition: max-height 1s;
 
     .form-horizontal-container {
       margin: auto auto 50px auto;
@@ -468,6 +473,14 @@ nav {
     div:last-child {
       margin: auto auto 50px auto;
     }
+  }
+
+  .form__login {
+    transition: all 1s;
+  }
+
+  .form__register {
+    transition: all 1s;
   }
 }
 
