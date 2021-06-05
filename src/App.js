@@ -12,18 +12,23 @@ import Player from "./components/player";
 import { useState } from "react";
 
 function App() {
-  const [isLoading, setIsLoading] = useState(false);
-  // setTimeout(() => setIsLoading(false), 500);
+  const [loggedIn, setLoggedIn] = useState();
 
   return (
     <BrowserRouter>
       <div className="App">
         <Switch>
           <Route path="/" exact>
-            {/* <RouteNav />
-            <Home /> */}
-            <LoginNav />
-            <Login />
+            {loggedIn ? 
+              <>
+                <RouteNav />
+                <Home />
+              </>:
+              <>
+                <LoginNav />
+                <Login setLoggedIn={setLoggedIn} />
+              </>
+            }
           </Route>
           <Route path="/saved">
             <RouteNav />

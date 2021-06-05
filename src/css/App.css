@@ -2,6 +2,7 @@
 html, body, #root, .App {
   height: 100%;
   width: 100%;
+  background: #073b4c;
 }
 
 .error-message {
@@ -393,8 +394,9 @@ nav .player__ul .player__title {
       -ms-flex-direction: column;
           flex-direction: column;
   background: #06d6a0;
-  min-width: 450px;
+  min-width: 400px;
   min-height: 550px;
+  max-height: 100%;
   -webkit-transition: all 1s;
   transition: all 1s;
 }

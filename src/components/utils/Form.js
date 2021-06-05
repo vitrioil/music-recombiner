@@ -17,25 +17,17 @@ function InputText({labelText, inputValue, onChange}) {
     );
 }
 
-function InputTextForm({labelText, inputValue, onChange, validator, valid, setValid, errorState=false, type="text"}) {
+function InputTextForm({labelText, inputValue, setValue, onChange, validator, setValid, errorState=false, type="text"}) {
     const [message, setMessage] = useState(null);
 
-    const validate = (event, updateValidity=true) => {
-        let newValidity = valid;
+    const validate = (event) => {
         let invalidText = validator(event.target.value);
-        if(invalidText && updateValidity && message !== invalidText) {
-            newValidity = valid - 1;
-        } else if(updateValidity && message !== invalidText) {
-            newValidity = valid + 1;
-        }
-        if(updateValidity) {
-            setValid(newValidity);
-        }
-        console.log(newValidity);
+        setValid(invalidText.length === 0);
         setMessage(invalidText);
     };
 
     const onChangeInput = (event) => {
+        setValue(event.target.value);
         onChange(event);
         validate(event);
     }

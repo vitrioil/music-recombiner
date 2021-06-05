@@ -22,12 +22,14 @@ $input-form-cell-height: 100px;
 $input-form-cell-width: 250px;
 
 $login-form-height: 550px;
-$login-form-width: 450px;
+$login-form-width: 400px;
 
 html, body, #root, .App {
   height: 100%;
   width: 100%;
+  background: $background-color;
 }
+
 
 .error-message {
   background: $error-color;
@@ -407,6 +409,7 @@ nav {
 
     min-width: $login-form-width;
     min-height: $login-form-height;
+    max-height: 100%;
 
     transition: all 1s;
 

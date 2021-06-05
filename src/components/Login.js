@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import Loading from "./utils/Loading";
 import { AlertIcon } from "./utils/Icon";
-import { InputText, InputTextForm } from "./utils/Form";
+import { InputTextForm } from "./utils/Form";
 
 function NonEmptyValidator(input) {
     let text = "Input cannot be empty";
@@ -17,11 +17,22 @@ function AppDescription() {
     )
 }
 
+const submitForm = async ({endpoint, payload}) => {
+    const response = await fetch(endpoint, {
+        headers: new Headers({'Content-Type': 'application/x-www-form-urlencoded'}),
+        method: 'POST',
+        body: payload
+    });
+    return response;
+  }
+
 function RegisterForm({setView}) {
-    const totalInput = 3;
     const [errorState, setErrorState] = useState(false);
     const [loadingState, setLoadingState] = useState(false);
-    const [valid, setValid] = useState(0);
+
+    const[emailValid, setEmailValid] = useState(false);
+    const[passwordValid, setPasswordValid] = useState(false);
+    const[confirmPasswordValid, setConfirmPasswordValid] = useState(false);
 
     return (
         <div className="form form__register">
@@ -33,16 +44,14 @@ function RegisterForm({setView}) {
                 inputValue=""
                 errorState={errorState}
                 validator={NonEmptyValidator}
-                valid={valid}
-                setValid={setValid}
+                setValid={setEmailValid}
                 onChange={() => setErrorState(false)} />
             <InputTextForm
                 labelText="Password"
                 inputValue=""
                 errorState={errorState}
                 validator={NonEmptyValidator}
-                valid={valid}
-                setValid={setValid}
+                setValid={setPasswordValid}
                 type="password"
                 onChange={() => setErrorState(false)} />
             <InputTextForm
@@ -50,8 +59,7 @@ function RegisterForm({setView}) {
                 inputValue=""
                 errorState={errorState}
                 validator={NonEmptyValidator}
-                valid={valid}
-                setValid={setValid}
+                setValid={setConfirmPasswordValid}
                 type="password"
                 onChange={() => setErrorState(false)} />
             <div className="alternate">
@@ -69,7 +77,7 @@ function RegisterForm({setView}) {
             </div>}
             {loadingState ? <Loading />:
             <button
-                disabled={valid !== totalInput}
+                disabled={!(emailValid && passwordValid && confirmPasswordValid)}
                 className="button login-button"
                 onClick={() => {
                     setErrorState(false);
@@ -86,10 +94,10 @@ function RegisterForm({setView}) {
 }
 
 function ForgotForm({setView}) {
-    const totalInput = 1;
     const [errorState, setErrorState] = useState(false);
     const [loadingState, setLoadingState] = useState(false);
-    const [valid, setValid] = useState(0);
+
+    const[emailValid, setEmailValid] = useState(false);
 
     return (
         <div className="form form__forgot">
@@ -101,8 +109,7 @@ function ForgotForm({setView}) {
                 inputValue=""
                 errorState={errorState}
                 validator={NonEmptyValidator}
-                valid={valid}
-                setValid={setValid}
+                setValid={setEmailValid}
                 onChange={() => setErrorState(false)} />
             {errorState && <div className="message info-message">
                 <AlertIcon />
@@ -113,7 +120,7 @@ function ForgotForm({setView}) {
             {loadingState ? <Loading />:
             <div className="form-horizontal-container">
                 <button
-                    disabled={valid !== totalInput}
+                    disabled={!emailValid}
                     className="button login-button"
                     onClick={() => {
                         setErrorState(false);
@@ -135,11 +142,15 @@ function ForgotForm({setView}) {
     );
 }
 
-function LoginForm({setView}) {
-    const totalInput = 2;
+function LoginForm({setView, setLoggedIn}) {
+    const [email, setEmail] = useState();
+    const [password, setPassword] = useState();
+
     const [errorState, setErrorState] = useState(false);
     const [loadingState, setLoadingState] = useState(false);
-    const [valid, setValid] = useState(0);
+
+    const[emailValid, setEmailValid] = useState(false);
+    const[passwordValid, setPasswordValid] = useState(false);
 
     return (
         <div className="form form__login">
@@ -149,19 +160,19 @@ function LoginForm({setView}) {
             <InputTextForm
                 labelText="Email"
                 inputValue=""
+                setValue={setEmail}
                 errorState={errorState}
                 validator={NonEmptyValidator}
-                valid={valid}
-                setValid={setValid}
+                setValid={setEmailValid}
                 type="text"
                 onChange={() => setErrorState(false)} />
             <InputTextForm
                 labelText="Password"
                 inputValue=""
+                setValue={setPassword}
                 errorState={errorState}
                 validator={NonEmptyValidator}
-                valid={valid}
-                setValid={setValid}
+                setValid={setPasswordValid}
                 type="password"
                 onChange={() => setErrorState(false)} />
             <div className="alternate">
@@ -184,14 +195,27 @@ function LoginForm({setView}) {
             </div>}
             {loadingState ? <Loading />:
             <button
-                disabled={valid !== totalInput}
+                disabled={!(emailValid && passwordValid)}
                 className="button login-button"
-                onClick={() => {
+                onClick={async () => {
                     setLoadingState(true);
                     setErrorState(false);
+
+                    let payload = {"grant_type": "password", "username": email, "password": password};
+                    payload = Object.keys(payload).map(k => `${k}=${payload[k]}`).join('&');
+
+                    let response = await submitForm({endpoint: `${process.env.REACT_APP_SEPARATOR_API}/token`, payload})
                     setTimeout(() => {
-                        setErrorState(true)
+
+                    if(response.status === 200) {
                         setLoadingState(false);
+                        setLoggedIn(true);
+                    } else {
+                    // setTimeout(() => {
+                        setErrorState(true);
+                        setLoadingState(false);
+                    // }, 1000);
+                    }
                     }, 1000);
                 }} >
                 Login
@@ -200,7 +224,7 @@ function LoginForm({setView}) {
     );
 }
 
-function Login() {
+function Login({setLoggedIn}) {
     const [view, setView] = useState("login");
     let form;
 
@@ -209,7 +233,7 @@ function Login() {
     } else if (view === "register") {
         form = <RegisterForm setView={setView} />
     } else {
-        form = <LoginForm setView={setView} />;
+        form = <LoginForm setLoggedIn={setLoggedIn} setView={setView} />;
     }
 
     return (
