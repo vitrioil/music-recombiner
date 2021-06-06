@@ -25,3 +25,5 @@ export const DELETE_EFFECT = "DELETE_EFFECT";
 export const SET_EFFECT_PARAMS = "SET_EFFECT_PARAMS";
 
 export const TOGGLE_EDIT = "TOGGLE_EDIT";
+
+export const SET_PROJECT = "SET_PROJECT";

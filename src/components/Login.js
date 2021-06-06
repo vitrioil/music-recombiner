@@ -3,6 +3,7 @@ import { useState } from "react";
 import Loading from "./utils/Loading";
 import { AlertIcon } from "./utils/Icon";
 import { InputTextForm } from "./utils/Form";
+import { setCookie } from "./utils/Auth";
 
 function NonEmptyValidator(input) {
     let text = "Input cannot be empty";
@@ -205,17 +206,19 @@ function LoginForm({setView, setLoggedIn}) {
                     payload = Object.keys(payload).map(k => `${k}=${payload[k]}`).join('&');
 
                     let response = await submitForm({endpoint: `${process.env.REACT_APP_SEPARATOR_API}/token`, payload})
+                    let token = await response.json();
                     setTimeout(() => {
 
-                    if(response.status === 200) {
-                        setLoadingState(false);
-                        setLoggedIn(true);
-                    } else {
-                    // setTimeout(() => {
-                        setErrorState(true);
-                        setLoadingState(false);
-                    // }, 1000);
-                    }
+                        if(response.status === 200) {
+                            setLoadingState(false);
+                            setLoggedIn(true);
+                            setCookie("token", token["access_token"], 1);
+                        } else {
+                        // setTimeout(() => {
+                            setErrorState(true);
+                            setLoadingState(false);
+                        // }, 1000);
+                        }
                     }, 1000);
                 }} >
                 Login

@@ -1,4 +1,4 @@
-import { DELETE_EFFECT, DESTROY_WAVE, SET_EFFECT_ID, SET_EFFECT_NAME, SET_EFFECT_PARAMS, SET_MIXER_PARAMS, SET_MIXER_VIEW, SET_SOLO, SET_SYNC_TIME, TOGGLE_EDIT, TOGGLE_SYNC } from "../actionTypes";
+import { DELETE_EFFECT, DESTROY_WAVE, SET_EFFECT_ID, SET_EFFECT_NAME, SET_EFFECT_PARAMS, SET_MIXER_PARAMS, SET_MIXER_VIEW, SET_PROJECT, SET_SOLO, SET_SYNC_TIME, TOGGLE_EDIT, TOGGLE_SYNC } from "../actionTypes";
 import { PLAY_PAUSE_WAVE, STOP_WAVE, REWIND_WAVE,
          FORWARD_WAVE, SET_SYNC, LOAD_WAVE, INIT_WAVE,
          ADD_REF_WAVE, SET_STEM } from "../actionTypes";
@@ -13,7 +13,8 @@ const initState = {
     soloStem: [],
     isLoading: false,
     focusedStem: "",
-    edit: false
+    edit: false,
+    openProject: ""
 };
 
 const getWave = (state, payload) => {
@@ -185,6 +186,13 @@ function rootReducer(state = initState, action) {
                 ...state,
                 effectId: state.effectId
             };
+        }
+        case SET_PROJECT: {
+            const { id } = action.payload;
+            return {
+                ...state,
+                openProject: id
+            }
         }
         default:
             return state;
