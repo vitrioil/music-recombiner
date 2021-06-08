@@ -1,6 +1,8 @@
 import WaveSurfer from "wavesurfer.js";
 import RegionsPlugin from 'wavesurfer.js/src/plugin/regions/index.js'
 
+import { getCookie } from "./Auth";
+
 const waveOptions = (ref) => ({
     container: ref,
     responsive: false,
@@ -10,7 +12,13 @@ const waveOptions = (ref) => ({
     barRadius: 3,
     height: 100,
     showTime: true,
-    plugins: [RegionsPlugin.create()]
+    plugins: [RegionsPlugin.create()],
+    xhr: {
+        requestHeaders: [{
+            key: "Authorization",
+            value: "Bearer " + getCookie("token")
+        }]
+    }
 });
 
 class Waveform {

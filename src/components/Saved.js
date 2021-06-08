@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 import Loading from "./utils/Loading";
 import { getCookie } from "./utils/Auth";
-import { setProject } from "../redux/actions";
+import { setProject, setSignals } from "../redux/actions";
 
 //add signal schema
 function Cell({signal, setProject}) {
@@ -33,11 +33,11 @@ function Cell({signal, setProject}) {
     );
 }
 
-function Saved({setProject}) {
-    const [signals, setSignals] = useState([]);
+function Saved({signals, setProject, setSignals}) {
     const getSignalUrl = "http://192.168.1.108:8000/signal/";
 
-    useEffect(async () => {
+    useEffect(() => {
+      async function fetchSignals() {
         const controller = new AbortController();
         const { signal } = controller;
         const response = await fetch(getSignalUrl, {
@@ -51,8 +51,9 @@ function Saved({setProject}) {
         } else {
             //error handling
         }
-
         return () => {controller.abort()};
+      }
+      fetchSignals();
     }, []);
 
     return (
@@ -62,8 +63,13 @@ function Saved({setProject}) {
     );
 }
 
+const mapStateToPropsPlayer = (state) => ({
+    signals: state.signals
+});
+
 const mapDispatchToPropsPlayer = {
-    setProject
+    setProject,
+    setSignals
 }
 
-export default connect(null, mapDispatchToPropsPlayer)(Saved);
+export default connect(mapStateToPropsPlayer, mapDispatchToPropsPlayer)(Saved);

@@ -17,20 +17,23 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
 
   //creates weird effect that shows login for ~1ms
-  useEffect(async () => {
-      const controller = new AbortController();
-      const { signal } = controller;
-      const response = await fetch("http://127.0.0.1:8000/signal", {
-          headers: new Headers({"Authorization": `Bearer ${getCookie("token")}`}),
-          method: "GET",
-          signal: signal
-      });
+  useEffect(() => {
+    async function checkLoggedIn() {
+        const controller = new AbortController();
+        const { signal } = controller;
+        const response = await fetch("http://127.0.0.1:8000/signal", {
+            headers: new Headers({"Authorization": `Bearer ${getCookie("token")}`}),
+            method: "GET",
+            signal: signal
+        });
 
-      if(response.status === 200) {
-        setLoggedIn(true);
-      }
+        if(response.status === 200) {
+          setLoggedIn(true);
+        }
 
-      return () => {controller.abort()};
+        return () => {controller.abort()};
+    }
+    checkLoggedIn();
   }, []);
 
   return (

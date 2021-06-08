@@ -3,7 +3,7 @@ import { PLAY_PAUSE_WAVE, STOP_WAVE, REWIND_WAVE,
          INIT_WAVE, DESTROY_WAVE, SET_STEM, TOGGLE_SYNC, SET_SYNC,
          SET_SYNC_TIME, SET_SOLO, SET_MIXER_VIEW, SET_EFFECT_ID, 
          TOGGLE_EDIT, SET_MIXER_PARAMS, SET_EFFECT_NAME, 
-         DELETE_EFFECT, SET_EFFECT_PARAMS, SET_PROJECT } from "./actionTypes";
+         DELETE_EFFECT, SET_EFFECT_PARAMS, SET_PROJECT, SET_SIGNALS, GET_STEM } from "./actionTypes";
 
 export const playPauseWave = () => ({
     type: PLAY_PAUSE_WAVE
@@ -140,5 +140,12 @@ export const setProject = (id) => ({
     type: SET_PROJECT,
     payload: {
         id
+    }
+})
+
+export const setSignals = (signals) => ({
+    type: SET_SIGNALS,
+    payload: {
+        signals
     }
 })

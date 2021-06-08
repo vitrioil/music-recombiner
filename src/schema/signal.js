@@ -1,3 +1,5 @@
+class SignalMetadata {
+}
 class Signal {
 
 }
