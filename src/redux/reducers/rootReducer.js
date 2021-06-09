@@ -30,34 +30,35 @@ function rootReducer(state = initState, action) {
             const { id, stem, effect, url } = action.payload;
             const wave = new Waveform(id, stem, effect, url);
 
+            let oldWaves = state.waves;
+            oldWaves[stem] = wave;
             return {
                 ...state,
-                waves: {...state.waves, [stem]: wave}
+                waves: oldWaves
             };
         }
         case ADD_REF_WAVE: {
             const { wave, stem, waveRef, waveSurfRef } = getWave(state, action.payload);
             wave.setRef(waveRef, waveSurfRef);
 
-            return {
-                ...state,
-                waves: {...state.waves, [stem]: wave}
-            };
+            return state;
         }
         case LOAD_WAVE: {
             const { wave, stem } = getWave(state, action.payload);
             wave.load();
 
-            return {
-                ...state,
-                waves: {...state.waves, [stem]: wave}
-            };
+            return state;
         }
         case DESTROY_WAVE: {
             const { wave, stem } = getWave(state, action.payload);
             wave.destroy();
 
-            return state;
+            let oldWaves = state.waves;
+            delete oldWaves[stem]
+            return {
+                ...state,
+                waves: oldWaves
+            }
         };
         case PLAY_PAUSE_WAVE: {
             Object.values(state.waves).map((wave) => wave.playPause());

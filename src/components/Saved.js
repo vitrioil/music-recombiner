@@ -8,7 +8,6 @@ import { setProject, setSignals } from "../redux/actions";
 
 //add signal schema
 function Cell({signal, setProject}) {
-    console.log(signal);
     const loading = (
         <div className="saved__cell__loading">
             <Loading />
@@ -16,7 +15,6 @@ function Cell({signal, setProject}) {
                 className="loading__open"
                 to="/player"
                 onClick={() => {
-                    console.log(signal.signal_id);
                     setProject(signal.signal_id);
                 }}>
                     Open
