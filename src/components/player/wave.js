@@ -1,4 +1,4 @@
-import { useEffect, createRef } from "react";
+import { useEffect, createRef, useState } from "react";
 
 import Loading from "../utils/Loading";
 import {PauseIcon, RewindIcon, StopIcon, ForwardIcon} from "../utils/Icon";
@@ -8,17 +8,19 @@ import { connect } from "react-redux";
 function Wave({wave, isLoading, addRefWave, loadWave, destroyWave}) {
     const waveRef = createRef(null);
     const waveSurfRef = createRef(null);
+    const [isWaveLoading, setIsWaveLoading] = useState(false);
     
     useEffect(() => {
-        if(!isLoading) {
+        // if(!isWaveLoading) {
             addRefWave(wave.getName(), waveRef, waveSurfRef);
             loadWave(wave.getName());
+            // setIsWaveLoading(false);
 
             return () => {
                 destroyWave(wave.getName());
             };
-        }
-    }, [isLoading]);
+        // }
+    }, []);
 
     return (
         <div className="wave">
@@ -37,7 +39,7 @@ function Wave({wave, isLoading, addRefWave, loadWave, destroyWave}) {
                           className="img_icons wave__side__actions" />
             </div>
             <div className="wave__content">
-                {isLoading ?
+                {isWaveLoading ?
                     <Loading className="progress__wave"/>
                     :
                     <div className="waveform" ref={waveRef}></div>

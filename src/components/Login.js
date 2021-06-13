@@ -118,7 +118,7 @@ function ForgotForm({setView}) {
                     Password reset confirmation sent
                 </label>
             </div>}
-            {loadingState ? <Loading />:
+            {loadingState ? <Loading className="forgot-form-loading" />:
             <div className="form-horizontal-container">
                 <button
                     disabled={!emailValid}

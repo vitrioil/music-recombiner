@@ -14,8 +14,10 @@ import {ReactComponent as CrossIcon} from "../../icons/x-circle.svg";
 import {ReactComponent as CopyIcon} from "../../icons/copy.svg";
 import {ReactComponent as SaveIcon} from "../../icons/save.svg";
 import {ReactComponent as AlertIcon} from "../../icons/alert-circle.svg";
+import {ReactComponent as MusicIcon} from "../../icons/music.svg";
+import {ReactComponent as PlusIcon} from "../../icons/plus.svg";
 
 export {PauseIcon, RewindIcon, StopIcon, ForwardIcon,
         SyncIcon, MuteIcon, DownloadIcon, SoloIcon, EditIcon,
         MenuIcon, ClockIcon, BackIcon, CrossIcon, CopyIcon,
-        SaveIcon, AlertIcon}
+        SaveIcon, AlertIcon, MusicIcon, PlusIcon}

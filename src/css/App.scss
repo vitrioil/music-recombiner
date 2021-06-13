@@ -10,8 +10,8 @@ $info-color: #73a0d3;
 $gain-high: #ff5d5d;
 $gain-low: #56fba2;
 
-$saved-cell-height: 200px;
-$saved-cell-width: 350px;
+$saved-cell-height: 275px;
+$saved-cell-width: 300px;
 
 $mixer-cell-width: 125px;
 
@@ -23,6 +23,9 @@ $input-form-cell-width: 250px;
 
 $login-form-height: 550px;
 $login-form-width: 400px;
+
+$modal-height: 400px;
+$modal-width: 600px;
 
 html, body, #root, .App {
   height: 100%;
@@ -263,6 +266,41 @@ input[type=range]::-moz-range-track {
   }
 }
 
+.modal {
+  @extend .curve-raise;
+
+  position: fixed;
+  z-index: 500;
+
+  width: $modal-width;
+  height: $modal-height;
+
+  margin-top: (- $modal-height / 2);
+  margin-left: (- $modal-width / 2);
+
+  left: 50%;
+  top: 50%;
+  padding: 16px;
+
+  background-color: $primary-color;
+  box-shadow: 1px 1px 1px black;
+  box-sizing: border-box;
+
+  transition: all 0.3s ease-out;
+}
+
+.backdrop {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 100;
+  left: 0;
+  top: 0;
+  background-color: rgba(0,0,0,0.5);
+
+  transition: all 0.3s;
+}
+
 .App {
   background: $background-color;
 
@@ -409,7 +447,6 @@ nav {
 
     min-width: $login-form-width;
     min-height: $login-form-height;
-    max-height: 100%;
 
     transition: all 1s;
 
@@ -462,8 +499,6 @@ nav {
   }
 
   .form__forgot {
-    transition: max-height 1s;
-
     .form-horizontal-container {
       margin: auto auto 50px auto;
 
@@ -473,40 +508,24 @@ nav {
     }
 
     // Loading bar
-    div:last-child {
+    .forgot-form-loading {
       margin: auto auto 50px auto;
     }
   }
-
-  .form__login {
-    transition: all 1s;
-  }
-
-  .form__register {
-    transition: all 1s;
-  }
 }
 
-.home-container {
-  @include grid-item(center, center, content);
+.saved-container {
+  height: 100%;
+  width: 100%;
 
   display: grid;
-  grid-template-rows: 1fr;
-  grid-template-columns: 1fr;
-  grid-template-areas: "upload";
+  grid-template-rows: repeat(auto-fit, $saved-cell-height);
+  grid-template-columns: repeat(auto-fit, minmax($saved-cell-width, 1fr));
   gap: 1em;
 
+  overflow-y: auto;
+
   .upload {
-    @include grid-item(center, center, upload);
-    @extend .curve-raise;
-
-    background: $primary-color;
-
-    width: 50vh;
-    height: 30vh;
-    min-width: 300px;
-    min-height: 200px;
-
     display: grid;
     grid-template-rows: repeat(3, 1fr);
     grid-template-columns: 1fr;
@@ -532,19 +551,6 @@ nav {
     }
   }
 
-}
-
-.saved-container {
-  height: 100%;
-  width: 100%;
-
-  display: grid;
-  grid-template-rows: repeat(auto-fit, $saved-cell-height);
-  grid-template-columns: repeat(auto-fit, minmax($saved-cell-width, 1fr));
-  gap: 1em;
-
-  overflow-y: auto;
-
   .saved__cell {
     @extend .curve-raise;
 
@@ -555,14 +561,25 @@ nav {
     grid-template-rows: 1fr 2fr;
     grid-template-columns: 1fr;
     grid-template-areas:
-          "title"
+          "header"
           "content";
     gap: 1em;
 
-    .saved__cell__title {
-      @include grid-item(center, center, title);
-      
-      text-align: center;
+    .saved__cell__header {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      .saved__cell__type {
+        margin-right: auto;
+      }
+
+      .saved__cell__title {
+        flex: 1;
+        @include grid-item(center, center, title);
+        
+        text-align: center;
+      }
     }
 
     .saved__cell__loading {
@@ -577,15 +594,44 @@ nav {
         text-align: center;
       }
 
-      .loading__open {
-        @extend .button;
-        @extend .curve-raise;
-
-        margin: auto;
-        text-decoration: none;
-      }
 
     }
+
+    .loading__open {
+      @extend .button;
+      @extend .curve-raise;
+
+      margin: auto;
+      margin-bottom: 10px;
+      text-decoration: none;
+    }
+  }
+
+  .add__cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: $background-color;
+    border: 5px solid $primary-color;
+    transition: 0.2s linear;
+
+    .add__icon__cell line {
+      stroke: $primary-color;
+    }
+
+  }
+
+  .add__cell:hover {
+    background-color: $primary-color;
+    transition: 0.2s linear;
+
+    .add__icon__cell line {
+      stroke: $background-color;
+    }
+  }
+
+  .add__cell:active {
+    opacity: 0.5;
   }
 }
 
@@ -641,6 +687,7 @@ nav {
     min-height: 300px;
     overflow-y: auto;
     overflow-x: auto;
+    margin-top: auto; // pin it down
 
     background: $primary-color;
 

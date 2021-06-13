@@ -12,6 +12,7 @@ import Player from "./components/player";
 import { useEffect, useState } from "react";
 
 import { getCookie } from "./components/utils/Auth";
+import Modal from "./components/utils/Modal";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);

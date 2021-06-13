@@ -27,6 +27,7 @@ function InputTextForm({labelText, inputValue, setValue, onChange, validator, se
     };
 
     const onChangeInput = (event) => {
+        console.log(setValue);
         setValue(event.target.value);
         onChange(event);
         validate(event);
