@@ -7,30 +7,57 @@ import Loading from "./utils/Loading";
 import { getCookie } from "./utils/Auth";
 import { setProject, setSignals } from "../redux/actions";
 import Modal from "./utils/Modal";
-
-function Upload() {
-    return (
-        <div className="upload">
-            <h1>Upload Music</h1>
-            <button className="upload__button">Upload</button>
-            <button className="submit__button">Submit</button>
-        </div>
-    );
-}
+import { InputTextForm } from "./utils/Form";
+import FileUpload from "./utils/FileUpload";
 
 function AddCell() {
     const [showAddForm, setShowAddForm] = useState(false);
+    const [errorState, setErrorState] = useState(false);
+    const [loadingState, setLoadingState] = useState(false);
+    const [projectName, setProjectName] = useState("");
+    const [nameValid, setNameValid] = useState(false);
 
     return (
         <>
             <div className="saved__cell add__cell" onClick={() => setShowAddForm(true)}>
                 <PlusIcon className="add__icon__cell" />
             </div>
-            {showAddForm &&
-                <Modal>
-                    <Upload />
-                </Modal>
-            }
+            <Modal show={showAddForm} modalClosed={() => {setShowAddForm(false)}}>
+                <div className="upload">
+                    <h1>Upload Project</h1>
+                    <InputTextForm
+                        labelText="Project Name"
+                        inputValue=""
+                        setValue={setProjectName}
+                        errorState={errorState}
+                        validator={(input) => {
+                            return input.length > 0 ? "": "Project Name Required"
+                        }}
+                        setValid={setNameValid}
+                        onChange={() => setErrorState(false)} />
+                    <FileUpload />
+                    {loadingState ? <Loading className="upload-progress" />:
+                    <div className="form-interaction">
+                        <button
+                            className="button"
+                            disabled={!nameValid}
+                            onClick={() => {
+                                setLoadingState(true);
+                                setTimeout(() => {
+                                    setLoadingState(false);
+                                    setShowAddForm(false);
+                                }, 1000);
+                            }}>
+                            Upload
+                        </button>
+                        <button
+                            className="button"
+                            onClick={() => setShowAddForm(false)}>
+                            Close
+                        </button>
+                    </div>}
+                </div>
+            </Modal>
         </>
     )
 }

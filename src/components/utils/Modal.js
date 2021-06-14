@@ -1,14 +1,18 @@
-function Backdrop() {
+function Backdrop({close}) {
     return (
-        <div className="backdrop">
+        <div className="backdrop" onClick={close}>
 
         </div>
     )
 }
 function Modal(props) {
+    if(!props.show) {
+        return (<></>);
+    }
+
     return (
         <>
-            <Backdrop />
+            <Backdrop close={props.modalClosed}/>
             <div className="modal">
                 {props.children}
             </div>

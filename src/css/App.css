@@ -25,26 +25,56 @@ html, body, #root, .App {
   color: black;
 }
 
-.curve-raise, .button, .saved-container .upload .upload__button, .saved-container .upload .submit__button, .saved-container .saved__cell .loading__open, .player-container .mixer-container .effect-view .effect-header .effect-button, .modal, nav, .login-container .form, .saved-container .saved__cell, .player-container .wave-container .wave, .player-container .mixer-container, .player-container .mixer-container .mix-view .mix-header, .player-container .mixer-container .mix-view .mix-container .mix, .player-container .mixer-container .loading-view .loading__step, .player-container .mixer-container .effect-view .effect-container .effect {
+.curve-raise, .button, .file-button, .saved-container .saved__cell .loading__open, .player-container .mixer-container .effect-view .effect-header .effect-button, .modal, nav, .login-container .form, .saved-container .saved__cell, .player-container .wave-container .wave, .player-container .mixer-container, .player-container .mixer-container .mix-view .mix-header, .player-container .mixer-container .mix-view .mix-container .mix, .player-container .mixer-container .loading-view .loading__step, .player-container .mixer-container .effect-view .effect-container .effect {
   border-radius: 20px;
   -webkit-box-shadow: 2px 1px 1px rgba(0, 0, 0, 0.1);
           box-shadow: 2px 1px 1px rgba(0, 0, 0, 0.1);
 }
 
-.button, .saved-container .upload .upload__button, .saved-container .upload .submit__button, .saved-container .saved__cell .loading__open, .player-container .mixer-container .effect-view .effect-header .effect-button {
+.button, .file-button, .saved-container .saved__cell .loading__open, .player-container .mixer-container .effect-view .effect-header .effect-button {
   background: #118ab2;
   border: none;
   font-weight: bold;
   padding: 10px 25px;
 }
 
-.button:hover, .saved-container .upload .upload__button:hover, .saved-container .upload .submit__button:hover, .saved-container .saved__cell .loading__open:hover, .player-container .mixer-container .effect-view .effect-header .effect-button:hover {
+.button:hover, .file-button:hover, .saved-container .saved__cell .loading__open:hover, .player-container .mixer-container .effect-view .effect-header .effect-button:hover, .button:hover path, .file-button:hover path, .saved-container .saved__cell .loading__open:hover path, .player-container .mixer-container .effect-view .effect-header .effect-button:hover path {
   background: #073b4c;
+  color: white;
+  stroke: white;
+}
+
+.button:active, .file-button:active, .saved-container .saved__cell .loading__open:active, .player-container .mixer-container .effect-view .effect-header .effect-button:active, .button:active path, .file-button:active path, .saved-container .saved__cell .loading__open:active path, .player-container .mixer-container .effect-view .effect-header .effect-button:active path {
+  background: black;
   color: white;
 }
 
-.button:active, .saved-container .upload .upload__button:active, .saved-container .upload .submit__button:active, .saved-container .saved__cell .loading__open:active, .player-container .mixer-container .effect-view .effect-header .effect-button:active {
-  background: black;
+.button:disabled, .file-button:disabled, .saved-container .saved__cell .loading__open:disabled, .player-container .mixer-container .effect-view .effect-header .effect-button:disabled, .button:disabled path, .file-button:disabled path, .saved-container .saved__cell .loading__open:disabled path, .player-container .mixer-container .effect-view .effect-header .effect-button:disabled path {
+  background: grey;
+}
+
+.file-button {
+  background: #06d6a0;
+  border: 3px solid #073b4c;
+  height: 100px;
+  width: 95%;
+  margin: 0 auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.file-button:hover div {
   color: white;
 }
 
@@ -236,7 +266,7 @@ input[type=range]::-moz-range-track {
   position: fixed;
   z-index: 500;
   width: 600px;
-  height: 400px;
+  min-height: 400px;
   margin-top: -200px;
   margin-left: -300px;
   left: 50%;
@@ -466,7 +496,7 @@ nav .player__ul .player__title {
   margin: 0 16px;
 }
 
-.login-container .form .button:disabled, .login-container .form .saved-container .upload .upload__button:disabled, .saved-container .upload .login-container .form .upload__button:disabled, .login-container .form .saved-container .upload .submit__button:disabled, .saved-container .upload .login-container .form .submit__button:disabled, .login-container .form .saved-container .saved__cell .loading__open:disabled, .saved-container .saved__cell .login-container .form .loading__open:disabled, .login-container .form .player-container .mixer-container .effect-view .effect-header .effect-button:disabled, .player-container .mixer-container .effect-view .effect-header .login-container .form .effect-button:disabled {
+.login-container .form .button:disabled, .login-container .form .file-button:disabled, .login-container .form .saved-container .saved__cell .loading__open:disabled, .saved-container .saved__cell .login-container .form .loading__open:disabled, .login-container .form .player-container .mixer-container .effect-view .effect-header .effect-button:disabled, .player-container .mixer-container .effect-view .effect-header .login-container .form .effect-button:disabled {
   background: grey;
 }
 
@@ -492,7 +522,7 @@ nav .player__ul .player__title {
   margin: 0 10px;
 }
 
-.login-container .form__forgot .forgot-form-loading {
+.login-container .form__forgot .form-loading {
   margin: auto auto 50px auto;
 }
 
@@ -509,47 +539,33 @@ nav .player__ul .player__title {
   overflow-y: auto;
 }
 
-.saved-container .upload {
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-rows: (1fr)[3];
-      grid-template-rows: repeat(3, 1fr);
-  -ms-grid-columns: 1fr;
-      grid-template-columns: 1fr;
-      grid-template-areas: "title" "upload" "button";
-}
-
 .saved-container .upload h1 {
-      justify-self: center;
-  -ms-flex-item-align: center;
-      align-self: center;
-  -ms-grid-row: 1;
-  -ms-grid-column: 1;
-  -ms-grid-column-span: 2;
-  grid-area: title;
   text-align: center;
 }
 
-.saved-container .upload .upload__button {
-  -ms-grid-column-align: center;
-      justify-self: center;
-  -ms-flex-item-align: center;
-      -ms-grid-row-align: center;
-      align-self: center;
-  -ms-grid-row: 2;
-  -ms-grid-column: 1;
-  grid-area: upload;
+.saved-container .upload .form-interaction {
+  margin: 10px auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
-.saved-container .upload .submit__button {
-  -ms-grid-column-align: center;
-      justify-self: center;
-  -ms-flex-item-align: center;
-      -ms-grid-row-align: center;
-      align-self: center;
-  -ms-grid-row: 3;
-  -ms-grid-column: 1;
-  grid-area: button;
+.saved-container .upload .form-interaction .button, .saved-container .upload .form-interaction .file-button, .saved-container .upload .form-interaction .saved__cell .loading__open, .saved-container .saved__cell .upload .form-interaction .loading__open, .saved-container .upload .form-interaction .player-container .mixer-container .effect-view .effect-header .effect-button, .player-container .mixer-container .effect-view .effect-header .saved-container .upload .form-interaction .effect-button {
+  margin: 0 auto;
+}
+
+.saved-container .upload .upload-progress {
+  margin: 25px auto 25px auto;
 }
 
 .saved-container .saved__cell {

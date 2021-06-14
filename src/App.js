@@ -45,7 +45,7 @@ function App() {
             {loggedIn ? 
               <>
                 <RouteNav />
-                <Home />
+                <Saved />
               </>:
               <>
                 <LoginNav />

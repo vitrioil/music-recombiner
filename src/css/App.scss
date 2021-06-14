@@ -76,14 +76,38 @@ html, body, #root, .App {
   font-weight: bold;
   padding: 10px 25px;
 
-  &:hover {
+  &:hover, &:hover path {
     background: $background-color;
-    color: white
+    color: white;
+    stroke: white;
   }
 
-  &:active {
+  &:active, &:active path {
     background: black;
-    color: white
+    color: white;
+  }
+
+  &:disabled, &:disabled path {
+    background: grey;
+  }
+}
+
+.file-button {
+  @extend .button;
+
+  background: $primary-color;
+  border: 3px solid $background-color;
+  height: 100px;
+  width: 95%;
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &:hover div {
+    color: white;
   }
 }
 
@@ -273,7 +297,7 @@ input[type=range]::-moz-range-track {
   z-index: 500;
 
   width: $modal-width;
-  height: $modal-height;
+  min-height: $modal-height;
 
   margin-top: (- $modal-height / 2);
   margin-left: (- $modal-width / 2);
@@ -508,7 +532,7 @@ nav {
     }
 
     // Loading bar
-    .forgot-form-loading {
+    .form-loading {
       margin: auto auto 50px auto;
     }
   }
@@ -526,28 +550,25 @@ nav {
   overflow-y: auto;
 
   .upload {
-    display: grid;
-    grid-template-rows: repeat(3, 1fr);
-    grid-template-columns: 1fr;
-    grid-template-areas:
-            "title"
-            "upload"
-            "button";
 
     h1 {
-      @include grid-item(center, center, title);
-
       text-align: center;
     }
 
-    .upload__button {
-      @include grid-item(center, center, upload);
-      @extend .button;
+    .form-interaction {
+      margin: 10px auto;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      
+      .button {
+        margin: 0 auto;
+      }
     }
 
-    .submit__button {
-      @include grid-item(center, center, button);
-      @extend .button;
+    .upload-progress {
+      margin: 25px auto 25px auto;
     }
   }
 
