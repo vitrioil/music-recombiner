@@ -24,4 +24,26 @@ function eraseCookie(name) {
     document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 }
 
-export {setCookie, getCookie, eraseCookie};
+async function getAuthCall(endpoint) {
+    const controller = new AbortController();
+    const { signal } = controller;
+    const response = await fetch(endpoint, {
+        headers: new Headers({"Authorization": `Bearer ${getCookie("token")}`}),
+        method: "GET",
+        signal: signal
+    });
+    return {response, controller};
+}
+
+async function postAuthCall(endpoint, payload) {
+    const controller = new AbortController();
+    const { signal } = controller;
+    const response = await fetch(endpoint, {
+        headers: new Headers({"Authorization": `Bearer ${getCookie("token")}`}),
+        method: "POST",
+        signal: signal,
+        body: payload
+    });
+    return {response, controller};
+}
+export {setCookie, getCookie, eraseCookie, getAuthCall, postAuthCall};

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 import { MusicIcon, PlusIcon } from "./utils/Icon";
 import Loading from "./utils/Loading";
-import { getCookie } from "./utils/Auth";
+import { getAuthCall, postAuthCall } from "./utils/Auth";
 import { setProject, setSignals } from "../redux/actions";
 import Modal from "./utils/Modal";
 import { InputTextForm } from "./utils/Form";
@@ -16,6 +16,32 @@ function AddCell() {
     const [loadingState, setLoadingState] = useState(false);
     const [projectName, setProjectName] = useState("");
     const [nameValid, setNameValid] = useState(false);
+    const [file, setFile] = useState();
+    const [fileStatus, setFileStatus] = useState(false);
+    const [fileText, setFileText] = useState("Upload File");
+
+    const submitForm = async () => {
+        setLoadingState(true);
+        setErrorState(false);
+
+        const {response, controller} = await postAuthCall(`http://192.168.1.100:8000/signal/Music?stems=2`, file);
+        console.log('AAA');
+        setTimeout(() => {
+
+            if(response.status === 200) {
+                setLoadingState(false);
+                setShowAddForm(false);
+            } else {
+                setErrorState(true);
+                setLoadingState(false);
+            }
+        }, 1000);
+        setTimeout(() => {
+            controller.abort();
+            setLoadingState(false);
+            setErrorState(true);
+        }, 5000);
+    }
 
     return (
         <>
@@ -35,18 +61,18 @@ function AddCell() {
                         }}
                         setValid={setNameValid}
                         onChange={() => setErrorState(false)} />
-                    <FileUpload />
+                    <FileUpload
+                        setFile={setFile}
+                        setFileStatus={setFileStatus}
+                        fileText={fileText}
+                        setFileText={setFileText} />
                     {loadingState ? <Loading className="upload-progress" />:
                     <div className="form-interaction">
                         <button
                             className="button"
-                            disabled={!nameValid}
-                            onClick={() => {
-                                setLoadingState(true);
-                                setTimeout(() => {
-                                    setLoadingState(false);
-                                    setShowAddForm(false);
-                                }, 1000);
+                            disabled={!(nameValid && fileStatus)}
+                            onClick={async() => {
+                                await submitForm();
                             }}>
                             Upload
                         </button>
@@ -99,13 +125,14 @@ function Saved({signals, setProject, setSignals}) {
 
     useEffect(() => {
       async function fetchSignals() {
-        const controller = new AbortController();
-        const { signal } = controller;
-        const response = await fetch(getSignalUrl, {
-            headers: new Headers({"Authorization": `Bearer ${getCookie("token")}`}),
-            method: "GET",
-            signal: signal
-        });
+        const {response, controller} = await getAuthCall(getSignalUrl);
+        // const controller = new AbortController();
+        // const { signal } = controller;
+        // const response = await fetch(getSignalUrl, {
+        //     headers: new Headers({"Authorization": `Bearer ${getCookie("token")}`}),
+        //     method: "GET",
+        //     signal: signal
+        // });
         if(response.status === 200) {
             let data = await response.json();
             setSignals(data);
