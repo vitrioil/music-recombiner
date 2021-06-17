@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
@@ -10,7 +10,7 @@ import Modal from "./utils/Modal";
 import { InputTextForm } from "./utils/Form";
 import FileUpload from "./utils/FileUpload";
 
-function AddCell() {
+function AddCell({triggerReload}) {
     const [showAddForm, setShowAddForm] = useState(false);
     const [errorState, setErrorState] = useState(false);
     const [loadingState, setLoadingState] = useState(false);
@@ -25,12 +25,13 @@ function AddCell() {
         setErrorState(false);
 
         const {response, controller} = await postAuthCall(`http://192.168.1.100:8000/signal/Music?stems=2`, file);
-        console.log('AAA');
         setTimeout(() => {
 
-            if(response.status === 200) {
+            if(response.status === 201) {
                 setLoadingState(false);
                 setShowAddForm(false);
+                setErrorState(false);
+                triggerReload(false);
             } else {
                 setErrorState(true);
                 setLoadingState(false);
@@ -88,14 +89,46 @@ function AddCell() {
     )
 }
 
+function useInterval(callback, delay) {
+    const savedCallback = useRef();
+
+    useEffect(() => {
+        savedCallback.current = callback;
+    }, [callback]);
+
+    useEffect(() => {
+        function tick() {
+            savedCallback.current();
+        };
+        if(delay !== null) {
+            const id = setInterval(tick, delay);
+            return () => {
+                clearInterval(id);
+            };
+        }
+    }, [callback, delay]);
+}
+
 //add signal schema
 function Cell({signal, setProject}) {
+    const [cellLoading, setCellLoading] = useState(true);
     const stems = signal.separated_stems.length;
+
+    useInterval(async() => {
+        console.log("AAA");
+        const {response, controller} = await getAuthCall(`${process.env.REACT_APP_SEPARATOR_API}/signal/state/${signal.signal_id}`);
+        const signalState = await response.json();
+        if(signalState["signal_state"] === "Complete") {
+            setCellLoading(false);
+        }
+    }, 5000);
+
     const loading = (
         <div className="saved__cell__loading">
             <Loading />
         </div>
     );
+
     return (
         <div className="saved__cell">
             <div className="saved__cell__header">
@@ -105,9 +138,7 @@ function Cell({signal, setProject}) {
                 </h2>
                 <h3>{stems}</h3>
             </div>
-            {false ? loading:
-                <>
-                </>}
+            {cellLoading ? loading:
             <Link
                 className="loading__open"
                 to="/player"
@@ -115,24 +146,18 @@ function Cell({signal, setProject}) {
                     setProject(signal.signal_id);
                 }}>
                     Open
-            </Link>
+            </Link>}
         </div>
     );
 }
 
 function Saved({signals, setProject, setSignals}) {
+    const [reload, triggerReload] = useState();
     const getSignalUrl = `${process.env.REACT_APP_SEPARATOR_API}/signal`;
 
     useEffect(() => {
       async function fetchSignals() {
         const {response, controller} = await getAuthCall(getSignalUrl);
-        // const controller = new AbortController();
-        // const { signal } = controller;
-        // const response = await fetch(getSignalUrl, {
-        //     headers: new Headers({"Authorization": `Bearer ${getCookie("token")}`}),
-        //     method: "GET",
-        //     signal: signal
-        // });
         if(response.status === 200) {
             let data = await response.json();
             setSignals(data);
@@ -142,11 +167,11 @@ function Saved({signals, setProject, setSignals}) {
         return () => {controller.abort()};
       }
       fetchSignals();
-    }, []);
+    }, [reload]);
 
     return (
         <div className="saved-container">
-            <AddCell />
+            <AddCell triggerReload={triggerReload} />
             {signals.map(c => <Cell key={c.signal.signal_id} setProject={setProject} signal={c.signal}  />)}
         </div>
     );
