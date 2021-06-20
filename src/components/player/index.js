@@ -8,7 +8,7 @@ import Waves from "./waves";
 
 function Player({signal, openProject, initWave}) {
     const stems = signal.signal.separated_stems;
-    const url = `http://192.168.1.108:8000/signal/stem/${openProject}`;
+    const url = `${process.env.REACT_APP_SEPARATOR_API}/signal/stem/${openProject}`;
 
     // useEffect(() => {
     for(let stem of stems) {

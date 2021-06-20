@@ -35,19 +35,19 @@ html, body, #root, .App {
 
 
 .error-message {
-  background: $error-color;
+  background: $error-color !important;
 }
 
 .info-message {
-  background: $info-color;
+  background: $info-color !important;
 }
 
 .error-message-text {
-  color: $error-color;
+  color: $error-color !important;
 }
 
 .info-message-text {
-  color: $info-color;
+  color: $info-color !important;
 }
 
 * {
@@ -549,9 +549,10 @@ nav {
 
   overflow-y: auto;
 
-  .upload {
+  .modal-form {
+    height: 100%;
 
-    h1 {
+    h1, h2 {
       text-align: center;
     }
 
@@ -569,6 +570,13 @@ nav {
 
     .upload-progress {
       margin: 25px auto 25px auto;
+    }
+  }
+
+  .modal-form__delete {
+
+    .form-interaction {
+      margin-top: auto;
     }
   }
 
@@ -592,11 +600,26 @@ nav {
       align-items: center;
 
       .saved__cell__type {
+        margin-left: 1em;
         margin-right: auto;
+      }
+
+      .saved__cell__delete {
+        margin-left: auto;
+        margin-right: 1em;
+        cursor: pointer;
+
+        path {
+          stroke: $error-color;
+        }
       }
 
       .saved__cell__title {
         flex: 1;
+        overflow: hidden;
+        max-width: 15ch;
+        white-space: nowrap;
+        text-overflow: ellipsis;
         @include grid-item(center, center, title);
         
         text-align: center;
@@ -975,7 +998,7 @@ nav {
   }
 
   .home-container {
-    .upload {
+    .modal-form {
       width: 90vw;
     }
   }

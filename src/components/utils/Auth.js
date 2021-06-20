@@ -46,4 +46,16 @@ async function postAuthCall(endpoint, payload) {
     });
     return {response, controller};
 }
-export {setCookie, getCookie, eraseCookie, getAuthCall, postAuthCall};
+
+async function deleteAuthCall(endpoint, payload) {
+    const controller = new AbortController();
+    const { signal } = controller;
+    const response = await fetch(endpoint, {
+        headers: new Headers({"Authorization": `Bearer ${getCookie("token")}`}),
+        method: "DELETE",
+        signal: signal,
+        body: payload
+    });
+    return {response, controller};
+}
+export {setCookie, getCookie, eraseCookie, getAuthCall, postAuthCall, deleteAuthCall};
