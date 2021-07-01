@@ -24,7 +24,7 @@ function AddCell({triggerReload}) {
         setLoadingState(true);
         setErrorState(false);
 
-        const {response, controller} = await postAuthCall(`${process.env.REACT_APP_SEPARATOR_API}/signal/Music?stems=2`, file);
+        const {response, controller} = await postAuthCall(`${process.env.REACT_APP_SEPARATOR_API}/signal/Music?stems=2&project_name=${projectName}`, file);
         setTimeout(() => {
 
             if(response.status === 201) {
@@ -54,6 +54,7 @@ function AddCell({triggerReload}) {
                     <h1>Upload Project</h1>
                     <InputTextForm
                         labelText="Project Name"
+                        maxLength="15"
                         inputValue=""
                         setValue={setProjectName}
                         errorState={errorState}
@@ -159,7 +160,7 @@ function Cell({signal, setProject, triggerReload}) {
                 <div className="saved__cell__header">
                     <MusicIcon className="saved__cell__type" />
                     <h2 className="saved__cell__title">
-                        {signal.signal_metadata.filename}
+                        {signal.signal_metadata.projectname}
                     </h2>
                     <XIcon
                         className="saved__cell__delete"

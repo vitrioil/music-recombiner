@@ -17,7 +17,9 @@ function InputText({labelText, inputValue, onChange}) {
     );
 }
 
-function InputTextForm({labelText, inputValue, setValue, onChange, validator, setValid, errorState=false, type="text"}) {
+function InputTextForm({labelText, inputValue, setValue, onChange,
+                        validator, setValid, errorState=false,
+                        maxLength="100", type="text"}) {
     const [message, setMessage] = useState(null);
 
     const validate = (event) => {
@@ -39,6 +41,7 @@ function InputTextForm({labelText, inputValue, setValue, onChange, validator, se
             </label>
             <input className="input-text"
                    type={type}
+                   maxLength={maxLength}
                    name="input"
                    id=""
                    defaultValue={inputValue}
