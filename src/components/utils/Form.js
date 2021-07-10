@@ -67,4 +67,20 @@ function InputSlider({labelText, onChange}) {
     );
 }
 
-export { InputText, InputTextForm, InputSlider };
+function InputDropdown({labelText, options, setValue}) {
+    return (
+        <div className="input-container__form input__dropdown">
+            <label htmlFor="" className="input-label">
+                {labelText}
+            </label>
+            <select
+                onChange={(e) => setValue(e.target.value)} >
+                {options.map(element => 
+                    <option value={element}>{element}</option>  
+                )}
+            </select>
+        </div>
+    )
+}
+
+export { InputText, InputTextForm, InputSlider, InputDropdown };

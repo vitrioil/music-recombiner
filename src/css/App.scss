@@ -24,7 +24,7 @@ $input-form-cell-width: 250px;
 $login-form-height: 550px;
 $login-form-width: 400px;
 
-$modal-height: 400px;
+$modal-height: 550px;
 
 html, body, #root, .App {
   height: 100%;
@@ -216,6 +216,14 @@ input[type=range]::-moz-range-track {
   border: 0.2px solid #010101;
 }
 
+select {
+  background: $background-color;
+  border: none;
+  color: white;
+  border-radius: 10px;
+  height: 50px;
+}
+
 .input-container {
   display: flex;
   flex-direction: column;
@@ -308,6 +316,8 @@ input[type=range]::-moz-range-track {
   background-color: $primary-color;
   box-shadow: 1px 1px 1px black;
   box-sizing: border-box;
+
+  overflow: auto;
 
   transition: all 0.3s ease-out;
 }
@@ -550,6 +560,11 @@ nav {
 
   .modal-form {
     height: 100%;
+
+    .form-input-signal-param {
+      display: flex;
+      flex-direction: row;
+    }
 
     h1, h2 {
       text-align: center;
@@ -1051,7 +1066,7 @@ nav {
   }
 }
 
-@media (max-width: 700px),
+@media (max-width: 850px),
        (max-height: 430px) {
   .modal {
     width: 80vw;

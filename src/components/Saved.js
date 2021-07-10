@@ -7,31 +7,46 @@ import Loading from "./utils/Loading";
 import { getAuthCall, postAuthCall, deleteAuthCall } from "./utils/Auth";
 import { setProject, setSignals } from "../redux/actions";
 import Modal from "./utils/Modal";
-import { InputTextForm } from "./utils/Form";
+import { InputTextForm, InputDropdown } from "./utils/Form";
 import FileUpload from "./utils/FileUpload";
 
-function AddCell({triggerReload}) {
+async function fetchSignals(setSignals) {
+    const getSignalUrl = `${process.env.REACT_APP_SEPARATOR_API}/signal`;
+    const {response, controller} = await getAuthCall(getSignalUrl);
+    if(response.status === 200) {
+        let data = await response.json();
+        setSignals(data);
+    } else {
+        //error handling
+    }
+    return controller;
+}
+
+function AddCell({setSignals}) {
     const [showAddForm, setShowAddForm] = useState(false);
     const [errorState, setErrorState] = useState(false);
     const [loadingState, setLoadingState] = useState(false);
-    const [projectName, setProjectName] = useState("");
     const [nameValid, setNameValid] = useState(false);
-    const [file, setFile] = useState();
     const [fileStatus, setFileStatus] = useState(false);
     const [fileText, setFileText] = useState("Upload File");
+
+    const [projectName, setProjectName] = useState("");
+    const [signalType, setSignalType] = useState("Music");
+    const [stem, setStem] = useState(2);
+    const [file, setFile] = useState();
 
     const submitForm = async () => {
         setLoadingState(true);
         setErrorState(false);
 
-        const {response, controller} = await postAuthCall(`${process.env.REACT_APP_SEPARATOR_API}/signal/Music?stems=2&project_name=${projectName}`, file);
-        setTimeout(() => {
+        const {response, controller} = await postAuthCall(`${process.env.REACT_APP_SEPARATOR_API}/signal/${signalType}?stems=${stem}&project_name=${projectName}`, file);
+        setTimeout(async () => {
 
             if(response.status === 201) {
                 setLoadingState(false);
                 setShowAddForm(false);
                 setErrorState(false);
-                triggerReload(false);
+                await fetchSignals(setSignals);
             } else {
                 setErrorState(true);
                 setLoadingState(false);
@@ -63,6 +78,16 @@ function AddCell({triggerReload}) {
                         }}
                         setValid={setNameValid}
                         onChange={() => setErrorState(false)} />
+                    <div className="form-input-signal-param">
+                        <InputDropdown
+                            labelText="Signal Type"
+                            setValue={setSignalType}
+                            options={["Music", "Speech"]} />
+                        <InputDropdown
+                            labelText="No. Stems"
+                            setValue={setStem}
+                            options={[2, 4, 5]} />
+                    </div>
                     <FileUpload
                         setFile={setFile}
                         setFileStatus={setFileStatus}
@@ -111,7 +136,7 @@ function useInterval(callback, delay) {
 }
 
 //add signal schema
-function Cell({signal, setProject, triggerReload}) {
+function Cell({signal, setProject, setSignals}) {
     const [cellLoading, setCellLoading] = useState(signal.separated_stems.length === 0);
     const [showDeleteForm, setShowDeleteForm] = useState(false);
     const [deleteLoadingState, setDeleteLoadingState] = useState(false);
@@ -132,12 +157,12 @@ function Cell({signal, setProject, triggerReload}) {
         setDeleteLoadingState(true);
 
         const {response, controller} = await deleteAuthCall(`${process.env.REACT_APP_SEPARATOR_API}/signal/${signal.signal_id}`);
-        setTimeout(() => {
+        setTimeout(async () => {
 
             if(response.status === 202) {
                 setDeleteLoadingState(false);
                 setShowDeleteForm(false);
-                triggerReload(false);
+                await fetchSignals(setSignals);
             } else {
                 setDeleteLoadingState(false);
             }
@@ -204,31 +229,20 @@ function Cell({signal, setProject, triggerReload}) {
 }
 
 function Saved({signals, setProject, setSignals}) {
-    const [reload, triggerReload] = useState();
-    const getSignalUrl = `${process.env.REACT_APP_SEPARATOR_API}/signal`;
 
-    useEffect(() => {
-      async function fetchSignals() {
-        const {response, controller} = await getAuthCall(getSignalUrl);
-        if(response.status === 200) {
-            let data = await response.json();
-            setSignals(data);
-        } else {
-            //error handling
-        }
-        return () => {controller.abort()};
-      }
-      fetchSignals();
-    }, [reload]);
+    useEffect(async () => {
+      const controller = await fetchSignals(setSignals);
+      return () => {controller.abort()};
+    }, []);
 
     return (
         <div className="saved-container">
-            <AddCell triggerReload={triggerReload} />
+            <AddCell setSignals={setSignals} />
             {signals.map(c => <Cell
                                 key={c.signal.signal_id}
                                 setProject={setProject}
                                 signal={c.signal}
-                                triggerReload={triggerReload} />)}
+                                setSignals={setSignals} />)}
         </div>
     );
 }
