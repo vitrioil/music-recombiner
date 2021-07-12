@@ -27,7 +27,8 @@ function RouteNav() {
     );
 }
 
-function PlayerNav({edit, toggleEdit}) {
+function PlayerNav({edit, signal, toggleEdit}) {
+    console.log(signal);
     return (
         <nav>
             <ul className="player__ul">
@@ -36,7 +37,7 @@ function PlayerNav({edit, toggleEdit}) {
                         <BackIcon title="Back" className="img_icons img_icons__sec" />
                     </Link>
                 </li>
-                <li className="nav_li player__li player__title"> Title </li>
+                <li className="nav_li player__li player__title"> {signal.signal.signal_metadata.projectname} </li>
                 <li className="nav_li player__li">
                     <ClockIcon title="Recent" className="img_icons img_icons__sec"/>
                 </li>
@@ -51,6 +52,7 @@ function PlayerNav({edit, toggleEdit}) {
 }
 
 const mapStateToPropsPlayer = state => ({
+    signal: state.signals.find(s => s.signal.signal_id === state.openProject),
     edit: state.edit
 });
 
