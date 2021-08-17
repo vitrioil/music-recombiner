@@ -1,7 +1,7 @@
 import { useEffect, createRef, useState } from "react";
 
 import Loading from "../utils/Loading";
-import {PauseIcon, RewindIcon, StopIcon, ForwardIcon} from "../utils/Icon";
+import {PauseIcon, RewindIcon, StopIcon, ForwardIcon, RefreshCWIcon, XIcon, RotateCWIcon, SliderIcon} from "../utils/Icon";
 import { addRefWave, destroyWave, loadWave } from "../../redux/actions";
 import { connect } from "react-redux";
 
@@ -37,6 +37,14 @@ function Wave({wave, isLoading, addRefWave, loadWave, destroyWave}) {
                 <StopIcon onClick={() => wave.stop()}
                           title="Stop"
                           className="img_icons wave__side__actions" />
+            </div>
+            <div className="wave__side">
+                <SliderIcon
+                            title="Augment"
+                            className="img_icons wave__side__actions" />
+                <RotateCWIcon
+                            title="Reset Augment"
+                            className="img_icons wave__side__actions" />
             </div>
             <div className="wave__content">
                 {isWaveLoading ?

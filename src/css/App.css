@@ -736,21 +736,15 @@ nav .player__ul .player__title {
   background: #118ab2;
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 100px 1fr;
-      grid-template-columns: 100px 1fr;
+  -ms-grid-columns: 50px 50px 1fr;
+      grid-template-columns: 50px 50px 1fr;
   -ms-grid-rows: 1fr;
       grid-template-rows: 1fr;
-      grid-template-areas: "wave-side wave-content";
+      grid-template-areas: "wave-side wave-side wave-content";
   gap: 1em;
 }
 
 .player-container .wave-container .wave .wave__side {
-  justify-self: center;
-  -ms-flex-item-align: center;
-      align-self: center;
-  -ms-grid-row: 1;
-  -ms-grid-column: 1;
-  grid-area: wave-side;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -758,6 +752,7 @@ nav .player__ul .player__title {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  margin: auto 0 auto 30px;
 }
 
 .player-container .wave-container .wave .wave__side .wave__side__actions {
@@ -771,7 +766,7 @@ nav .player__ul .player__title {
       -ms-grid-row-align: center;
       align-self: center;
   -ms-grid-row: 1;
-  -ms-grid-column: 2;
+  -ms-grid-column: 3;
   grid-area: wave-content;
   width: 100%;
   overflow-x: auto;

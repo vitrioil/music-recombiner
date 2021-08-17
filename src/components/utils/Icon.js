@@ -18,9 +18,11 @@ import {ReactComponent as MusicIcon} from "../../icons/music.svg";
 import {ReactComponent as PlusIcon} from "../../icons/plus.svg";
 import {ReactComponent as UploadIcon} from "../../icons/upload.svg";
 import {ReactComponent as XIcon} from "../../icons/x.svg";
+import {ReactComponent as RotateCWIcon} from "../../icons/rotate-cw.svg";
+import {ReactComponent as SliderIcon} from "../../icons/sliders-1.svg";
 
 export {PauseIcon, RewindIcon, StopIcon, ForwardIcon,
         SyncIcon, MuteIcon, DownloadIcon, SoloIcon, EditIcon,
         MenuIcon, ClockIcon, BackIcon, CrossIcon, CopyIcon,
         SaveIcon, AlertIcon, MusicIcon, PlusIcon, UploadIcon,
-        XIcon}
+        XIcon, RotateCWIcon, SliderIcon}
