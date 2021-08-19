@@ -39,7 +39,7 @@ function Wave({wave, isLoading, addRefWave, loadWave, destroyWave}) {
                           className="img_icons wave__side__actions" />
             </div>
             <div className="wave__side">
-                <SliderIcon
+                <SliderIcon onClick={async () => await wave.augment()}
                             title="Augment"
                             className="img_icons wave__side__actions" />
                 <RotateCWIcon

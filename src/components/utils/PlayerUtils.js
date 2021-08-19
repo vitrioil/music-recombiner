@@ -21,6 +21,17 @@ const waveOptions = (ref) => ({
     }
 });
 
+async function postAugmentSignal(endpoint, payload) {
+    console.log(payload);
+    console.log(JSON.stringify(payload));
+    const response = await fetch(endpoint, {
+        headers: new Headers({"Authorization": `Bearer ${getCookie("token")}`}),
+        method: "POST",
+        body: JSON.stringify(payload)
+    });
+    return await response.json();
+}
+
 class Waveform {
 
     constructor(id, name, effects, url) {
@@ -75,7 +86,6 @@ class Waveform {
     }
 
     updateEffectParams(regionId, params) {
-        debugger;
         const { startTime, endTime, effectParams } = params;
         const effectIndex = this.effects.findIndex(effect => effect.id === regionId);
         this.effects[effectIndex].startTime = startTime;
@@ -149,8 +159,34 @@ class Waveform {
         return this.waveSurfRef.current.getMute();
     }
 
-    load() {
-        this.waveSurfRef.current.load(this.url);
+    load(url="") {
+        if(url === "") {
+            url = this.url;
+        }
+        this.waveSurfRef.current.load(url);
+    }
+
+    prepareAugmentPayload() {
+        const payload = [];
+        for(let effect of this.effects) {
+            const effectParams = {
+                "start_time": effect.startTime,
+                "end_time": effect.endTime,
+                // ...effect.params
+                "gain": "0",
+                "augment_type": "Volume",
+                "signal_id": this.id.split("_")[0],
+                "signal_stem": "vocals"
+            };
+            payload.push(effectParams);
+        }
+        return payload;
+    }
+
+    async augment() {
+        const payload = this.prepareAugmentPayload();
+        await postAugmentSignal(`${process.env.REACT_APP_SEPARATOR_API}/augment`, payload);
+        this.load(this.url + "?augmented_stem=true")
     }
 
     playPause() {
