@@ -67,7 +67,7 @@ class Waveform {
         this.registerPlugin(name, params, RegionsPlugin);
     }
 
-    upsertEffect(region, effectName = "select", params={}) {
+    upsertEffect(region, effectName = "Select", params={}) {
         if(!this.getEffectName(region.id)) {
             const effect = {
                 //TODO: use better id
@@ -85,12 +85,12 @@ class Waveform {
         }
     }
 
-    updateEffectParams(regionId, params) {
-        const { startTime, endTime, effectParams } = params;
+    updateEffectParams(regionId, parameters) {
+        const { startTime, endTime, params } = parameters;
         const effectIndex = this.effects.findIndex(effect => effect.id === regionId);
         this.effects[effectIndex].startTime = startTime;
         this.effects[effectIndex].endTime = endTime;
-        this.effects[effectIndex].params = effectParams;
+        this.effects[effectIndex].params = params;
     }
 
     removeEffect(regionId) {
@@ -168,15 +168,16 @@ class Waveform {
 
     prepareAugmentPayload() {
         const payload = [];
+        debugger;
         for(let effect of this.effects) {
+            const effectName = effect.name;
             const effectParams = {
                 "start_time": effect.startTime,
                 "end_time": effect.endTime,
-                // ...effect.params
-                "gain": "0",
-                "augment_type": "Volume",
+                "augment_type": effectName,
                 "signal_id": this.id.split("_")[0],
-                "signal_stem": "vocals"
+                "signal_stem": this.name,
+                ...effect.params
             };
             payload.push(effectParams);
         }

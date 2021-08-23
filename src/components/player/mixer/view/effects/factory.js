@@ -5,7 +5,7 @@ import Volume from "./volume";
 
 class SelectFactory {
     get type() {
-        return "select";
+        return "Select";
     }
 
     create() {
@@ -15,7 +15,7 @@ class SelectFactory {
 
 class EchoFactory {
     get type() {
-        return "echo";
+        return "Echo";
     }
 
     create() {
@@ -25,7 +25,7 @@ class EchoFactory {
 
 class VolumeFactory {
     get type() {
-        return "volume";
+        return "Volume";
     }
 
     create() {

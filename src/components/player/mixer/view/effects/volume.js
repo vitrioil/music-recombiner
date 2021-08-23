@@ -10,7 +10,7 @@ class Volume extends BaseEffect {
         this.state = {startTime: props.effect.startTime,
                       endTime: props.effect.endTime,
                       params: {
-                          volume: props.effect.params.volume
+                          gain: props.effect.params.volume
                       }};
     }
 
