@@ -36,7 +36,7 @@ class Volume extends BaseEffect {
                                }}/>
                     <InputSlider labelText="Volume"
                                  onChange={(e) => {
-                                     this.setState({params: {volume: e.target.value}});
+                                     this.setState({params: {gain: e.target.value}});
                                  }}/>
                 </div>
             </div>

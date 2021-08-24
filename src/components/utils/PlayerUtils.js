@@ -168,7 +168,6 @@ class Waveform {
 
     prepareAugmentPayload() {
         const payload = [];
-        debugger;
         for(let effect of this.effects) {
             const effectName = effect.name;
             const effectParams = {
