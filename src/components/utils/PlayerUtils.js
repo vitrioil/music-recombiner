@@ -185,7 +185,9 @@ class Waveform {
 
     async augment() {
         const payload = this.prepareAugmentPayload();
-        await postAugmentSignal(`${process.env.REACT_APP_SEPARATOR_API}/augment`, payload);
+        if(payload) {
+            await postAugmentSignal(`${process.env.REACT_APP_SEPARATOR_API}/augment`, payload);
+        }
         this.load(this.url + "?augmented_stem=true")
     }
 

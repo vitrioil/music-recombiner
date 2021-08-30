@@ -42,7 +42,7 @@ function Wave({wave, isLoading, addRefWave, loadWave, destroyWave}) {
                 <SliderIcon onClick={async () => await wave.augment()}
                             title="Augment"
                             className="img_icons wave__side__actions" />
-                <RotateCWIcon
+                <RotateCWIcon onClick={async () => await wave.load()}
                             title="Reset Augment"
                             className="img_icons wave__side__actions" />
             </div>
