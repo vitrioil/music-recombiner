@@ -18,7 +18,7 @@ function EffectCell({effectName, setEffectName}) {
 
 class Select extends BaseEffect {
     render() {
-        const allEffects = ["Echo", "Volume"];
+        const allEffects = ["Echo", "Volume", "Reverb"];
         return (
             <div className="effect-view">
                 <EffectHeader deleteText="Cancel"

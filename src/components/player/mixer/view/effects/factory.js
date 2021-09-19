@@ -1,6 +1,7 @@
 import Select from "./select";
 import Echo from "./echo";
 import Volume from "./volume";
+import Reverb from "./reverb";
 
 
 class SelectFactory {
@@ -33,11 +34,22 @@ class VolumeFactory {
     }
 }
 
+class ReverbFactory {
+    get type() {
+        return "Reverb";
+    }
+
+    create() {
+        return <Reverb />
+    }
+}
+
 class FactoryMapper {
     constructor() {
         const selectFactory = new SelectFactory();
         const echoFactory = new EchoFactory();
         const volumeFactory = new VolumeFactory();
+        const reverbFactory = new ReverbFactory();
 
         this.factories = {};
         // default value
@@ -45,6 +57,7 @@ class FactoryMapper {
         this.factories[selectFactory.type] = selectFactory;
         this.factories[echoFactory.type] = echoFactory;
         this.factories[volumeFactory.type] = volumeFactory;
+        this.factories[reverbFactory.type] = reverbFactory;
     }
 
     factory = type => type && this.factories[type];
